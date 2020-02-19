@@ -6,9 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
-import com.toggl.api.login.ILoginApi
 import com.toggl.architecture.Loadable
-import com.toggl.architecture.core.IStore
+import com.toggl.architecture.core.Store
 import com.toggl.architecture.extensions.addTo
 import com.toggl.models.domain.User
 import com.toggl.models.validation.Email
@@ -26,7 +25,7 @@ class LoginFragment : Fragment() {
 
     lateinit var coordinator: LoginCoordinator
     private val disposeBag = CompositeDisposable()
-    @Inject lateinit var store : IStore<OnboardingState, OnboardingAction, ILoginApi>
+    @Inject lateinit var store : Store<OnboardingState, OnboardingAction>
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

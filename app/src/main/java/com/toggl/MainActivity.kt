@@ -5,14 +5,13 @@ import androidx.appcompat.app.AppCompatActivity
 import com.toggl.architecture.AppAction
 import com.toggl.architecture.AppState
 import com.toggl.architecture.coordinators.AuthCoordinator
-import com.toggl.architecture.core.IStore
-import com.toggl.architecture.reducers.AppEnvironment
+import com.toggl.architecture.core.Store
 import javax.inject.Inject
 
 class MainActivity : AppCompatActivity() {
 
     @Inject
-    lateinit var store: IStore<AppState, AppAction, AppEnvironment>
+    lateinit var store: Store<AppState, AppAction>
 
     @Inject
     lateinit var authCoordinator: AuthCoordinator

@@ -30,7 +30,7 @@ class AppModule {
 
     @Provides
     @Singleton
-    fun appStore(environment: AppEnvironment): IStore<AppState, AppAction, AppEnvironment> {
+    fun appStore(environment: AppEnvironment): Store<AppState, AppAction> {
 
         val combinedReducers = combine(
             actionLoggingReducer,
@@ -46,17 +46,16 @@ class AppModule {
     }
 
     @Provides
-    fun onboardingStore(store: IStore<AppState, AppAction, AppEnvironment>): IStore<OnboardingState, OnboardingAction, ILoginApi> =
+    fun onboardingStore(store: Store<AppState, AppAction>): Store<OnboardingState, OnboardingAction> =
         store.view(
-            toLocalState = {
+            mapToLocalState = {
                 OnboardingState(
                     user = it.user,
                     email = it.email,
                     password = it.password
                 )
             },
-            toGlobalAction = { AppAction.Onboarding(onboarding = it) },
-            toLocalEnvironment = { it.loginApi }
+            mapToGlobalAction = { AppAction.Onboarding(onboarding = it) }
         )
 
     @Provides

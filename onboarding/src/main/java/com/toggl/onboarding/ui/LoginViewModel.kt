@@ -6,4 +6,4 @@ import com.toggl.architecture.core.Store
 import com.toggl.onboarding.domain.OnboardingState
 import com.toggl.onboarding.domain.actions.OnboardingAction
 
-class LoginViewModel(val store: Store<OnboardingState, OnboardingAction, ILoginApi>) : ViewModel()
+class LoginViewModel(val store: Store<OnboardingState, OnboardingAction>) : ViewModel()
