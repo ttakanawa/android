@@ -1,10 +1,10 @@
 package com.toggl.architecture.core
 
-typealias ReduceFunction<StateType, ActionType, Environment> =
-            (SettableValue<StateType>, ActionType, Environment) -> Effect<ActionType>
+typealias ReduceFunction<State, Action, Environment> =
+            (SettableValue<State>, Action, Environment) -> Effect<Action>
 
-class Reducer<StateType, ActionType, Environment>(
-    val reduce: ReduceFunction<StateType, ActionType, Environment>
+class Reducer<State, Action, Environment>(
+    val reduce: ReduceFunction<State, Action, Environment>
 )
 
 fun <State, Action, Environment> combine(vararg reducers: Reducer<State, Action, Environment>)
