@@ -12,11 +12,13 @@ import com.toggl.architecture.extensions.addTo
 import com.toggl.models.domain.User
 import com.toggl.models.validation.Email
 import com.toggl.models.validation.Password
-import com.toggl.onboarding.domain.OnboardingState
+import com.toggl.onboarding.domain.states.OnboardingState
 import com.toggl.onboarding.R
 import com.toggl.onboarding.di.OnboardingComponentProvider
 import com.toggl.onboarding.domain.actions.OnboardingAction
 import com.toggl.onboarding.domain.coordinators.LoginCoordinator
+import com.toggl.onboarding.domain.states.email
+import com.toggl.onboarding.domain.states.password
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.login_fragment.*
 import javax.inject.Inject

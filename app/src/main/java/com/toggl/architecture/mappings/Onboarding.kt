@@ -5,7 +5,7 @@ import com.toggl.architecture.AppState
 import com.toggl.architecture.core.Reducer
 import com.toggl.architecture.core.pullback
 import com.toggl.architecture.reducers.AppEnvironment
-import com.toggl.onboarding.domain.OnboardingState
+import com.toggl.onboarding.domain.states.OnboardingState
 import com.toggl.onboarding.domain.reducers.onboardingReducer
 
 val globalOnboardingReducer : Reducer<AppState, AppAction, AppEnvironment> =
@@ -14,8 +14,7 @@ val globalOnboardingReducer : Reducer<AppState, AppAction, AppEnvironment> =
         mapToLocalState = {
             OnboardingState(
                 it.user,
-                it.email,
-                it.password
+                it.onboardingLocalState
             )
         },
         mapToLocalAction = {if (it is AppAction.Onboarding) it.onboarding else null },
@@ -24,8 +23,7 @@ val globalOnboardingReducer : Reducer<AppState, AppAction, AppEnvironment> =
         mapToGlobalState = { global: AppState, local ->
             global.copy(
                 user = local.user,
-                email = local.email,
-                password = local.password
+                onboardingLocalState =  local.localState
             )
         }
     )

@@ -2,7 +2,6 @@ package com.toggl.di
 
 import android.util.Log
 import androidx.fragment.app.FragmentActivity
-import com.toggl.api.login.ILoginApi
 import com.toggl.api.login.MockLoginApi
 import com.toggl.architecture.AppAction
 import com.toggl.architecture.AppState
@@ -12,8 +11,7 @@ import com.toggl.architecture.mappings.globalOnboardingReducer
 import com.toggl.architecture.reducers.AppEnvironment
 import com.toggl.architecture.reducers.actionLoggingReducer
 import com.toggl.architecture.reducers.appReducer
-import com.toggl.models.validation.Password
-import com.toggl.onboarding.domain.OnboardingState
+import com.toggl.onboarding.domain.states.OnboardingState
 import com.toggl.onboarding.domain.actions.OnboardingAction
 import com.toggl.onboarding.domain.coordinators.LoginCoordinator
 import dagger.Module
@@ -51,8 +49,7 @@ class AppModule {
             mapToLocalState = {
                 OnboardingState(
                     user = it.user,
-                    email = it.email,
-                    password = it.password
+                    localState = it.onboardingLocalState
                 )
             },
             mapToGlobalAction = { AppAction.Onboarding(onboarding = it) }

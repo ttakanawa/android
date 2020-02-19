@@ -2,17 +2,14 @@ package com.toggl.architecture
 
 import com.toggl.architecture.Loadable.Nothing
 import com.toggl.models.domain.User
-import com.toggl.models.validation.Email
-import com.toggl.models.validation.Password
+import com.toggl.onboarding.domain.states.OnboardingLocalState
 
 data class AppState(
     val user: Loadable<User>,
-    val email: Email,
-    val password: Password
+    val onboardingLocalState: OnboardingLocalState
 ) {
     constructor() : this(
         user = Nothing(),
-        email = Email.Invalid,
-        password = Password.Invalid
+        onboardingLocalState = OnboardingLocalState()
     )
 }
