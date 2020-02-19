@@ -6,17 +6,18 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.toggl.architecture.Loadable
 import com.toggl.architecture.core.Store
 import com.toggl.architecture.extensions.addTo
+import com.toggl.common.extensions.DeepLinkUrls
 import com.toggl.models.domain.User
 import com.toggl.models.validation.Email
 import com.toggl.models.validation.Password
-import com.toggl.onboarding.domain.states.OnboardingState
 import com.toggl.onboarding.R
 import com.toggl.onboarding.di.OnboardingComponentProvider
 import com.toggl.onboarding.domain.actions.OnboardingAction
-import com.toggl.onboarding.domain.coordinators.LoginCoordinator
+import com.toggl.onboarding.domain.states.OnboardingState
 import com.toggl.onboarding.domain.states.email
 import com.toggl.onboarding.domain.states.password
 import io.reactivex.rxjava3.disposables.CompositeDisposable
@@ -25,7 +26,6 @@ import javax.inject.Inject
 
 class LoginFragment : Fragment() {
 
-    lateinit var coordinator: LoginCoordinator
     private val disposeBag = CompositeDisposable()
     @Inject lateinit var store : Store<OnboardingState, OnboardingAction>
 
@@ -63,7 +63,7 @@ class LoginFragment : Fragment() {
 
         store.state.map { it.user }
             .filter { it is Loadable.Loaded<User> }
-            .subscribe { coordinator.logUserIn(requireActivity()) }
+            .subscribe { findNavController().navigate(DeepLinkUrls.timeEntryLog) }
             .addTo(disposeBag)
     }
 

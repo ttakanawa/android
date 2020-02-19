@@ -1,19 +1,16 @@
 package com.toggl.di
 
-import android.util.Log
-import androidx.fragment.app.FragmentActivity
 import com.toggl.api.login.MockLoginApi
 import com.toggl.architecture.AppAction
 import com.toggl.architecture.AppState
-import com.toggl.architecture.coordinators.AuthCoordinator
-import com.toggl.architecture.core.*
+import com.toggl.architecture.core.Store
+import com.toggl.architecture.core.combine
 import com.toggl.architecture.mappings.globalOnboardingReducer
 import com.toggl.architecture.reducers.AppEnvironment
 import com.toggl.architecture.reducers.actionLoggingReducer
 import com.toggl.architecture.reducers.appReducer
-import com.toggl.onboarding.domain.states.OnboardingState
 import com.toggl.onboarding.domain.actions.OnboardingAction
-import com.toggl.onboarding.domain.coordinators.LoginCoordinator
+import com.toggl.onboarding.domain.states.OnboardingState
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -54,19 +51,4 @@ class AppModule {
             },
             mapToGlobalAction = { AppAction.Onboarding(onboarding = it) }
         )
-
-    @Provides
-    fun authCoordinator(loginCoordinator: LoginCoordinator): AuthCoordinator {
-
-        val mockCoordinator = object : Coordinator() {
-            override fun start(activity: FragmentActivity) {
-                Log.i("MockCoordinator", "An attempt to navigate was made")
-            }
-        }
-
-        return AuthCoordinator(
-            loginCoordinator,
-            mockCoordinator
-        )
-    }
 }
