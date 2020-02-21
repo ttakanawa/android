@@ -10,7 +10,7 @@ import androidx.navigation.fragment.findNavController
 import com.toggl.architecture.Loadable
 import com.toggl.architecture.core.Store
 import com.toggl.architecture.extensions.addTo
-import com.toggl.common.extensions.DeepLinkUrls
+import com.toggl.common.DeepLinkUrls
 import com.toggl.models.domain.User
 import com.toggl.models.validation.Email
 import com.toggl.models.validation.Password

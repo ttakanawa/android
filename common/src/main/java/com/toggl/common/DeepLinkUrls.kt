@@ -1,4 +1,4 @@
-package com.toggl.common.extensions
+package com.toggl.common
 
 import androidx.core.net.toUri
 

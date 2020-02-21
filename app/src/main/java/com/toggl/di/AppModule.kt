@@ -6,11 +6,14 @@ import com.toggl.architecture.AppState
 import com.toggl.architecture.core.Store
 import com.toggl.architecture.core.combine
 import com.toggl.architecture.mappings.globalOnboardingReducer
-import com.toggl.architecture.reducers.AppEnvironment
+import com.toggl.architecture.mappings.globalTimerReducer
 import com.toggl.architecture.reducers.actionLoggingReducer
 import com.toggl.architecture.reducers.appReducer
+import com.toggl.environment.AppEnvironment
 import com.toggl.onboarding.domain.actions.OnboardingAction
 import com.toggl.onboarding.domain.states.OnboardingState
+import com.toggl.timer.domain.actions.TimerAction
+import com.toggl.timer.domain.states.TimerState
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -20,16 +23,12 @@ class AppModule {
 
     @Provides
     @Singleton
-    fun appEnvironment(): AppEnvironment =
-        AppEnvironment(loginApi = MockLoginApi())
-
-    @Provides
-    @Singleton
     fun appStore(environment: AppEnvironment): Store<AppState, AppAction> {
 
         val combinedReducers = combine(
             actionLoggingReducer,
             appReducer,
+            globalTimerReducer,
             globalOnboardingReducer
         )
 
@@ -49,6 +48,13 @@ class AppModule {
                     localState = it.onboardingLocalState
                 )
             },
-            mapToGlobalAction = { AppAction.Onboarding(onboarding = it) }
+            mapToGlobalAction = { AppAction.Onboarding(it) }
+        )
+
+    @Provides
+    fun timerStore(store: Store<AppState, AppAction>): Store<TimerState, TimerAction> =
+        store.view(
+            mapToLocalState = { TimerState(it.timeEntries)  },
+            mapToGlobalAction = { AppAction.Timer(it) }
         )
 }

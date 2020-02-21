@@ -8,6 +8,10 @@
   <color name="error">#FFE20505</color>
   <color name="textOnError">#000000</color>
   <color name="background">#FCE5DB</color>
-  <color name="surface">#FCE5DB</color>
+  <color name="surface">#FFFDEFE9</color>
+  <color name="transparentSurface">#00FDEFE9</color>
   <color name="textOnSurface">#FF000000</color>
+  <color name="startTimeEntryButtonBackground">#FF1AD180</color>
+    <color name="stopTimeEntryButtonBackground">#FFE20505</color>
+  <color name="icon">#FF757575</color>
 </resources>

@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="surface">#2c1338</color>
-    <color name="background">#2c1338</color>
+    <color name="surface">#FF2c1338</color>
+    <color name="transparentSurface">#002c1338</color>
+    <color name="background">#412a4c</color>
     <color name="textOnSurface">#FFFFFFFF</color>
     <color name="error">#FFFF453A</color>
+    <color name="startTimeEntryButtonBackground">#FF32D74B</color>
+    <color name="stopTimeEntryButtonBackground">#FFFF453A</color>
+    <color name="icon">#FFB1B1B5</color>
 </resources>

@@ -1,2 +1,2 @@
-include ':app', ':architecture', ':models', ':api', ':environment', ':onboarding', ':common'
+include ':app', ':architecture', ':models', ':api', ':environment', ':onboarding', ':common', ':timer', ':data', ':timer'
 rootProject.name='Toggl'

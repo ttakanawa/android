@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/coordinatorLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        tools:listitem="@layout/time_entries_log_item"
+        android:clipToPadding="false"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/startTimeEntryButton"
+        app:elevation="4dp"
+        app:backgroundTint="@color/startTimeEntryButtonBackground"
+        app:srcCompat="@drawable/ic_play_big"
+        android:tint="@android:color/white"
+        android:layout_marginEnd="@dimen/fab_margin"
+        android:layout_marginBottom="@dimen/fab_margin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end" />
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
+        app:liftOnScroll="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            android:background="@color/surface"
+            android:layout_width="match_parent"
+            android:layout_height="?android:actionBarSize"
+            app:layout_scrollFlags="scroll|enterAlways">
+            <ImageView
+                android:src="@drawable/ic_toggl_logo"
+                android:layout_gravity="start"
+                android:layout_height="40dp"
+                android:layout_width="100dp" />
+        </com.google.android.material.appbar.MaterialToolbar>
+    </com.google.android.material.appbar.AppBarLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

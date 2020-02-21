@@ -33,8 +33,10 @@ dependencies {
     implementation project(':api')
     implementation project(':architecture')
     implementation project(':common')
+    implementation project(':environment')
     implementation project(':models')
     implementation project(':onboarding')
+    implementation project(':timer')
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation"org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"

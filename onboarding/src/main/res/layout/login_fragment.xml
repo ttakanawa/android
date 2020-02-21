@@ -10,7 +10,6 @@
     android:layout_height="match_parent">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:background="@drawable/background_login"
         android:animateLayoutChanges="true"
         android:focusableInTouchMode="true"
         android:layout_width="match_parent"
