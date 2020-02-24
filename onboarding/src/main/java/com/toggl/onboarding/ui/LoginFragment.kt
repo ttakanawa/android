@@ -2,7 +2,9 @@ package com.toggl.onboarding.ui
 
 import android.content.Context
 import android.os.Bundle
+import android.os.IBinder
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.observe
@@ -63,7 +65,13 @@ class LoginFragment : Fragment(R.layout.login_fragment) {
             .toFlowable(BackpressureStrategy.LATEST)
             .toLiveData()
             .observe(this) {
+                dismissKeyboard(view.windowToken)
                 findNavController().navigate(DeepLinkUrls.timeEntryLog)
             }
+    }
+
+    private fun dismissKeyboard(windowToken: IBinder) {
+        val imm = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
+        imm?.hideSoftInputFromWindow(windowToken, 0)
     }
 }
