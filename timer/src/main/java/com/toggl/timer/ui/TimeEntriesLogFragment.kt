@@ -1,23 +1,25 @@
 package com.toggl.timer.ui
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.observe
+import androidx.lifecycle.toLiveData
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.toggl.architecture.core.Store
-import com.toggl.architecture.extensions.addTo
 import com.toggl.timer.R
 import com.toggl.timer.di.TimerComponentProvider
 import com.toggl.timer.domain.actions.TimeEntriesLogAction
 import com.toggl.timer.domain.states.FlatTimeEntryItem
 import com.toggl.timer.domain.states.TimeEntriesLogState
 import com.toggl.timer.domain.states.TimeEntryLogViewModel
-import io.reactivex.rxjava3.disposables.CompositeDisposable
+import io.reactivex.rxjava3.core.BackpressureStrategy
 import kotlinx.android.synthetic.main.time_entries_log_fragment.*
 import javax.inject.Inject
 
@@ -62,7 +64,6 @@ class TimeEntriesLogFragment : Fragment(R.layout.time_entries_log_fragment) {
         }
     }
 
-    private val disposeBag = CompositeDisposable()
     @Inject
     internal lateinit var store : Store<TimeEntriesLogState, TimeEntriesLogAction>
 
@@ -80,7 +81,8 @@ class TimeEntriesLogFragment : Fragment(R.layout.time_entries_log_fragment) {
 
         store.state
             .map { it.items }
-            .subscribe(adapter::submitList)
-            .addTo(disposeBag)
+            .toFlowable(BackpressureStrategy.LATEST)
+            .toLiveData()
+            .observe(this, adapter::submitList)
     }
 }
