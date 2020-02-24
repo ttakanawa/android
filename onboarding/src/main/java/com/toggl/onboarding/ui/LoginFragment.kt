@@ -24,16 +24,10 @@ import io.reactivex.rxjava3.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.login_fragment.*
 import javax.inject.Inject
 
-class LoginFragment : Fragment() {
+class LoginFragment : Fragment(R.layout.login_fragment) {
 
     private val disposeBag = CompositeDisposable()
     @Inject lateinit var store : Store<OnboardingState, OnboardingAction>
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? = inflater.inflate(R.layout.login_fragment, container, false)
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

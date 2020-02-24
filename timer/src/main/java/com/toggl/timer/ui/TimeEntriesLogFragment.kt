@@ -21,7 +21,7 @@ import io.reactivex.rxjava3.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.time_entries_log_fragment.*
 import javax.inject.Inject
 
-class TimeEntriesLogFragment : Fragment() {
+class TimeEntriesLogFragment : Fragment(R.layout.time_entries_log_fragment) {
 
     private val adapter = TimeEntryLogAdapter()
 
@@ -65,11 +65,6 @@ class TimeEntriesLogFragment : Fragment() {
     private val disposeBag = CompositeDisposable()
     @Inject
     internal lateinit var store : Store<TimeEntriesLogState, TimeEntriesLogAction>
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? = inflater.inflate(R.layout.time_entries_log_fragment, container, false)
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
