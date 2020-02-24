@@ -28,11 +28,14 @@ class LoginFragment : Fragment(R.layout.login_fragment) {
 
     @Inject lateinit var store : Store<OnboardingState, OnboardingAction>
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
+    override fun onAttach(context: Context) {
         (requireActivity().applicationContext as OnboardingComponentProvider)
             .provideLoginComponent().inject(this)
+        super.onAttach(context)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         loginButton.setOnClickListener {
             store.dispatch(OnboardingAction.LoginTapped)

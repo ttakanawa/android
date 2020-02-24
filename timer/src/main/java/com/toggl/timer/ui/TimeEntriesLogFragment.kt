@@ -67,11 +67,14 @@ class TimeEntriesLogFragment : Fragment(R.layout.time_entries_log_fragment) {
     @Inject
     internal lateinit var store : Store<TimeEntriesLogState, TimeEntriesLogAction>
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-
+    override fun onAttach(context: Context) {
         (requireActivity().applicationContext as TimerComponentProvider)
             .provideTimerComponent().inject(this)
+        super.onAttach(context)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         startTimeEntryButton.setOnClickListener {
             store.dispatch(TimeEntriesLogAction.StartTimeEntryButtonTapped)
