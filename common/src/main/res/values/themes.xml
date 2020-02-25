@@ -12,6 +12,7 @@
         <item name="colorOnBackground">@color/textOnSurface</item>
         <item name="android:colorBackground">@color/surface</item>
         <item name="android:statusBarColor">@color/surface</item>
+        
         <item tools:targetApi="26" name="android:autofilledHighlight">@android:color/transparent</item>
     </style>
 
