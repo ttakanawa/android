@@ -9,5 +9,6 @@ sealed class DatabaseOperation {
 }
 
 interface IDataSource {
-    fun startTimeEntry(): Observable<DatabaseOperation>
+    fun startTimeEntry(description: String): Observable<DatabaseOperation>
+    fun editTimeEntry(timeEntry: TimeEntry): Observable<DatabaseOperation>
 }

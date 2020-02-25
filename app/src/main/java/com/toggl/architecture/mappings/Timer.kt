@@ -12,12 +12,12 @@ val globalTimerReducer: Reducer<AppState, AppAction, AppEnvironment> =
     pullback(
         reducer = timerReducer,
         mapToLocalState = {
-            TimerState(it.timeEntries)
+            TimerState(it.timeEntries, it.editedDescription)
         },
         mapToLocalAction = {if (it is AppAction.Timer) it.timer else null },
         mapToLocalEnvironment = { it.dataSource },
         mapToGlobalAction = { AppAction.Timer(it) },
         mapToGlobalState = { global: AppState, local ->
-            global.copy(timeEntries = local.timeEntries)
+            global.copy(timeEntries = local.timeEntries, editedDescription = local.editedDescription)
         }
     )

@@ -65,7 +65,9 @@ class LoginFragment : Fragment(R.layout.login_fragment) {
             .toFlowable(BackpressureStrategy.LATEST)
             .toLiveData()
             .observe(this) {
-                dismissKeyboard(view.windowToken)
+                view.windowToken?.let { t ->
+                    dismissKeyboard(t)
+                }
                 findNavController().navigate(DeepLinkUrls.timeEntryLog)
             }
     }

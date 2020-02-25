@@ -14,17 +14,6 @@
         android:layout_height="match_parent"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/startTimeEntryButton"
-        app:elevation="4dp"
-        app:backgroundTint="@color/startTimeEntryButtonBackground"
-        app:srcCompat="@drawable/ic_play_big"
-        android:tint="@android:color/white"
-        android:layout_marginEnd="@dimen/fab_margin"
-        android:layout_marginBottom="@dimen/fab_margin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end" />
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarLayout"
         app:liftOnScroll="true"
@@ -43,4 +32,18 @@
                 android:layout_width="100dp" />
         </com.google.android.material.appbar.MaterialToolbar>
     </com.google.android.material.appbar.AppBarLayout>
+    <include layout="@layout/layout_time_entry_bottom_sheet" />
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/startTimeEntryButton"
+        style="@style/Widget.MaterialComponents.FloatingActionButton"
+        app:elevation="@dimen/plane_01"
+        app:backgroundTint="@color/startTimeEntryButtonBackground"
+        app:srcCompat="@drawable/ic_play_big"
+        android:tint="@android:color/white"
+        app:layout_anchor="@+id/startTimeEntryBottomSheet"
+        android:layout_marginEnd="@dimen/fab_margin"
+        android:layout_marginBottom="@dimen/fab_margin"
+        app:layout_anchorGravity="top|right|end"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

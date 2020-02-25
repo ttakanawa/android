@@ -6,41 +6,32 @@ import java.util.*
 
 class MockDataSource : IDataSource {
 
-    private var id: Long = -1
-    private var lastTime: Date = Date()
+    private var id: Long = 0
 
-    override fun startTimeEntry(): Observable<DatabaseOperation> {
-
-        val ops = mutableListOf<DatabaseOperation>()
-
-        val now = Date()
-
-        if (id != -1L) {
-            ops.add(
-                DatabaseOperation.Updated(
-                    id,
-                    TimeEntry(
-                        id,
-                        "Time entry number $id",
-                        lastTime,
-                        now.time - lastTime.time
-
-                    )
-                )
-            )
-        }
-
-        ops.add(
+    override fun startTimeEntry(description: String): Observable<DatabaseOperation> {
+        return Observable.fromIterable(mutableListOf<DatabaseOperation>(
             DatabaseOperation.Created(
                 TimeEntry(
                     id = ++id,
-                    description = "Time entry number $id",
+                    description = description,
                     startTime = Date(),
                     duration = null
                 )
             )
-        )
+        ))
+    }
 
-        return Observable.fromIterable(ops)
+    override fun editTimeEntry(timeEntry: TimeEntry): Observable<DatabaseOperation> {
+        return Observable.fromIterable(mutableListOf<DatabaseOperation>(
+            DatabaseOperation.Updated(
+                timeEntry.id,
+                TimeEntry(
+                    id = timeEntry.id,
+                    description = timeEntry.description,
+                    startTime = timeEntry.startTime,
+                    duration = timeEntry.duration
+                )
+            )
+        ))
     }
 }

@@ -5,11 +5,10 @@ import com.toggl.architecture.core.Reducer
 import com.toggl.timer.domain.actions.TimeEntriesLogAction
 import com.toggl.timer.domain.states.TimeEntriesLogState
 
-internal val timeEntriesLogReducer = Reducer<TimeEntriesLogState, TimeEntriesLogAction, Any> { state, action, _ ->
+internal val timeEntriesLogReducer = Reducer<TimeEntriesLogState, TimeEntriesLogAction, Any> { _, action, _ ->
     when(action) {
         TimeEntriesLogAction.StartTimeEntryButtonTapped -> {}
-        is TimeEntriesLogAction.ContinueButtonTapped -> TODO()
+        is TimeEntriesLogAction.ContinueButtonTapped -> {}
     }
-
     empty()
 }

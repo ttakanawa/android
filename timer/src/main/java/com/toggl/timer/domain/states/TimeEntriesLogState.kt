@@ -4,7 +4,8 @@ import com.toggl.models.domain.TimeEntry
 
 data class TimeEntriesLogState(
     val items: List<TimeEntryLogViewModel>,
-    val runningTimeEntry: TimeEntry?
+    val runningTimeEntry: TimeEntry?,
+    val editedDescription: String
 ) {
     companion object {
         fun fromTimerState(timerState: TimerState) =
@@ -19,7 +20,8 @@ data class TimeEntriesLogState(
                             duration = timeEntry.duration
                         )
                     },
-                timerState.timeEntries.firstOrNull { it.duration != null }
+                timerState.timeEntries.firstOrNull { it.duration == null },
+                timerState.editedDescription
             )
     }
 }

@@ -8,11 +8,13 @@ import com.toggl.onboarding.domain.states.OnboardingLocalState
 data class AppState(
     val user: Loadable<User>,
     val timeEntries: List<TimeEntry>,
+    val editedDescription: String,
     val onboardingLocalState: OnboardingLocalState
 ) {
     constructor() : this(
         user = Nothing(),
         timeEntries = listOf(),
+        editedDescription = "",
         onboardingLocalState = OnboardingLocalState()
     )
 }

@@ -11,7 +11,7 @@ import java.util.concurrent.TimeUnit
 
 class MockLoginApi : ILoginApi {
     override fun login(email: Email.Valid, password: Password.Valid): Single<User> =
-        Single.timer(4, TimeUnit.SECONDS).flatMap {
+        Single.timer(2, TimeUnit.SECONDS).flatMap {
             when (val token = "12345678901234567890123456789012".toApiToken()) {
                 is ApiToken.Valid -> Single.just(User(token))
                 ApiToken.Invalid -> Single.error(NotImplementedError())

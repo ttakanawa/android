@@ -54,7 +54,7 @@ class AppModule {
     @Provides
     fun timerStore(store: Store<AppState, AppAction>): Store<TimerState, TimerAction> =
         store.view(
-            mapToLocalState = { TimerState(it.timeEntries)  },
+            mapToLocalState = { TimerState(it.timeEntries, it.editedDescription) },
             mapToGlobalAction = { AppAction.Timer(it) }
         )
 }
