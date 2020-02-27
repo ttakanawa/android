@@ -9,11 +9,12 @@
     app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
     app:behavior_hideable="false"
     app:behavior_peekHeight="@dimen/time_entry_edit_peek_size"
-    tools:background="@color/cardview_dark_background"
+    android:background="@color/background"
     tools:showIn="@layout/time_entries_log_fragment">
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/timeEntryDescriptionInputLayout"
-        android:hint="Description"
+        android:hint="@string/description"
+        tools:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="@dimen/time_entry_edit_peek_size">
         <com.google.android.material.textfield.TextInputEditText
@@ -21,7 +22,6 @@
             android:background="@android:color/transparent"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:backgroundTint="@color/surface"
             android:inputType="text"
             tools:ignore="Autofill" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -30,13 +30,12 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/time_entry_edit_peek_size"
         android:padding="@dimen/grid_2">
-        <TextView
+        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/runningTimeEntryDescription"
             android:textAppearance="?attr/textAppearanceHeadline6"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            tools:text="Running time entry"
-            />
+            tools:text="Running time entry"/>
     </FrameLayout>
 </com.google.android.material.card.MaterialCardView>

@@ -83,7 +83,7 @@
             android:maxLines="1"
             android:ellipsize="end"
             android:textSize="15sp"
-            tools:text="Add description"
+            android:text="@string/addDescription"
             android:textColor="#fefefe"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/description"
