@@ -1,42 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/startTimeEntryBottomSheet"
-    android:layout_width="match_parent"
-    android:layout_height="400dp"
-    app:elevation="@dimen/plane_02"
-    app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
-    app:behavior_hideable="false"
-    app:behavior_peekHeight="@dimen/time_entry_edit_peek_size"
-    tools:background="@color/cardview_dark_background"
-    tools:showIn="@layout/time_entries_log_fragment">
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/timeEntryDescriptionInputLayout"
-        android:hint="Description"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="state"
+            type="com.toggl.timer.domain.TimeEntryLogState" />
+    </data>
+
+    <com.google.android.material.card.MaterialCardView xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/start_time_entry_bottom_sheet"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/time_entry_edit_peek_size">
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/timeEntryDescriptionEditText"
-            android:background="@android:color/transparent"
+        android:layout_height="400dp"
+        app:behavior_hideable="false"
+        app:behavior_peekHeight="@dimen/time_entry_edit_peek_size"
+        app:elevation="@dimen/plane_02"
+        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
+        tools:background="@color/cardview_dark_background"
+        tools:showIn="@layout/time_entries_log_fragment">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/time_entry_description_input_layout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:backgroundTint="@color/surface"
-            android:inputType="text"
-            tools:ignore="Autofill" />
-    </com.google.android.material.textfield.TextInputLayout>
-    <FrameLayout
-        android:id="@+id/runningTimeEntryLayout"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/time_entry_edit_peek_size"
-        android:padding="@dimen/grid_2">
-        <TextView
-            android:id="@+id/runningTimeEntryDescription"
-            android:textAppearance="?attr/textAppearanceHeadline6"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            tools:text="Running time entry"
-            />
-    </FrameLayout>
-</com.google.android.material.card.MaterialCardView>
+            android:layout_height="@dimen/time_entry_edit_peek_size"
+            android:hint="Description"
+            app:goneUnless="@{!state.anyRunningTimeEntry}">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/time_entry_description_edit_text"
+                android:text="@{state.editedDescription}"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@android:color/transparent"
+                android:backgroundTint="@color/surface"
+                android:inputType="text"
+                tools:ignore="Autofill" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <FrameLayout
+            android:id="@+id/running_time_entry_layout"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/time_entry_edit_peek_size"
+            android:padding="@dimen/grid_2"
+            app:goneUnless="@{state.anyRunningTimeEntry}">
+
+            <TextView
+                android:id="@+id/running_time_entry_description"
+                android:text="@{state.runningTimeEntry.description}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:textAppearance="?attr/textAppearanceHeadline6"
+                tools:text="Running time entry" />
+        </FrameLayout>
+    </com.google.android.material.card.MaterialCardView>
+</layout>

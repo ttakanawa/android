@@ -1,21 +1,14 @@
 package com.toggl.timer.di
 
-import com.toggl.architecture.core.Store
-import com.toggl.common.identity
-import com.toggl.timer.domain.actions.TimeEntriesLogAction
-import com.toggl.timer.domain.actions.TimerAction
-import com.toggl.timer.domain.states.TimeEntriesLogState
-import com.toggl.timer.domain.states.TimerState
+import com.squareup.inject.assisted.dagger2.AssistedModule
+import com.toggl.data.db.TimeEntryDao
+import com.toggl.timer.domain.TimeEntryLogReducer
 import dagger.Module
 import dagger.Provides
 
-
-@Module(subcomponents = [TimerComponent::class])
+@AssistedModule
+@Module(subcomponents = [TimerComponent::class], includes = [AssistedInject_TimerModule::class])
 class TimerModule {
     @Provides
-    internal fun timeEntriesLogStore(store: Store<TimerState, TimerAction>): Store<TimeEntriesLogState, TimeEntriesLogAction> =
-        store.view(
-            mapToLocalState = TimeEntriesLogState.Companion::fromTimerState,
-            mapToGlobalAction = ::identity
-        )
+    internal fun timeEntryReducer(timeEntryDao: TimeEntryDao): TimeEntryLogReducer = TimeEntryLogReducer(timeEntryDao)
 }

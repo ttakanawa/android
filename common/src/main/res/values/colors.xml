@@ -12,6 +12,6 @@
   <color name="transparentSurface">#00FDEFE9</color>
   <color name="textOnSurface">#FF000000</color>
   <color name="startTimeEntryButtonBackground">#FF1AD180</color>
-    <color name="stopTimeEntryButtonBackground">#FFE20505</color>
+  <color name="stopTimeEntryButtonBackground">#FFE20505</color>
   <color name="icon">#FF757575</color>
 </resources>

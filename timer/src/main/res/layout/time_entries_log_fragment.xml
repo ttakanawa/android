@@ -1,49 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/coordinatorLayout"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
-        tools:listitem="@layout/time_entries_log_item"
-        android:clipToPadding="false"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="state"
+            type="com.toggl.timer.domain.TimeEntryLogState" />
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/coordinatorLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/appBarLayout"
-        app:liftOnScroll="true"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/toolbar"
-            android:background="@color/surface"
+        android:layout_height="match_parent">
+
+        <com.airbnb.epoxy.EpoxyRecyclerView
+            android:id="@+id/epoxy_recycler_view"
             android:layout_width="match_parent"
-            android:layout_height="?android:actionBarSize"
-            app:layout_scrollFlags="scroll|enterAlways">
-            <ImageView
-                android:src="@drawable/ic_toggl_logo"
-                android:layout_gravity="start"
-                android:layout_height="40dp"
-                android:layout_width="100dp" />
-        </com.google.android.material.appbar.MaterialToolbar>
-    </com.google.android.material.appbar.AppBarLayout>
-    <include layout="@layout/layout_time_entry_bottom_sheet" />
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/startTimeEntryButton"
-        style="@style/Widget.MaterialComponents.FloatingActionButton"
-        app:elevation="@dimen/plane_01"
-        app:backgroundTint="@color/startTimeEntryButtonBackground"
-        app:srcCompat="@drawable/ic_play_big"
-        android:tint="@android:color/white"
-        app:layout_anchor="@+id/startTimeEntryBottomSheet"
-        android:layout_marginEnd="@dimen/fab_margin"
-        android:layout_marginBottom="@dimen/fab_margin"
-        app:layout_anchorGravity="top|right|end"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+            android:layout_height="match_parent"
+            android:clipToPadding="false"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            tools:listitem="@layout/view_holder_time_entry_log_item" />
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appBarLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:liftOnScroll="true">
+
+            <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?android:actionBarSize"
+                android:background="@color/surface"
+                app:layout_scrollFlags="scroll|enterAlways">
+
+                <ImageView
+                    android:layout_width="100dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="start"
+                    android:src="@drawable/ic_toggl_logo" />
+            </com.google.android.material.appbar.MaterialToolbar>
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <include
+            layout="@layout/layout_time_entry_bottom_sheet"
+            android:id="@+id/bottom_sheet"
+            app:state="@{state}" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/start_time_entry_button"
+            style="@style/Widget.MaterialComponents.FloatingActionButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/fab_margin"
+            android:layout_marginBottom="@dimen/fab_margin"
+            android:tint="@android:color/white"
+            app:goneUnless="@{!state.anyRunningTimeEntry}"
+            app:backgroundTint="@color/startTimeEntryButtonBackground"
+            app:elevation="@dimen/plane_01"
+            app:layout_anchor="@+id/bottom_sheet"
+            app:layout_anchorGravity="top|right|end"
+            app:srcCompat="@drawable/ic_play_big" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/stop_time_entry_button"
+            style="@style/Widget.MaterialComponents.FloatingActionButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/fab_margin"
+            android:layout_marginBottom="@dimen/fab_margin"
+            android:tint="@android:color/white"
+            app:goneUnless="@{state.anyRunningTimeEntry}"
+            app:backgroundTint="@color/stopTimeEntryButtonBackground"
+            app:elevation="@dimen/plane_01"
+            app:layout_anchor="@+id/bottom_sheet"
+            app:layout_anchorGravity="top|right|end"
+            app:srcCompat="@drawable/ic_stop" />
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>

@@ -1,17 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/nav_graph"
-    app:startDestination="@id/login">
-
-    <fragment
-        android:id="@+id/login"
-        android:name="com.toggl.onboarding.ui.LoginFragment"
-        android:label="LoginFragment" />
+    android:id="@+id/timeEntriesLog"
+    app:startDestination="@id/timeEntriesLog">
 
     <fragment
         android:id="@+id/timeEntriesLog"
-        android:name="com.toggl.timer.ui.TimeEntriesLogFragment"
+        android:name="com.toggl.timer.ui.TimeEntryLogFragment"
         android:label="TimeEntriesLogFragment"
         app:launchSingleTop="true" >
         <deepLink

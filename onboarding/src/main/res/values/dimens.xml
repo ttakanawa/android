@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <dimen name="login_side_padding">24dp</dimen>
-    <dimen name="login_logo_width">160dp</dimen>
-    <dimen name="login_logo_height">32dp</dimen>
-    <dimen name="login_logo_top_margin">64dp</dimen>
-    <dimen name="login_logo_bottom_margin">36dp</dimen>
-    <dimen name="login_button_top_margin">16dp</dimen>
-</resources>

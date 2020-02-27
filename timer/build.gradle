@@ -32,6 +32,10 @@ android {
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_1_8.toString()
     }
+
+    dataBinding {
+        enabled = true
+    }
 }
 
 dependencies {
@@ -42,11 +46,20 @@ dependencies {
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation 'com.google.dagger:dagger:2.26'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0'
+    implementation "androidx.core:core-ktx:1.2.0"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0"
+    implementation "androidx.fragment:fragment-ktx:1.2.1"
+    implementation 'com.airbnb.android:mvrx:1.3.0'
+    implementation 'com.airbnb.android:epoxy:3.9.0'
+    implementation 'com.airbnb.android:epoxy-databinding:3.9.0'
+    kapt 'com.airbnb.android:epoxy-processor:3.9.0'
+    implementation 'com.google.dagger:dagger:2.26'
     kapt 'com.google.dagger:dagger-compiler:2.26'
+    implementation 'com.squareup.inject:assisted-inject-annotations-dagger2:0.5.2'
+    kapt 'com.squareup.inject:assisted-inject-processor-dagger2:0.5.2'
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.2.0'

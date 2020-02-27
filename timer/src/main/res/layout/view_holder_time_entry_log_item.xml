@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="description"
+            type="String" />
+
+        <variable
+            name="duration"
+            type="Long" />
+
+        <variable
+            name="onContinue"
+            type="android.view.View.OnClickListener" />
+    </data>
+
+    <FrameLayout
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/log_item"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/time_entry_log_item_height"
+        android:foreground="?android:attr/selectableItemBackground">
+
+        <TextView
+            android:id="@+id/backgroundContinue"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/startTimeEntryButtonBackground"
+            android:fontFamily="sans-serif-medium"
+            android:gravity="center_vertical|start"
+            android:paddingStart="@dimen/swipe_action_text_padding"
+            android:paddingEnd="@dimen/swipe_action_text_padding"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/swipe_action_font_size"
+            android:typeface="normal"
+            android:visibility="invisible"
+            tools:text="Continue"
+            tools:visibility="invisible" />
+
+        <TextView
+            android:id="@+id/backgroundDelete"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/stopTimeEntryButtonBackground"
+            android:fontFamily="sans-serif-medium"
+            android:gravity="center_vertical|end"
+            android:paddingStart="@dimen/swipe_action_text_padding"
+            android:paddingEnd="@dimen/swipe_action_text_padding"
+            android:textColor="@android:color/white"
+            android:textSize="15sp"
+            android:typeface="normal"
+            android:visibility="invisible"
+            tools:text="Delete"
+            tools:visibility="@dimen/swipe_action_font_size" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/contentView"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/time_entry_log_item_height"
+            android:background="@color/surface"
+            android:elevation="1dp">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/topGuideline"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintGuide_begin="8dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/bottomGuideline"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintGuide_end="8dp"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <TextView
+                android:id="@+id/description"
+                android:text="@{description}"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/time_entry_log_side_padding"
+                android:gravity="start"
+                android:maxLines="1"
+                android:textColor="@color/textOnSurface"
+                android:textSize="15sp"
+                app:layout_constraintBottom_toTopOf="@+id/addDescriptionLabel"
+                app:layout_constraintEnd_toEndOf="@+id/durationGradient"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/topGuideline"
+                app:layout_constraintVertical_chainStyle="packed"
+                tools:text="Exporting assets to Zeplin and organizing"
+                tools:visibility="visible" />
+
+            <TextView
+                android:id="@+id/addDescriptionLabel"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/time_entry_log_side_padding"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:textColor="#fefefe"
+                android:textSize="15sp"
+                app:layout_constraintBottom_toTopOf="@+id/projectLabel"
+                app:layout_constraintEnd_toEndOf="@+id/durationGradient"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/description"
+                tools:text="Add description"
+                tools:visibility="gone" />
+
+            <ImageView
+                android:id="@+id/archivedIcon"
+                android:layout_width="12dp"
+                android:layout_height="12dp"
+                android:layout_marginStart="@dimen/time_entry_log_side_padding"
+                android:layout_marginEnd="12dp"
+                android:src="@drawable/ic_archived"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="@+id/projectLabel"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/projectLabel" />
+
+            <TextView
+                android:id="@+id/projectLabel"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:ellipsize="end"
+                android:fontFamily="sans-serif-medium"
+                android:gravity="start"
+                android:maxLines="1"
+                android:textSize="15sp"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="@id/bottomGuideline"
+                app:layout_constraintEnd_toEndOf="@+id/durationGradient"
+                app:layout_constraintStart_toEndOf="@id/archivedIcon"
+                app:layout_constraintTop_toBottomOf="@id/addDescriptionLabel"
+                app:layout_goneMarginStart="@dimen/time_entry_log_side_padding"
+                tools:text="Design"
+                tools:textColor="#c56bff" />
+
+            <View
+                android:id="@+id/durationPaddingArea"
+                android:layout_width="72dp"
+                android:layout_height="0dp"
+                android:background="@android:color/transparent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <View
+                android:id="@+id/durationGradient"
+                android:layout_width="48dp"
+                android:layout_height="0dp"
+                android:background="@drawable/gradient_transparent_to_surface"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/durationPaddingArea"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/duration"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:fontFamily="sans-serif"
+                android:gravity="end"
+                android:maxLines="1"
+                android:textColor="@color/textOnSurface"
+                android:textSize="15sp"
+                app:durationText="@{duration}"
+                app:layout_constraintBottom_toTopOf="@+id/continueIcon"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_chainStyle="packed"
+                tools:text="0:23:01" />
+
+            <ImageView
+                android:id="@+id/billableIcon"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:layout_marginEnd="4dp"
+                android:src="@drawable/ic_billable"
+                android:tint="@color/icon"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="@id/duration"
+                app:layout_constraintEnd_toStartOf="@id/duration"
+                app:layout_constraintTop_toTopOf="@id/duration" />
+
+            <ImageView
+                android:id="@+id/TimeEntriesLogCellTags"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:layout_marginEnd="4dp"
+                android:src="@drawable/ic_tag"
+                android:tint="@color/icon"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="@id/duration"
+                app:layout_constraintEnd_toStartOf="@id/billableIcon"
+                app:layout_constraintTop_toTopOf="@id/duration" />
+
+            <ImageView
+                android:id="@+id/continueIcon"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginEnd="12dp"
+                android:layout_marginBottom="8dp"
+                android:src="@drawable/ic_play"
+                app:layout_constraintBottom_toTopOf="@+id/errorIcon"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/duration" />
+
+            <ImageView
+                android:id="@+id/errorIcon"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="8dp"
+                android:src="@drawable/ic_unsyncable"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/continueIcon"
+                tools:visibility="gone" />
+
+            <ImageView
+                android:id="@+id/needsSyncIcon"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginEnd="2dp"
+                android:src="@drawable/ic_unsynced"
+                android:visibility="gone"
+                app:layout_constraintEnd_toStartOf="@id/continueIcon"
+                app:layout_constraintTop_toTopOf="@id/continueIcon" />
+
+            <View
+                android:id="@+id/continueButton"
+                android:onClick="@{onContinue}"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:background="@android:color/transparent"
+                android:foreground="?android:attr/selectableItemBackgroundBorderless"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </FrameLayout>
+</layout>
