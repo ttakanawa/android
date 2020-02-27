@@ -1,4 +1,4 @@
-package com.toggl.data
+package com.toggl.repository
 
 import org.junit.Test
 

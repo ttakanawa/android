@@ -1,7 +1,7 @@
 package com.toggl.environment.di
 
 import com.toggl.api.login.MockLoginApi
-import com.toggl.data.MockDataSource
+import com.toggl.repository.MockRepository
 import com.toggl.environment.AppEnvironment
 import dagger.Module
 import dagger.Provides
@@ -15,6 +15,6 @@ class EnvironmentModule {
     fun appEnvironment(): AppEnvironment =
         AppEnvironment(
             MockLoginApi(),
-            MockDataSource()
+            MockRepository()
         )
 }

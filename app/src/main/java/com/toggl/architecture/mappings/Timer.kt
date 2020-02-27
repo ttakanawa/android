@@ -4,7 +4,7 @@ import com.toggl.architecture.AppAction
 import com.toggl.architecture.AppState
 import com.toggl.architecture.core.Reducer
 import com.toggl.architecture.core.pullback
-import com.toggl.data.IDataSource
+import com.toggl.repository.Repository
 import com.toggl.environment.AppEnvironment
 import com.toggl.timer.domain.actions.TimerAction
 import com.toggl.timer.domain.reducers.timerReducer
@@ -18,8 +18,8 @@ fun mapAppStateToTimerState(appState: AppState): TimerState =
 fun mapAppActionToTimerAction(appAction: AppAction): TimerAction? =
     if (appAction is AppAction.Timer) appAction.timer else null
 
-fun mapAppEnvironmentToTimerEnvironment(appEnvironment: AppEnvironment): IDataSource =
-    appEnvironment.dataSource
+fun mapAppEnvironmentToTimerEnvironment(appEnvironment: AppEnvironment): Repository =
+    appEnvironment.repository
 
 fun mapTimerStateToAppState(appState: AppState, timerState: TimerState): AppState =
     appState.copy(timeEntries = timerState.timeEntries, timerLocalState = timerState.localState)
