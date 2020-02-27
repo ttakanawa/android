@@ -9,3 +9,12 @@ sealed class OnboardingAction {
     class EmailEntered(val email: String) : OnboardingAction()
     class PasswordEntered(val password: String) : OnboardingAction()
 }
+
+fun OnboardingAction.formatForDebug(): String =
+    when(this) {
+        OnboardingAction.LoginTapped -> "Login button tapped"
+        is OnboardingAction.SetUser -> "Setting user $user"
+        is OnboardingAction.SetUserError -> "Setting user error $throwable"
+        is OnboardingAction.EmailEntered -> "Email entered $email"
+        is OnboardingAction.PasswordEntered -> "Password entered $password"
+    }
