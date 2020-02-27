@@ -3,7 +3,7 @@ package com.toggl.timer.domain.actions
 import com.toggl.models.domain.TimeEntry
 
 sealed class TimerAction {
-    data class TimeEntryCreated(val timeEntry: TimeEntry) : TimerAction()
+    data class TimeEntryStarted(val startedTimeEntry: TimeEntry, val stoppedTimeEntry: TimeEntry?) : TimerAction()
     data class TimeEntryUpdated(val id: Long, val timeEntry: TimeEntry) : TimerAction()
 }
 

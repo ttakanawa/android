@@ -20,7 +20,7 @@ data class TimeEntriesLogState(
                             duration = timeEntry.duration
                         )
                     },
-                timerState.timeEntries.firstOrNull { it.duration == null },
+                timerState.runningTimeEntryOrNull(),
                 timerState.editedDescription
             )
     }
