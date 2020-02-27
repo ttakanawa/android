@@ -16,33 +16,38 @@ import com.toggl.onboarding.domain.actions.OnboardingAction
 import com.toggl.onboarding.domain.effects.logUserInEffect
 import com.toggl.onboarding.domain.states.email
 import com.toggl.onboarding.domain.states.password
+import kotlinx.coroutines.flow.emptyFlow
 
 val onboardingReducer = Reducer<OnboardingState, OnboardingAction, ILoginApi> { state, action, api ->
 
     val currentState = state.value
 
     when (action) {
-        OnboardingAction.LoginTapped -> run {
-            val validEmail = currentState.email.validEmailOrNull() ?: return@run
-            val validPassword = currentState.password.validPasswordOrNull() ?: return@run
+        OnboardingAction.LoginTapped -> {
+            val validEmail = currentState.email.validEmailOrNull() ?: return@Reducer emptyFlow()
+            val validPassword = currentState.password.validPasswordOrNull() ?: return@Reducer emptyFlow()
 
             state.value = currentState.copy(user = Loading())
 
-            return@Reducer logUserInEffect(validEmail, validPassword, api)
+            logUserInEffect(validEmail, validPassword, api)
         }
-        is OnboardingAction.SetUser ->
+        is OnboardingAction.SetUser -> {
             state.value = currentState.copy(user = Loaded(action.user))
-        is OnboardingAction.SetUserError ->
+            emptyFlow()
+        }
+        is OnboardingAction.SetUserError -> {
             state.value = currentState.copy(user = Error(Failure(action.throwable, "")))
+            emptyFlow()
+        }
         is OnboardingAction.EmailEntered -> {
             val newLocalState = currentState.localState.copy(email = action.email.toEmail())
             state.value = currentState.copy(localState = newLocalState)
+            emptyFlow()
         }
         is OnboardingAction.PasswordEntered -> {
             val newLocalState = currentState.localState.copy(password = action.password.toPassword())
             state.value = currentState.copy(localState = newLocalState)
+            emptyFlow()
         }
     }
-
-    return@Reducer Effect.empty()
 }

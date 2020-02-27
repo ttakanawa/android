@@ -1,13 +1,12 @@
 package com.toggl.architecture.core
 
-import com.toggl.architecture.extensions.addTo
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
-import io.reactivex.rxjava3.core.Observable
-import io.reactivex.rxjava3.disposables.CompositeDisposable
-import io.reactivex.rxjava3.subjects.BehaviorSubject
+import android.util.Log
+import kotlinx.coroutines.*
+import kotlinx.coroutines.channels.ConflatedBroadcastChannel
+import kotlinx.coroutines.flow.*
 
 class Store<State, Action> private constructor(
-    val state: Observable<State>,
+    val state: Flow<State>,
     val dispatch: (Action) -> Unit
 ) {
     fun <ViewState, ViewAction> view(
@@ -15,7 +14,7 @@ class Store<State, Action> private constructor(
         mapToGlobalAction: (ViewAction) -> Action?
     ) : Store<ViewState, ViewAction> {
         return Store(
-            state = state.map(mapToLocalState),
+            state = state.map { mapToLocalState(it) },
             dispatch = { action ->
                 val globalAction = mapToGlobalAction(action) ?: return@Store
                 dispatch(globalAction)
@@ -24,30 +23,36 @@ class Store<State, Action> private constructor(
     }
 
     companion object {
+        @FlowPreview
+        @ExperimentalCoroutinesApi
         fun <State, Action, Environment> create(
             initialState: State,
             reducer: Reducer<State, Action, Environment>,
             environment: Environment
         ): Store<State, Action> {
 
-            val disposeBag = CompositeDisposable()
-            val stateSubject = BehaviorSubject.create<State>()
-            stateSubject.onNext(initialState)
-            val state = stateSubject
-                .publish()
-                .refCount()
-                .observeOn(AndroidSchedulers.mainThread())
-            val settableValue = SettableValue(stateSubject::getValue, stateSubject::onNext)
+            val stateChannel = ConflatedBroadcastChannel<State>()
+            GlobalScope.launch {
+                stateChannel.send(initialState)
+            }
+
+            val state = stateChannel
+                .asFlow()
+                .flowOn(Dispatchers.Main)
+
+            val settableValue = SettableValue(stateChannel::value) {
+                val offered = stateChannel.offer(it)
+                Log.d("Offering", offered.toString())
+            }
 
             lateinit var dispatch : (Action) -> Unit
             dispatch = { action ->
-
-                val effect = reducer.reduce(settableValue, action, environment)
-
-                effect
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(dispatch)
-                    .addTo(disposeBag)
+                GlobalScope.launch {
+                    val effect = reducer.reduce(settableValue, action, environment)
+                    effect.collect {
+                        dispatch(it)
+                    }
+                }
             }
 
              return Store(state, dispatch)

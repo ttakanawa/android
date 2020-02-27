@@ -8,8 +8,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.observe
-import androidx.lifecycle.toLiveData
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -20,10 +19,11 @@ import com.toggl.timer.domain.actions.TimeEntriesLogAction
 import com.toggl.timer.domain.states.FlatTimeEntryItem
 import com.toggl.timer.domain.states.TimeEntriesLogState
 import com.toggl.timer.domain.states.TimeEntryLogViewModel
-import io.reactivex.rxjava3.core.BackpressureStrategy
-import io.reactivex.rxjava3.core.Observable
-import kotlinx.android.synthetic.main.layout_time_entry_bottom_sheet.*
 import kotlinx.android.synthetic.main.time_entries_log_fragment.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.launch
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
@@ -92,46 +92,38 @@ class TimeEntriesLogFragment : Fragment(R.layout.time_entries_log_fragment) {
         super.onAttach(context)
     }
 
+    @ExperimentalCoroutinesApi
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        recyclerView.adapter = adapter
 
         timeEntryDescriptionEditText.doOnTextChanged { text, _, _, _ ->
             val action = TimeEntriesLogAction.TimeEntryDescriptionChanged(text.toString())
             store.dispatch(action)
         }
 
-        recyclerView.adapter = adapter
 
-        store.state
-            .map { it.editedDescription }
-            .distinctUntilChanged()
-            .toFlowable(BackpressureStrategy.LATEST)
-            .toLiveData()
-            .observe(this) { description ->
-                if (timeEntryDescriptionEditText.text.toString() != description) {
-                    timeEntryDescriptionEditText.setText(description)
-                }
-            }
+        lifecycleScope.launch(Dispatchers.Main) {
 
-        store.state
-            .map { it.runningTimeEntry != null }
-            .startWith(Observable.just(false))
-            .toFlowable(BackpressureStrategy.LATEST)
-            .toLiveData()
-            .observe(this, ::setEditedTimeEntryState)
+            store.state
+                .map { it.editedDescription }
+                .distinctUntilChanged()
+                .filter { timeEntryDescriptionEditText.text.toString() != it }
+                .onEach { timeEntryDescriptionEditText.setText(it) }
+                .launchIn(this)
 
-        store.state
-            .toFlowable(BackpressureStrategy.LATEST)
-            .toLiveData()
-            .observe(this) { state ->
-                runningTimeEntryDescription.text = "Running: ${state.runningTimeEntry?.description}"
-            }
+            store.state
+                .map { it.runningTimeEntry != null }
+                .distinctUntilChanged()
+                .onEach { setEditedTimeEntryState(it) }
+                .launchIn(this)
 
-        store.state
-            .map { it.items }
-            .toFlowable(BackpressureStrategy.LATEST)
-            .toLiveData()
-            .observe(this, adapter::submitList)
+            store.state
+                .map { it.items }
+                .onEach { adapter.submitList(it) }
+                .launchIn(this)
+        }
     }
 
     private fun setEditedTimeEntryState(isRunningTimeEntry: Boolean) {

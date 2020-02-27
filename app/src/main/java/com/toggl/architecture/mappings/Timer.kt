@@ -7,7 +7,11 @@ import com.toggl.architecture.core.pullback
 import com.toggl.environment.AppEnvironment
 import com.toggl.timer.domain.reducers.timerReducer
 import com.toggl.timer.domain.states.TimerState
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.InternalCoroutinesApi
 
+@ExperimentalCoroutinesApi
+@InternalCoroutinesApi
 val globalTimerReducer: Reducer<AppState, AppAction, AppEnvironment> =
     pullback(
         reducer = timerReducer,

@@ -1,7 +1,7 @@
 package com.toggl.data
 
 import com.toggl.models.domain.TimeEntry
-import io.reactivex.rxjava3.core.Observable
+import kotlinx.coroutines.flow.Flow
 
 sealed class DatabaseOperation {
     class Created(val timeEntry: TimeEntry) : DatabaseOperation()
@@ -9,6 +9,6 @@ sealed class DatabaseOperation {
 }
 
 interface IDataSource {
-    fun startTimeEntry(description: String): Observable<DatabaseOperation>
-    fun editTimeEntry(timeEntry: TimeEntry): Observable<DatabaseOperation>
+    fun startTimeEntry(description: String): Flow<DatabaseOperation>
+    fun editTimeEntry(timeEntry: TimeEntry): Flow<DatabaseOperation>
 }

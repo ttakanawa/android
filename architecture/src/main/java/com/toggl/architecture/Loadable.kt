@@ -6,3 +6,5 @@ sealed class Loadable<Value> {
     class Error<Value>(val throwable: Failure) : Loadable<Value>()
     class Loaded<Value>(val value: Value) : Loadable<Value>()
 }
+
+fun <T> Loadable<T>.isLoaded() = this is Loadable.Loaded<T>

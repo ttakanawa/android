@@ -16,11 +16,17 @@ import com.toggl.timer.domain.actions.TimerAction
 import com.toggl.timer.domain.states.TimerState
 import dagger.Module
 import dagger.Provides
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.FlowPreview
+import kotlinx.coroutines.InternalCoroutinesApi
 import javax.inject.Singleton
 
 @Module
 class AppModule {
 
+    @FlowPreview
+    @ExperimentalCoroutinesApi
+    @InternalCoroutinesApi
     @Provides
     @Singleton
     fun appStore(environment: AppEnvironment): Store<AppState, AppAction> {
