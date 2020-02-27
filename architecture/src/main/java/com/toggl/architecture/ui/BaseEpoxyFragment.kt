@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 
 import com.airbnb.epoxy.EpoxyRecyclerView
 import com.airbnb.mvrx.BaseMvRxFragment
@@ -45,6 +47,17 @@ abstract class BaseEpoxyFragment<V : ViewDataBinding>  : BaseMvRxFragment() {
     final override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         onViewCreated(requireBinding(), savedInstanceState)
+        epoxyRecyclerView(requireBinding()).apply {
+            adapter?.registerAdapterDataObserver(object : RecyclerView.AdapterDataObserver() {
+                override fun onItemRangeInserted(positionStart: Int, itemCount: Int) {
+                    super.onItemRangeInserted(positionStart, itemCount)
+                    val firstVisiblePosition = (this@apply.layoutManager as? LinearLayoutManager)?.findFirstCompletelyVisibleItemPosition()
+                    if (positionStart == 0 && firstVisiblePosition == 0) {
+                        scrollToPosition(0)
+                    }
+                }
+            })
+        }
     }
 
     abstract fun onViewCreated(binding: V, savedInstanceState: Bundle?)
