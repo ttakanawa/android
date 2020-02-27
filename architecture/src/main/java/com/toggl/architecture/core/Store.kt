@@ -1,6 +1,5 @@
 package com.toggl.architecture.core
 
-import android.util.Log
 import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.ConflatedBroadcastChannel
 import kotlinx.coroutines.flow.*
@@ -9,12 +8,13 @@ class Store<State, Action> private constructor(
     val state: Flow<State>,
     val dispatch: (Action) -> Unit
 ) {
+    @ExperimentalCoroutinesApi
     fun <ViewState, ViewAction> view(
         mapToLocalState: (State) -> ViewState,
         mapToGlobalAction: (ViewAction) -> Action?
     ) : Store<ViewState, ViewAction> {
         return Store(
-            state = state.map { mapToLocalState(it) },
+            state = state.map { mapToLocalState(it) }.distinctUntilChanged(),
             dispatch = { action ->
                 val globalAction = mapToGlobalAction(action) ?: return@Store
                 dispatch(globalAction)
@@ -40,18 +40,15 @@ class Store<State, Action> private constructor(
                 .asFlow()
                 .flowOn(Dispatchers.Main)
 
-            val settableValue = SettableValue(stateChannel::value) {
-                val offered = stateChannel.offer(it)
-                Log.d("Offering", offered.toString())
-            }
+            val settableValue = SettableValue(stateChannel::value) { stateChannel.offer(it) }
 
             lateinit var dispatch : (Action) -> Unit
             dispatch = { action ->
                 GlobalScope.launch {
-                    val effect = reducer.reduce(settableValue, action, environment)
-                    effect.collect {
-                        dispatch(it)
-                    }
+                    reducer
+                        .reduce(settableValue, action, environment)
+                        .onEach { dispatch(it) }
+                        .launchIn(this)
                 }
             }
 
