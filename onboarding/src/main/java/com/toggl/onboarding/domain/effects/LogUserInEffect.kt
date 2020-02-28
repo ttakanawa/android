@@ -1,13 +1,13 @@
 package com.toggl.onboarding.domain.effects
 
-import com.toggl.api.login.ILoginApi
+import com.toggl.api.login.LoginApi
 import com.toggl.architecture.core.Effect
 import com.toggl.models.validation.Email
 import com.toggl.models.validation.Password
 import com.toggl.onboarding.domain.actions.OnboardingAction
 import kotlinx.coroutines.flow.flow
 
-fun logUserInEffect(email: Email.Valid, password: Password.Valid, api: ILoginApi) : Effect<OnboardingAction> =
+fun logUserInEffect(email: Email.Valid, password: Password.Valid, api: LoginApi) : Effect<OnboardingAction> =
     flow {
         try {
             val user = api.login(email, password)

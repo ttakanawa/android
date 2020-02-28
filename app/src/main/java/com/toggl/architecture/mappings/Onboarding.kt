@@ -1,6 +1,6 @@
 package com.toggl.architecture.mappings
 
-import com.toggl.api.login.ILoginApi
+import com.toggl.api.login.LoginApi
 import com.toggl.architecture.AppAction
 import com.toggl.architecture.AppState
 import com.toggl.architecture.core.Reducer
@@ -16,7 +16,7 @@ fun mapAppStateToOnboardingState(appState: AppState): OnboardingState =
 fun mapAppActionToOnboardingAction(appAction: AppAction): OnboardingAction? =
     if (appAction is AppAction.Onboarding) appAction.onboarding else null
 
-fun mapAppEnvironmentToOnboardingEnvironment(appEnvironment: AppEnvironment): ILoginApi =
+fun mapAppEnvironmentToOnboardingEnvironment(appEnvironment: AppEnvironment): LoginApi =
     appEnvironment.loginApi
 
 fun mapOnboardingStateToAppState(appState: AppState, onboardingState: OnboardingState): AppState =

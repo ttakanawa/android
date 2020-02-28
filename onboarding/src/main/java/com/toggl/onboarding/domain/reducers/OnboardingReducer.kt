@@ -1,11 +1,10 @@
 package com.toggl.onboarding.domain.reducers
 
-import com.toggl.api.login.ILoginApi
+import com.toggl.api.login.LoginApi
 import com.toggl.architecture.Failure
 import com.toggl.architecture.Loadable.Loaded
 import com.toggl.architecture.Loadable.Error
 import com.toggl.architecture.Loadable.Loading
-import com.toggl.architecture.core.Effect
 import com.toggl.architecture.core.Reducer
 import com.toggl.models.validation.toEmail
 import com.toggl.models.validation.toPassword
@@ -18,7 +17,7 @@ import com.toggl.onboarding.domain.states.email
 import com.toggl.onboarding.domain.states.password
 import kotlinx.coroutines.flow.emptyFlow
 
-val onboardingReducer = Reducer<OnboardingState, OnboardingAction, ILoginApi> { state, action, api ->
+val onboardingReducer = Reducer<OnboardingState, OnboardingAction, LoginApi> { state, action, api ->
 
     val currentState = state.value
 
