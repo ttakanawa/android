@@ -15,8 +15,6 @@
         android:name="com.toggl.ui.MainFragment"
         android:label="Main"
         app:launchSingleTop="true" >
-        <deepLink
-            android:id="@+id/deepLink"
-            app:uri="toggl://main" />
+        <deepLink app:uri="toggl://main" />
     </fragment>
 </navigation>

@@ -26,10 +26,10 @@ class TimeEntryLogAdapter(val onContinueTappedListener: (Long) -> Unit = {})
     }
 
     inner class TimeEntryLogViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val addDescriptionLabel = itemView.findViewById<View>(R.id.addDescriptionLabel)
+        private val addDescriptionLabel = itemView.findViewById<View>(R.id.add_description_label)
         private val description = itemView.findViewById<TextView>(R.id.description)
         private val duration = itemView.findViewById<TextView>(R.id.duration)
-        private val continueButton = itemView.findViewById<View>(R.id.continueButton)
+        private val continueButton = itemView.findViewById<View>(R.id.continue_button)
 
         fun bind(item: FlatTimeEntryItem) {
 

@@ -16,7 +16,7 @@
         android:layout_height="wrap_content">
 
         <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/togglLogo"
+            android:id="@+id/toggl_logo"
             android:src="@drawable/ic_toggl_logo"
             android:layout_marginTop="@dimen/login_logo_top_margin"
             android:layout_width="@dimen/login_logo_width"
@@ -26,16 +26,16 @@
             app:layout_constraintStart_toStartOf="parent"/>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/emailLabel"
+            android:id="@+id/email_label"
             android:hint="@string/email"
             android:layout_marginTop="@dimen/login_logo_bottom_margin"
-            app:layout_constraintTop_toBottomOf="@id/togglLogo"
+            app:layout_constraintTop_toBottomOf="@id/toggl_logo"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             style="@style/login_text_field">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/emailEditText"
+                android:id="@+id/email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/surface"
@@ -44,17 +44,17 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/passwordLabel"
+            android:id="@+id/password_label"
             android:hint="@string/password"
-            android:labelFor="@id/passwordEditText"
+            android:labelFor="@id/password"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/emailLabel"
+            app:layout_constraintTop_toBottomOf="@id/email_label"
             app:errorTextColor="@color/error"
             app:passwordToggleEnabled="true"
             style="@style/login_text_field">
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/passwordEditText"
+                android:id="@+id/password"
                 android:inputType="textPassword"
                 android:backgroundTint="@color/surface"
                 android:layout_width="match_parent"
@@ -64,7 +64,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/loginButton"
+            android:id="@+id/login_button"
             app:backgroundTint="@color/secondary"
             android:text="@string/login"
             android:layout_marginTop="@dimen/login_button_top_margin"
@@ -72,7 +72,7 @@
             android:layout_marginRight="@dimen/login_side_padding"
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
-            app:layout_constraintTop_toBottomOf="@id/passwordLabel"
+            app:layout_constraintTop_toBottomOf="@id/password_label"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 

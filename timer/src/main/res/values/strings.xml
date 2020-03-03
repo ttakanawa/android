@@ -1,4 +1,4 @@
 <resources>
     <string name="app_name">Timer</string>
-    <string name="addDescription">Add description</string>
+    <string name="add_description">Add description</string>
 </resources>

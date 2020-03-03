@@ -38,7 +38,7 @@ class StartTimeEntryFragment : Fragment(R.layout.start_time_entry_fragment) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        timeEntryDescriptionEditText.doOnTextChanged { text, _, _, _ ->
+        time_entry_description.doOnTextChanged { text, _, _, _ ->
             val action = StartTimeEntryAction.TimeEntryDescriptionChanged(text.toString())
             store.dispatch(action)
         }
@@ -49,8 +49,8 @@ class StartTimeEntryFragment : Fragment(R.layout.start_time_entry_fragment) {
                 .map { it.editedDescription }
                 .distinctUntilChanged()
                 .onEach {
-                    if (timeEntryDescriptionEditText?.text.toString() != it ) {
-                        timeEntryDescriptionEditText.setText(it) }
+                    if (time_entry_description?.text.toString() != it ) {
+                        time_entry_description.setText(it) }
                 }
                 .launchIn(this)
 
@@ -76,21 +76,21 @@ class StartTimeEntryFragment : Fragment(R.layout.start_time_entry_fragment) {
     }
 
     private fun setEditedTimeEntryState(timeEntryIsRunning: Boolean) {
-        timeEntryDescriptionInputLayout.isVisible = !timeEntryIsRunning
-        runningTimeEntryLayout.isVisible = timeEntryIsRunning
+        time_entry_description_input_layout.isVisible = !timeEntryIsRunning
+        running_time_entry_layout.isVisible = timeEntryIsRunning
 
         if (timeEntryIsRunning) {
-            val color = ContextCompat.getColor(requireContext(), R.color.stopTimeEntryButtonBackground)
-            startTimeEntryButton.backgroundTintList = ColorStateList.valueOf(color)
-            startTimeEntryButton.setImageResource(R.drawable.ic_stop)
-            startTimeEntryButton.setOnClickListener {
+            val color = ContextCompat.getColor(requireContext(), R.color.stop_time_entry_button_background)
+            start_time_entry_button.backgroundTintList = ColorStateList.valueOf(color)
+            start_time_entry_button.setImageResource(R.drawable.ic_stop)
+            start_time_entry_button.setOnClickListener {
                 store.dispatch(StartTimeEntryAction.StopTimeEntryButtonTapped)
             }
         } else {
-            val color = ContextCompat.getColor(requireContext(), R.color.startTimeEntryButtonBackground)
-            startTimeEntryButton.backgroundTintList = ColorStateList.valueOf(color)
-            startTimeEntryButton.setImageResource(R.drawable.ic_play_big)
-            startTimeEntryButton.setOnClickListener {
+            val color = ContextCompat.getColor(requireContext(), R.color.start_time_entry_button_background)
+            start_time_entry_button.backgroundTintList = ColorStateList.valueOf(color)
+            start_time_entry_button.setImageResource(R.drawable.ic_play_big)
+            start_time_entry_button.setOnClickListener {
                 store.dispatch(StartTimeEntryAction.StartTimeEntryButtonTapped)
             }
         }

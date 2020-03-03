@@ -7,26 +7,20 @@
         android:id="@+id/timeEntriesLog"
         android:name="com.toggl.timer.ui.TimeEntriesLogFragment"
         android:label="TimeEntriesLogFragment">
-        <deepLink
-            android:id="@+id/timeEntriesLogDeepLink"
-            app:uri="toggl://timeentrieslog" />
+        <deepLink app:uri="toggl://timeentrieslog" />
     </fragment>
 
     <fragment
         android:id="@+id/reports"
         android:name="com.toggl.ui.ReportsFragment"
         android:label="ReportsFragment">
-        <deepLink
-            android:id="@+id/reportsDeepLink"
-            app:uri="toggl://reports" />
+        <deepLink app:uri="toggl://reports" />
     </fragment>
 
     <fragment
         android:id="@+id/calendar"
         android:name="com.toggl.ui.CalendarFragment"
         android:label="CalendarFragment">
-        <deepLink
-            android:id="@+id/calendarDeepLink"
-            app:uri="toggl://calendar" />
+        <deepLink app:uri="toggl://calendar" />
     </fragment>
 </navigation>

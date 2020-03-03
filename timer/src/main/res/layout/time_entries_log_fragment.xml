@@ -3,11 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/coordinatorLayout"
+    android:id="@+id/coordinator_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
+        android:id="@+id/recycler_view"
         tools:listitem="@layout/time_entries_log_item"
         android:clipToPadding="false"
         android:layout_width="match_parent"
@@ -15,7 +15,7 @@
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
     <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/appBarLayout"
+        android:id="@+id/app_bar_layout"
         app:liftOnScroll="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -33,7 +33,7 @@
         </com.google.android.material.appbar.MaterialToolbar>
     </com.google.android.material.appbar.AppBarLayout>
     <FrameLayout
-        android:id="@+id/startTimeEntryBottomSheet"
+        android:id="@+id/start_time_entry_bottom_sheet"
         android:layout_width="match_parent"
         android:layout_height="400dp"
         app:elevation="@dimen/plane_02"

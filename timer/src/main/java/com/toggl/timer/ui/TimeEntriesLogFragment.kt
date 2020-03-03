@@ -36,7 +36,7 @@ class TimeEntriesLogFragment : Fragment(R.layout.time_entries_log_fragment) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        recyclerView.adapter = adapter
+        recycler_view.adapter = adapter
 
         lifecycleScope.launch {
             store.state

@@ -50,16 +50,16 @@ class LoginFragment : Fragment(R.layout.login_fragment) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        loginButton.setOnClickListener {
+        login_button.setOnClickListener {
             store.dispatch(OnboardingAction.LoginTapped)
         }
 
-        emailEditText.doOnTextChanged { text, _, _, _ ->
+        email.doOnTextChanged { text, _, _, _ ->
             val action = OnboardingAction.EmailEntered(text.toString())
             store.dispatch(action)
         }
 
-        passwordEditText.doOnTextChanged { text, _, _, _ ->
+        password.doOnTextChanged { text, _, _, _ ->
             val action = OnboardingAction.PasswordEntered(text.toString())
             store.dispatch(action)
         }
@@ -75,7 +75,7 @@ class LoginFragment : Fragment(R.layout.login_fragment) {
             store.state
                 .map { it.email is Email.Valid && it.password is Password.Valid && it.user !is Loadable.Loading }
                 .distinctUntilChanged()
-                .onEach { loginButton.isEnabled = it }
+                .onEach { login_button.isEnabled = it }
                 .launchIn(this)
         }
     }

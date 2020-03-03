@@ -2,14 +2,14 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <style name="BaseAppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="colorPrimary">@color/primary</item>
-        <item name="colorPrimaryVariant">@color/primaryDark</item>
-        <item name="colorOnPrimary">@color/textOnPrimary</item>
+        <item name="colorPrimaryVariant">@color/primary_dark</item>
+        <item name="colorOnPrimary">@color/text_on_primary</item>
         <item name="colorSecondary">@color/secondary</item>
-        <item name="colorOnSecondary">@color/textOnSecondary</item>
+        <item name="colorOnSecondary">@color/text_on_secondary</item>
         <item name="colorError">@color/error</item>
-        <item name="colorOnError">@color/textOnError</item>
+        <item name="colorOnError">@color/text_on_error</item>
         <item name="colorSurface">@color/surface</item>
-        <item name="colorOnBackground">@color/textOnSurface</item>
+        <item name="colorOnBackground">@color/text_on_surface</item>
         <item name="android:colorBackground">@color/surface</item>
         <item name="android:statusBarColor">@color/surface</item>
         
