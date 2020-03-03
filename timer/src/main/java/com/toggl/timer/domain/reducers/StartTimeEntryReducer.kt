@@ -5,9 +5,11 @@ import com.toggl.architecture.core.noEffect
 import com.toggl.timer.domain.actions.StartTimeEntryAction
 import com.toggl.timer.domain.states.StartTimeEntryState
 
-internal val startTimeEntryReducer = Reducer<StartTimeEntryState, StartTimeEntryAction, Any> { state, action, _ ->
+typealias StartTimeEntryReducer = Reducer<StartTimeEntryState, StartTimeEntryAction, Any>
+
+internal fun createStartTimeEntryReducer() = StartTimeEntryReducer { state, action, _ ->
     when(action) {
-        StartTimeEntryAction.StartTimeEntryButtonTapped -> noEffect()
+        StartTimeEntryAction.StartTimeEntryButtonTapped,
         StartTimeEntryAction.StopTimeEntryButtonTapped -> noEffect()
         is StartTimeEntryAction.TimeEntryDescriptionChanged -> {
             state.value = state.value.copy(editedDescription =  action.description)
@@ -15,3 +17,4 @@ internal val startTimeEntryReducer = Reducer<StartTimeEntryState, StartTimeEntry
         }
     }
 }
+

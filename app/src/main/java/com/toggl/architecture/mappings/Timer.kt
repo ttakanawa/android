@@ -7,7 +7,6 @@ import com.toggl.architecture.core.pullback
 import com.toggl.repository.Repository
 import com.toggl.environment.AppEnvironment
 import com.toggl.timer.domain.actions.TimerAction
-import com.toggl.timer.domain.reducers.timerReducer
 import com.toggl.timer.domain.states.TimerState
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.InternalCoroutinesApi
@@ -26,15 +25,3 @@ fun mapTimerStateToAppState(appState: AppState, timerState: TimerState): AppStat
 
 fun mapTimerActionToAppAction(timerAction: TimerAction): AppAction =
     AppAction.Timer(timerAction)
-
-@ExperimentalCoroutinesApi
-@InternalCoroutinesApi
-val globalTimerReducer: Reducer<AppState, AppAction, AppEnvironment> =
-    pullback(
-        reducer = timerReducer,
-        mapToLocalState = ::mapAppStateToTimerState,
-        mapToLocalAction = ::mapAppActionToTimerAction,
-        mapToLocalEnvironment = ::mapAppEnvironmentToTimerEnvironment,
-        mapToGlobalAction = ::mapTimerActionToAppAction,
-        mapToGlobalState = ::mapTimerStateToAppState
-    )

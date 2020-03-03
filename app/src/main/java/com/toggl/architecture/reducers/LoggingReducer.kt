@@ -10,8 +10,7 @@ import com.toggl.onboarding.domain.actions.formatForDebug
 import com.toggl.timer.domain.actions.formatForDebug
 import kotlinx.coroutines.flow.emptyFlow
 
-
-val actionLoggingReducer = Reducer <AppState, AppAction, AppEnvironment> { _, action, _ ->
+fun createLoggingReducer() = Reducer <AppState, AppAction, AppEnvironment> { _, action, _ ->
 
     Log.i("LoggingReducer", when (action) {
         is AppAction.Onboarding -> action.onboarding.formatForDebug()

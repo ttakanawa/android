@@ -5,17 +5,15 @@ import com.toggl.architecture.core.noEffect
 import com.toggl.repository.Repository
 import com.toggl.timer.domain.actions.StartTimeEntryAction
 import com.toggl.timer.domain.actions.TimeEntriesLogAction
+import com.toggl.timer.domain.actions.TimerAction
 import com.toggl.timer.domain.effects.startTimeEntryEffect
 import com.toggl.timer.domain.states.TimeEntriesLogState
 import kotlinx.coroutines.flow.emptyFlow
 
-internal val timeEntriesLogReducer = Reducer<TimeEntriesLogState, TimeEntriesLogAction, Repository> { state, action, repository ->
+typealias TimeEntriesLogReducer = Reducer<TimeEntriesLogState, TimeEntriesLogAction, Repository>
+
+internal fun createTimeEntriesLogReducer() = TimeEntriesLogReducer { _, action, _ ->
     when(action) {
-        is TimeEntriesLogAction.ContinueButtonTapped -> {
-            state.value.items.firstOrNull { it.id == action.id }?.run {
-                startTimeEntryEffect(description, repository)
-            } ?: noEffect()
-        }
+        is TimeEntriesLogAction.ContinueButtonTapped -> noEffect()
     }
-    noEffect()
 }

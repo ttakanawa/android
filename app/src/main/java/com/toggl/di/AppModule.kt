@@ -2,15 +2,15 @@ package com.toggl.di
 
 import com.toggl.architecture.AppAction
 import com.toggl.architecture.AppState
-import com.toggl.architecture.core.Store
-import com.toggl.architecture.core.FlowStore
-import com.toggl.architecture.core.combine
+import com.toggl.architecture.core.*
 import com.toggl.architecture.mappings.*
-import com.toggl.architecture.reducers.actionLoggingReducer
-import com.toggl.architecture.reducers.appReducer
+import com.toggl.architecture.reducers.AppReducer
+import com.toggl.architecture.reducers.createAppReducer
 import com.toggl.environment.AppEnvironment
 import com.toggl.onboarding.domain.actions.OnboardingAction
+import com.toggl.onboarding.domain.reducers.OnboardingReducer
 import com.toggl.onboarding.domain.states.OnboardingState
+import com.toggl.repository.Repository
 import com.toggl.timer.domain.actions.TimerAction
 import com.toggl.timer.domain.states.TimerState
 import dagger.Module
@@ -23,23 +23,24 @@ import javax.inject.Singleton
 @Module
 class AppModule {
 
+    @Provides
+    @Singleton
+    @ExperimentalCoroutinesApi
+    @InternalCoroutinesApi
+    fun appReducer(
+        onboardingReducer: OnboardingReducer,
+        timerReducer: Reducer<TimerState, TimerAction, Repository>) =
+        createAppReducer(onboardingReducer, timerReducer)
+
     @FlowPreview
     @ExperimentalCoroutinesApi
     @InternalCoroutinesApi
     @Provides
     @Singleton
-    fun appStore(environment: AppEnvironment): Store<AppState, AppAction> {
-
-        val combinedReducers = combine(
-            actionLoggingReducer,
-            appReducer,
-            globalTimerReducer,
-            globalOnboardingReducer
-        )
-
+    fun appStore(appReducer: AppReducer, environment: AppEnvironment): Store<AppState, AppAction> {
         return FlowStore.create(
             initialState = AppState(),
-            reducer = combinedReducers,
+            reducer = appReducer,
             environment = environment
         )
     }

@@ -8,7 +8,6 @@ import com.toggl.architecture.core.pullback
 import com.toggl.environment.AppEnvironment
 import com.toggl.onboarding.domain.actions.OnboardingAction
 import com.toggl.onboarding.domain.states.OnboardingState
-import com.toggl.onboarding.domain.reducers.onboardingReducer
 
 fun mapAppStateToOnboardingState(appState: AppState): OnboardingState =
     OnboardingState(appState.user, appState.onboardingLocalState)
@@ -24,14 +23,3 @@ fun mapOnboardingStateToAppState(appState: AppState, onboardingState: Onboarding
 
 fun mapOnboardingActionToAppAction(onboardingAction: OnboardingAction): AppAction =
     AppAction.Onboarding(onboardingAction)
-
-
-val globalOnboardingReducer : Reducer<AppState, AppAction, AppEnvironment> =
-    pullback(
-        reducer = onboardingReducer,
-        mapToLocalState = ::mapAppStateToOnboardingState,
-        mapToLocalAction = ::mapAppActionToOnboardingAction,
-        mapToLocalEnvironment = ::mapAppEnvironmentToOnboardingEnvironment,
-        mapToGlobalAction = ::mapOnboardingActionToAppAction,
-        mapToGlobalState = ::mapOnboardingStateToAppState
-    )

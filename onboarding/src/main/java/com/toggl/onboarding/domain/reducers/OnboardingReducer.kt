@@ -16,16 +16,16 @@ import com.toggl.onboarding.domain.actions.OnboardingAction
 import com.toggl.onboarding.domain.effects.logUserInEffect
 import com.toggl.onboarding.domain.states.email
 import com.toggl.onboarding.domain.states.password
-import kotlinx.coroutines.flow.emptyFlow
 
-val onboardingReducer = Reducer<OnboardingState, OnboardingAction, LoginApi> { state, action, api ->
+typealias OnboardingReducer = Reducer<OnboardingState, OnboardingAction, LoginApi>
+fun createOnboardingReducer() = OnboardingReducer { state, action, api ->
 
     val currentState = state.value
 
     when (action) {
         OnboardingAction.LoginTapped -> {
-            val validEmail = currentState.email.validEmailOrNull() ?: return@Reducer noEffect()
-            val validPassword = currentState.password.validPasswordOrNull() ?: return@Reducer noEffect()
+            val validEmail = currentState.email.validEmailOrNull() ?: return@OnboardingReducer noEffect()
+            val validPassword = currentState.password.validPasswordOrNull() ?: return@OnboardingReducer noEffect()
 
             state.value = currentState.copy(user = Loading())
 
