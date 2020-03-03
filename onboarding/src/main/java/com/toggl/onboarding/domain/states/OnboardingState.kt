@@ -13,7 +13,7 @@ data class OnboardingState(
         internal val email: Email,
         internal val password: Password
     ) {
-        constructor() : this(Email.Invalid, Password.Invalid)
+        constructor() : this(Email.Invalid(""), Password.Invalid(""))
     }
 }
 

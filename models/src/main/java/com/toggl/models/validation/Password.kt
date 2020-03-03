@@ -1,14 +1,16 @@
 package com.toggl.models.validation
 
-sealed class Password {
-    class Valid private constructor(val password: String) : Password() {
+sealed class Password(val password: String) {
+    class Invalid(password: String) : Password(password)
+    class Valid private constructor(password: String) : Password(password) {
         companion object {
             fun from(password: String) =
-                if (password.isBlank() || password.length < 6) Invalid
+                if (password.isBlank() || password.length < 6) Invalid(password)
                 else Valid(password)
         }
     }
-    object Invalid : Password()
+
+    override fun toString(): String = password
 
     companion object {
         fun from(password: String) =
@@ -19,7 +21,7 @@ sealed class Password {
 fun Password.validPasswordOrNull() : Password.Valid? =
     when(this) {
         is Password.Valid -> this
-        Password.Invalid -> null
+        is Password.Invalid -> null
     }
 
 

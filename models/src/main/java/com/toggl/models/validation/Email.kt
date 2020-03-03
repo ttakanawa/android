@@ -1,14 +1,16 @@
 package com.toggl.models.validation
 
-sealed class Email {
-    class Valid private constructor(val email: String) : Email() {
+sealed class Email(val email: String) {
+    class Valid private constructor(email: String) : Email(email) {
         companion object {
             fun from(email: String) =
-                if (email.isBlank() ) Invalid
+                if (email.isBlank() ) Invalid(email)
                 else Valid(email)
         }
     }
-    object Invalid : Email()
+    class Invalid(email: String) : Email(email)
+
+    override fun toString(): String = email
 
     companion object {
         fun from(email: String) = Valid.from(email)
@@ -18,7 +20,7 @@ sealed class Email {
 fun Email.validEmailOrNull() : Email.Valid? =
     when(this) {
         is Email.Valid -> this
-        Email.Invalid -> null
+        is Email.Invalid -> null
     }
 
 fun String.toEmail() = Email.from(this)
