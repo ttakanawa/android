@@ -32,18 +32,20 @@
                 android:layout_width="100dp" />
         </com.google.android.material.appbar.MaterialToolbar>
     </com.google.android.material.appbar.AppBarLayout>
-    <include layout="@layout/layout_time_entry_bottom_sheet" />
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/startTimeEntryButton"
-        style="@style/Widget.MaterialComponents.FloatingActionButton"
-        app:elevation="@dimen/plane_01"
-        app:backgroundTint="@color/startTimeEntryButtonBackground"
-        app:srcCompat="@drawable/ic_play_big"
-        android:tint="@android:color/white"
-        app:layout_anchor="@+id/startTimeEntryBottomSheet"
-        android:layout_marginEnd="@dimen/fab_margin"
-        android:layout_marginBottom="@dimen/fab_margin"
-        app:layout_anchorGravity="top|right|end"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+    <FrameLayout
+        android:id="@+id/startTimeEntryBottomSheet"
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        app:elevation="@dimen/plane_02"
+        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
+        app:behavior_hideable="false"
+        app:behavior_peekHeight="@dimen/time_entry_edit_peek_size"
+        tools:showIn="@layout/time_entries_log_fragment">
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/start_time_entry_container"
+            android:name="com.toggl.timer.ui.StartTimeEntryFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </FrameLayout>
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

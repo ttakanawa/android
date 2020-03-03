@@ -4,5 +4,5 @@
     <dimen name="swipe_action_font_size">16sp</dimen>
     <dimen name="time_entry_log_item_height">72dp</dimen>
     <dimen name="time_entry_log_side_padding">16dp</dimen>
-    <dimen name="time_entry_edit_peek_size">68dp</dimen>
+    <dimen name="time_entry_edit_peek_size">95dp</dimen>
 </resources>

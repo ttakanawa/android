@@ -1,11 +1,7 @@
 package com.toggl.timer.domain.states
 
-import com.toggl.models.domain.TimeEntry
-
 data class TimeEntriesLogState(
-    val items: List<TimeEntryLogViewModel>,
-    val runningTimeEntry: TimeEntry?,
-    val editedDescription: String
+    val items: List<FlatTimeEntryItem>
 ) {
     companion object {
         fun fromTimerState(timerState: TimerState) =
@@ -19,9 +15,7 @@ data class TimeEntriesLogState(
                             startTime = timeEntry.startTime,
                             duration = timeEntry.duration
                         )
-                    },
-                timerState.runningTimeEntryOrNull(),
-                timerState.editedDescription
+                    }
             )
     }
 }

@@ -7,19 +7,32 @@ sealed class TimerAction {
     data class TimeEntryUpdated(val id: Long, val timeEntry: TimeEntry) : TimerAction()
 }
 
+sealed class StartTimeEntryAction : TimerAction() {
+    object StartTimeEntryButtonTapped : StartTimeEntryAction()
+    object StopTimeEntryButtonTapped : StartTimeEntryAction()
+    data class TimeEntryDescriptionChanged(val description: String) : StartTimeEntryAction()
+
+    companion object {
+        fun fromTimerAction(timerAction: TimerAction) : StartTimeEntryAction? =
+            timerAction as? StartTimeEntryAction
+    }
+}
+
 sealed class TimeEntriesLogAction : TimerAction() {
-    object StartTimeEntryButtonTapped : TimeEntriesLogAction()
-    object StopTimeEntryButtonTapped : TimeEntriesLogAction()
     data class ContinueButtonTapped(val id: Long) : TimeEntriesLogAction()
-    data class TimeEntryDescriptionChanged(val description: String) : TimeEntriesLogAction()
+
+    companion object {
+        fun fromTimerAction(timerAction: TimerAction): TimeEntriesLogAction? =
+            timerAction as? TimeEntriesLogAction
+    }
 }
 
 fun TimerAction.formatForDebug() : String =
     when(this) {
-        TimeEntriesLogAction.StartTimeEntryButtonTapped -> "Start time entry button tapped"
-        TimeEntriesLogAction.StopTimeEntryButtonTapped -> "Stop time entry button tapped"
+        StartTimeEntryAction.StartTimeEntryButtonTapped -> "Start time entry button tapped"
+        StartTimeEntryAction.StopTimeEntryButtonTapped -> "Stop time entry button tapped"
         is TimeEntriesLogAction.ContinueButtonTapped -> "Continue time entry button tapped for id $id"
-        is TimeEntriesLogAction.TimeEntryDescriptionChanged -> "Description changed to $description"
+        is StartTimeEntryAction.TimeEntryDescriptionChanged -> "Description changed to $description"
         is TimerAction.TimeEntryStarted -> "Time entry started with id $startedTimeEntry.id"
         is TimerAction.TimeEntryUpdated -> "Time entry with id $id updated"
     }

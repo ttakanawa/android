@@ -1,5 +1,6 @@
 package com.toggl.timer.di
 
+import com.toggl.timer.ui.StartTimeEntryFragment
 import com.toggl.timer.ui.TimeEntriesLogFragment
 import dagger.Subcomponent
 
@@ -11,6 +12,7 @@ interface TimerComponent {
     }
 
     fun inject(fragment: TimeEntriesLogFragment)
+    fun inject(fragment: StartTimeEntryFragment)
 }
 
 interface TimerComponentProvider {

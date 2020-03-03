@@ -5,10 +5,12 @@ import com.toggl.architecture.core.combine
 import com.toggl.architecture.core.pullback
 import com.toggl.common.identity
 import com.toggl.repository.Repository
+import com.toggl.timer.domain.actions.StartTimeEntryAction
 import com.toggl.timer.domain.actions.TimeEntriesLogAction
 import com.toggl.timer.domain.actions.TimerAction
 import com.toggl.timer.domain.effects.startTimeEntryEffect
 import com.toggl.timer.domain.effects.stopTimeEntryEffect
+import com.toggl.timer.domain.states.StartTimeEntryState
 import com.toggl.timer.domain.states.TimeEntriesLogState
 import com.toggl.timer.domain.states.TimerState
 import com.toggl.timer.domain.states.editedDescription
@@ -18,21 +20,16 @@ import kotlinx.coroutines.flow.emptyFlow
 
 @ExperimentalCoroutinesApi
 @InternalCoroutinesApi
-internal val globalTimerReducer = Reducer<TimerState, TimerAction, Repository> { state, action, repository ->
+internal val timerModuleReducer = Reducer<TimerState, TimerAction, Repository> { state, action, repository ->
 
     when(action) {
-        TimeEntriesLogAction.StartTimeEntryButtonTapped -> {
+        is StartTimeEntryAction.TimeEntryDescriptionChanged -> emptyFlow()
+        is TimeEntriesLogAction.ContinueButtonTapped ->  emptyFlow()
+        StartTimeEntryAction.StopTimeEntryButtonTapped -> stopTimeEntryEffect(repository)
+        StartTimeEntryAction.StartTimeEntryButtonTapped -> {
             val description = state.value.editedDescription
             state.value = state.value.copy(localState = state.value.localState.copy(editedDescription = ""))
             startTimeEntryEffect(description, repository)
-        }
-        TimeEntriesLogAction.StopTimeEntryButtonTapped -> {
-            stopTimeEntryEffect(repository)
-        }
-        is TimeEntriesLogAction.ContinueButtonTapped -> {
-            state.value.timeEntries.firstOrNull { it.id == action.id }?.run {
-                startTimeEntryEffect(description,  repository)
-            } ?: emptyFlow()
         }
         is TimerAction.TimeEntryUpdated -> {
             val newTimeEntries = state.value.timeEntries.map {
@@ -41,17 +38,12 @@ internal val globalTimerReducer = Reducer<TimerState, TimerAction, Repository> {
             state.value = state.value.copy(timeEntries = newTimeEntries)
             emptyFlow()
         }
-        is TimeEntriesLogAction.TimeEntryDescriptionChanged -> {
-            state.value = state.value.copy(localState =  state.value.localState.copy(editedDescription = action.description))
-            emptyFlow()
-        }
         is TimerAction.TimeEntryStarted -> {
             val newEntries =
                 if (action.stoppedTimeEntry == null) state.value.timeEntries
                 else state.value.timeEntries.map { if (it.id != action.stoppedTimeEntry.id) it else action.stoppedTimeEntry }
 
             state.value = state.value.copy(timeEntries = newEntries + action.startedTimeEntry)
-
             emptyFlow()
         }
     }
@@ -61,19 +53,21 @@ internal val globalTimerReducer = Reducer<TimerState, TimerAction, Repository> {
 @InternalCoroutinesApi
 val timerReducer =
     combine (
-        globalTimerReducer,
-        pullback<TimeEntriesLogState, TimerState, TimeEntriesLogAction, TimerAction, Any, Repository>(
+        timerModuleReducer,
+        pullback<TimeEntriesLogState, TimerState, TimeEntriesLogAction, TimerAction, Repository, Repository>(
             reducer = timeEntriesLogReducer,
             mapToLocalState = TimeEntriesLogState.Companion::fromTimerState,
-            mapToLocalAction = { it as? TimeEntriesLogAction },
+            mapToLocalAction = TimeEntriesLogAction.Companion::fromTimerAction,
             mapToLocalEnvironment = ::identity,
             mapToGlobalAction = ::identity,
-            mapToGlobalState = { global: TimerState, local ->
-                global.copy(
-                    localState = global.localState.copy(
-                        editedDescription = local.editedDescription
-                    )
-                )
-            }
+            mapToGlobalState = { global: TimerState, _ -> global }
+        ),
+        pullback<StartTimeEntryState, TimerState, StartTimeEntryAction, TimerAction, Any, Repository>(
+            reducer = startTimeEntryReducer,
+            mapToLocalState = StartTimeEntryState.Companion::fromTimerState,
+            mapToLocalAction = StartTimeEntryAction.Companion::fromTimerAction,
+            mapToLocalEnvironment = ::identity,
+            mapToGlobalAction = ::identity,
+            mapToGlobalState = StartTimeEntryState.Companion::toTimerState
         )
     )

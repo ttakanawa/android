@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/start_time_entry_card"
+        android:layout_marginTop="27dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/timeEntryDescriptionInputLayout"
+            android:hint="@string/description"
+            tools:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/time_entry_edit_peek_size">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/timeEntryDescriptionEditText"
+                android:background="@android:color/transparent"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:inputType="text"
+                tools:ignore="Autofill" />
+        </com.google.android.material.textfield.TextInputLayout>
+        <FrameLayout
+            android:id="@+id/runningTimeEntryLayout"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/time_entry_edit_peek_size"
+            android:padding="@dimen/grid_2">
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/runningTimeEntryDescription"
+                android:textAppearance="?attr/textAppearanceHeadline6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                tools:text="Running time entry"/>
+        </FrameLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/startTimeEntryButton"
+        style="@style/Widget.MaterialComponents.FloatingActionButton"
+        app:elevation="@dimen/plane_01"
+        app:backgroundTint="@color/startTimeEntryButtonBackground"
+        app:srcCompat="@drawable/ic_play_big"
+        android:tint="@android:color/white"
+        android:layout_marginEnd="@dimen/fab_margin"
+        android:layout_marginBottom="@dimen/fab_margin"
+        app:layout_anchor="@id/start_time_entry_card"
+        app:layout_anchorGravity="top|right|end"
+        android:layout_width="54dp"
+        android:layout_height="54dp" />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
