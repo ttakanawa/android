@@ -4,6 +4,9 @@ import androidx.core.net.toUri
 
 class DeepLinkUrls {
     companion object {
-        val timeEntryLog = "toggl://timeentrylog".toUri()
+        val main = "toggl://main".toUri()
+        val timeEntriesLog = "toggl://timeentrieslog".toUri()
+        val calendar = "toggl://reports".toUri()
+        val reports = "toggl://calendar".toUri()
     }
 }

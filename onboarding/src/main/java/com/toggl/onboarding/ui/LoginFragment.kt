@@ -69,7 +69,7 @@ class LoginFragment : Fragment(R.layout.login_fragment) {
                 .emitIf { it.user.isLoaded() }
                 .onEach {
                     view.windowToken?.let(::dismissKeyboard)
-                    findNavController().navigate(DeepLinkUrls.timeEntryLog)
+                    findNavController().navigate(DeepLinkUrls.main)
                 }.launchIn(this)
 
             store.state

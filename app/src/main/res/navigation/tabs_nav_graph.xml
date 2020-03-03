@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/tabs_nav_graph"
+    app:startDestination="@id/timeEntriesLog">
+    <fragment
+        android:id="@+id/timeEntriesLog"
+        android:name="com.toggl.timer.ui.TimeEntriesLogFragment"
+        android:label="TimeEntriesLogFragment">
+        <deepLink
+            android:id="@+id/timeEntriesLogDeepLink"
+            app:uri="toggl://timeentrieslog" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/reports"
+        android:name="com.toggl.ui.ReportsFragment"
+        android:label="ReportsFragment">
+        <deepLink
+            android:id="@+id/reportsDeepLink"
+            app:uri="toggl://reports" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/calendar"
+        android:name="com.toggl.ui.CalendarFragment"
+        android:label="CalendarFragment">
+        <deepLink
+            android:id="@+id/calendarDeepLink"
+            app:uri="toggl://calendar" />
+    </fragment>
+</navigation>
