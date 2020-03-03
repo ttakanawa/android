@@ -3,19 +3,18 @@ package com.toggl.timer.ui
 import android.content.Context
 import android.content.res.ColorStateList
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
-import com.toggl.architecture.core.Store
 import com.toggl.models.domain.TimeEntry
 import com.toggl.timer.R
 import com.toggl.timer.di.TimerComponentProvider
 import com.toggl.timer.domain.actions.TimeEntriesLogAction
-import com.toggl.timer.domain.states.TimeEntriesLogState
 import kotlinx.android.synthetic.main.layout_time_entry_bottom_sheet.*
 import kotlinx.android.synthetic.main.time_entries_log_fragment.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -25,10 +24,12 @@ import javax.inject.Inject
 
 class TimeEntriesLogFragment : Fragment(R.layout.time_entries_log_fragment) {
 
-    private val adapter = TimeEntryLogAdapter { store.dispatch(TimeEntriesLogAction.ContinueButtonTapped(it)) }
-
     @Inject
-    internal lateinit var store : Store<TimeEntriesLogState, TimeEntriesLogAction>
+    lateinit var viewModelFactory: ViewModelProvider.Factory
+
+    private val store : TimeEntriesLogStoreViewModel by viewModels { viewModelFactory }
+
+    private val adapter = TimeEntryLogAdapter { store.dispatch(TimeEntriesLogAction.ContinueButtonTapped(it)) }
 
     override fun onAttach(context: Context) {
         (requireActivity().applicationContext as TimerComponentProvider)
