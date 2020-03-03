@@ -1,9 +1,9 @@
 package com.toggl.di
 
-import com.toggl.api.login.MockLoginApi
 import com.toggl.architecture.AppAction
 import com.toggl.architecture.AppState
 import com.toggl.architecture.core.Store
+import com.toggl.architecture.core.FlowStore
 import com.toggl.architecture.core.combine
 import com.toggl.architecture.mappings.*
 import com.toggl.architecture.reducers.actionLoggingReducer
@@ -37,7 +37,7 @@ class AppModule {
             globalOnboardingReducer
         )
 
-        return Store.create(
+        return FlowStore.create(
             initialState = AppState(),
             reducer = combinedReducers,
             environment = environment

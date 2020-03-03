@@ -4,19 +4,29 @@ import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.ConflatedBroadcastChannel
 import kotlinx.coroutines.flow.*
 
-class Store<State, Action> private constructor(
-    val state: Flow<State>,
+interface Store<State, Action> {
+    val state: Flow<State>
     val dispatch: (Action) -> Unit
-) {
     @ExperimentalCoroutinesApi
     fun <ViewState, ViewAction> view(
         mapToLocalState: (State) -> ViewState,
         mapToGlobalAction: (ViewAction) -> Action?
+    ) : Store<ViewState, ViewAction>
+}
+
+class FlowStore<State, Action> private constructor(
+    override val state: Flow<State>,
+    override val dispatch: (Action) -> Unit
+) : Store<State, Action> {
+    @ExperimentalCoroutinesApi
+    override fun <ViewState, ViewAction> view(
+        mapToLocalState: (State) -> ViewState,
+        mapToGlobalAction: (ViewAction) -> Action?
     ) : Store<ViewState, ViewAction> {
-        return Store(
+        return FlowStore(
             state = state.map { mapToLocalState(it) }.distinctUntilChanged(),
             dispatch = { action ->
-                val globalAction = mapToGlobalAction(action) ?: return@Store
+                val globalAction = mapToGlobalAction(action) ?: return@FlowStore
                 dispatch(globalAction)
             }
         )
@@ -52,7 +62,7 @@ class Store<State, Action> private constructor(
                 }
             }
 
-             return Store(state, dispatch)
+             return FlowStore(state, dispatch)
         }
     }
 }
