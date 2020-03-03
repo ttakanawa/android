@@ -32,7 +32,7 @@ fun <LocalState, GlobalState, LocalAction, GlobalAction, LocalEnvironment, Globa
 ) : Reducer<GlobalState, GlobalAction, GlobalEnvironment> =
     Reducer { globalState, globalAction, globalEnvironment ->
         val localAction = mapToLocalAction(globalAction)
-            ?: return@Reducer emptyFlow()
+            ?: return@Reducer noEffect()
         val localEnvironment = mapToLocalEnvironment(globalEnvironment)
         reducer
             .reduce(globalState.map(mapToLocalState, mapToGlobalState), localAction, localEnvironment)

@@ -1,6 +1,7 @@
 package com.toggl.timer.domain.reducers
 
 import com.toggl.architecture.core.Reducer
+import com.toggl.architecture.core.noEffect
 import com.toggl.repository.Repository
 import com.toggl.timer.domain.actions.StartTimeEntryAction
 import com.toggl.timer.domain.actions.TimeEntriesLogAction
@@ -13,8 +14,8 @@ internal val timeEntriesLogReducer = Reducer<TimeEntriesLogState, TimeEntriesLog
         is TimeEntriesLogAction.ContinueButtonTapped -> {
             state.value.items.firstOrNull { it.id == action.id }?.run {
                 startTimeEntryEffect(description, repository)
-            } ?: emptyFlow()
+            } ?: noEffect()
         }
     }
-    emptyFlow()
+    noEffect()
 }

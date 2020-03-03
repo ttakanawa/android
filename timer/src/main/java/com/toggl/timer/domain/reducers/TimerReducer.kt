@@ -2,6 +2,7 @@ package com.toggl.timer.domain.reducers
 
 import com.toggl.architecture.core.Reducer
 import com.toggl.architecture.core.combine
+import com.toggl.architecture.core.noEffect
 import com.toggl.architecture.core.pullback
 import com.toggl.common.identity
 import com.toggl.repository.Repository
@@ -16,15 +17,14 @@ import com.toggl.timer.domain.states.TimerState
 import com.toggl.timer.domain.states.editedDescription
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.InternalCoroutinesApi
-import kotlinx.coroutines.flow.emptyFlow
 
 @ExperimentalCoroutinesApi
 @InternalCoroutinesApi
 internal val timerModuleReducer = Reducer<TimerState, TimerAction, Repository> { state, action, repository ->
 
     when(action) {
-        is StartTimeEntryAction.TimeEntryDescriptionChanged -> emptyFlow()
-        is TimeEntriesLogAction.ContinueButtonTapped ->  emptyFlow()
+        is StartTimeEntryAction.TimeEntryDescriptionChanged -> noEffect()
+        is TimeEntriesLogAction.ContinueButtonTapped ->  noEffect()
         StartTimeEntryAction.StopTimeEntryButtonTapped -> stopTimeEntryEffect(repository)
         StartTimeEntryAction.StartTimeEntryButtonTapped -> {
             val description = state.value.editedDescription
@@ -36,7 +36,7 @@ internal val timerModuleReducer = Reducer<TimerState, TimerAction, Repository> {
                 if (it.id != action.id) it else action.timeEntry
             }
             state.value = state.value.copy(timeEntries = newTimeEntries)
-            emptyFlow()
+            noEffect()
         }
         is TimerAction.TimeEntryStarted -> {
             val newEntries =
@@ -44,7 +44,7 @@ internal val timerModuleReducer = Reducer<TimerState, TimerAction, Repository> {
                 else state.value.timeEntries.map { if (it.id != action.stoppedTimeEntry.id) it else action.stoppedTimeEntry }
 
             state.value = state.value.copy(timeEntries = newEntries + action.startedTimeEntry)
-            emptyFlow()
+            noEffect()
         }
     }
 }

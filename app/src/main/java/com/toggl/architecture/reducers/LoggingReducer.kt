@@ -4,6 +4,7 @@ import android.util.Log
 import com.toggl.architecture.AppAction
 import com.toggl.architecture.AppState
 import com.toggl.architecture.core.Reducer
+import com.toggl.architecture.core.noEffect
 import com.toggl.environment.AppEnvironment
 import com.toggl.onboarding.domain.actions.formatForDebug
 import com.toggl.timer.domain.actions.formatForDebug
@@ -17,5 +18,5 @@ val actionLoggingReducer = Reducer <AppState, AppAction, AppEnvironment> { _, ac
         is AppAction.Timer -> action.timer.formatForDebug()
     })
 
-    emptyFlow()
+    noEffect()
 }

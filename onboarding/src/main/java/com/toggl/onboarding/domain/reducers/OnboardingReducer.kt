@@ -6,6 +6,7 @@ import com.toggl.architecture.Loadable.Loaded
 import com.toggl.architecture.Loadable.Error
 import com.toggl.architecture.Loadable.Loading
 import com.toggl.architecture.core.Reducer
+import com.toggl.architecture.core.noEffect
 import com.toggl.models.validation.toEmail
 import com.toggl.models.validation.toPassword
 import com.toggl.models.validation.validEmailOrNull
@@ -23,8 +24,8 @@ val onboardingReducer = Reducer<OnboardingState, OnboardingAction, LoginApi> { s
 
     when (action) {
         OnboardingAction.LoginTapped -> {
-            val validEmail = currentState.email.validEmailOrNull() ?: return@Reducer emptyFlow()
-            val validPassword = currentState.password.validPasswordOrNull() ?: return@Reducer emptyFlow()
+            val validEmail = currentState.email.validEmailOrNull() ?: return@Reducer noEffect()
+            val validPassword = currentState.password.validPasswordOrNull() ?: return@Reducer noEffect()
 
             state.value = currentState.copy(user = Loading())
 
@@ -32,21 +33,21 @@ val onboardingReducer = Reducer<OnboardingState, OnboardingAction, LoginApi> { s
         }
         is OnboardingAction.SetUser -> {
             state.value = currentState.copy(user = Loaded(action.user))
-            emptyFlow()
+            noEffect()
         }
         is OnboardingAction.SetUserError -> {
             state.value = currentState.copy(user = Error(Failure(action.throwable, "")))
-            emptyFlow()
+            noEffect()
         }
         is OnboardingAction.EmailEntered -> {
             val newLocalState = currentState.localState.copy(email = action.email.toEmail())
             state.value = currentState.copy(localState = newLocalState)
-            emptyFlow()
+            noEffect()
         }
         is OnboardingAction.PasswordEntered -> {
             val newLocalState = currentState.localState.copy(password = action.password.toPassword())
             state.value = currentState.copy(localState = newLocalState)
-            emptyFlow()
+            noEffect()
         }
     }
 }
