@@ -10,7 +10,7 @@ sealed class StartTimeEntryAction {
                 if (timerAction !is TimerAction.StartTimeEntry) null
                 else timerAction.startTimeEntryAction
 
-        fun toTimerAction(startTimeEntryAction: StartTimeEntryAction) =
+        fun toTimerAction(startTimeEntryAction: StartTimeEntryAction): TimerAction =
             TimerAction.StartTimeEntry(startTimeEntryAction)
     }
 }

@@ -20,7 +20,6 @@ import dagger.Provides
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.InternalCoroutinesApi
 import javax.inject.Singleton
-
 @Module(subcomponents = [TimerComponent::class])
 class TimerModule {
 
@@ -44,24 +43,23 @@ class TimerModule {
     @ExperimentalCoroutinesApi
     @InternalCoroutinesApi
     @Singleton
-    internal fun timerReducer() : TimerReducer =
-        combine (
+    internal fun timerReducer() : TimerReducer {
+
+        return combine (
             createTimerModuleReducer(),
-            pullback<TimeEntriesLogState, TimerState, TimeEntriesLogAction, TimerAction, Repository, Repository>(
-                reducer = createTimeEntriesLogReducer(),
+            createTimeEntriesLogReducer().pullback(
                 mapToLocalState = TimeEntriesLogState.Companion::fromTimerState,
                 mapToLocalAction = TimeEntriesLogAction.Companion::fromTimerAction,
-                mapToLocalEnvironment = ::identity,
                 mapToGlobalAction = TimeEntriesLogAction.Companion::toTimerAction,
                 mapToGlobalState = { global: TimerState, _ -> global }
             ),
-            pullback<StartTimeEntryState, TimerState, StartTimeEntryAction, TimerAction, Any, Repository>(
-                reducer = createStartTimeEntryReducer(),
+            createStartTimeEntryReducer().pullback(
                 mapToLocalState = StartTimeEntryState.Companion::fromTimerState,
                 mapToLocalAction = StartTimeEntryAction.Companion::fromTimerAction,
-                mapToLocalEnvironment = ::identity,
                 mapToGlobalAction = StartTimeEntryAction.Companion::toTimerAction,
                 mapToGlobalState = StartTimeEntryState.Companion::toTimerState
             )
         )
+    }
 }
+

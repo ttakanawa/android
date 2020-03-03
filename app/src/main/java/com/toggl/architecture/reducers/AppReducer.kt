@@ -24,16 +24,14 @@ fun createAppReducer(
 ) : AppReducer =
     combine(
         createLoggingReducer(),
-        pullback(
-            reducer = timerReducer,
+        timerReducer.pullback(
             mapToLocalState = ::mapAppStateToTimerState,
             mapToLocalAction = ::mapAppActionToTimerAction,
             mapToLocalEnvironment = ::mapAppEnvironmentToTimerEnvironment,
             mapToGlobalAction = ::mapTimerActionToAppAction,
             mapToGlobalState = ::mapTimerStateToAppState
         ),
-        pullback(
-            reducer = onboardingReducer,
+        onboardingReducer.pullback(
             mapToLocalState = ::mapAppStateToOnboardingState,
             mapToLocalAction = ::mapAppActionToOnboardingAction,
             mapToLocalEnvironment = ::mapAppEnvironmentToOnboardingEnvironment,
