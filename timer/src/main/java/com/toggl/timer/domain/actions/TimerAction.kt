@@ -7,7 +7,7 @@ sealed class TimerAction {
     data class TimeEntryUpdated(val id: Long, val timeEntry: TimeEntry) : TimerAction()
 }
 
-internal sealed class TimeEntriesLogAction : TimerAction() {
+sealed class TimeEntriesLogAction : TimerAction() {
     object StartTimeEntryButtonTapped : TimeEntriesLogAction()
     object StopTimeEntryButtonTapped : TimeEntriesLogAction()
     data class ContinueButtonTapped(val id: Long) : TimeEntriesLogAction()
