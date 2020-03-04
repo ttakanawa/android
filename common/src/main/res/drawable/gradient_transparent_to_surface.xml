@@ -6,5 +6,5 @@
         android:startColor="@color/transparent_surface"
         android:centerColor="@color/surface"
         android:endColor="@color/surface"
-        android:angle="0" />
+        android:angle="@integer/transparency_angle" />
 </shape>
