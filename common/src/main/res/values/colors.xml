@@ -7,9 +7,10 @@
   <color name="text_on_secondary">#FF000000</color>
   <color name="error">#FFE20505</color>
   <color name="text_on_error">#000000</color>
-  <color name="background">#FCE5DB</color>
-  <color name="surface">#FFFDEFE9</color>
-  <color name="transparent_surface">#00FDEFE9</color>
+  <color name="background">#FFFEFBFA</color>
+  <color name="transparent_background">#00FEFBFA</color>
+  <color name="surface">#FFFCE5DB</color>
+  <color name="transparent_surface">#00FCE5DB</color>
   <color name="text_on_surface">#FF000000</color>
   <color name="start_time_entry_button_background">#FF1AD180</color>
   <color name="stop_time_entry_button_background">#FFE20505</color>
