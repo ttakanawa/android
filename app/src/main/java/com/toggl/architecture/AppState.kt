@@ -4,7 +4,7 @@ import com.toggl.architecture.Loadable.Nothing
 import com.toggl.models.domain.TimeEntry
 import com.toggl.models.domain.User
 import com.toggl.onboarding.domain.states.OnboardingState
-import com.toggl.timer.domain.states.TimerState
+import com.toggl.timer.common.domain.TimerState
 
 data class AppState(
     val user: Loadable<User>,

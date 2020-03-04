@@ -1,4 +1,4 @@
-package com.toggl.timer.ui
+package com.toggl.timer.log.ui
 
 import android.view.LayoutInflater
 import android.view.View
@@ -9,13 +9,12 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.toggl.timer.R
-import com.toggl.timer.domain.states.FlatTimeEntryItem
-import com.toggl.timer.domain.states.TimeEntryLogViewModel
+import com.toggl.timer.log.domain.FlatTimeEntryItem
+import com.toggl.timer.log.domain.TimeEntryViewModel
 import java.util.concurrent.TimeUnit
 
-
 class TimeEntryLogAdapter(val onContinueTappedListener: (Long) -> Unit = {})
-    : ListAdapter<TimeEntryLogViewModel, TimeEntryLogAdapter.TimeEntryLogViewHolder>(diffCallback) {
+    : ListAdapter<TimeEntryViewModel, TimeEntryLogAdapter.TimeEntryLogViewHolder>(diffCallback) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TimeEntryLogViewHolder =
         LayoutInflater.from(parent.context)
             .inflate(R.layout.time_entries_log_item, parent, false)
@@ -54,18 +53,18 @@ class TimeEntryLogAdapter(val onContinueTappedListener: (Long) -> Unit = {})
     }
 
     companion object {
-        val diffCallback =  object : DiffUtil.ItemCallback<TimeEntryLogViewModel>() {
+        val diffCallback =  object : DiffUtil.ItemCallback<TimeEntryViewModel>() {
             override fun areItemsTheSame(
-                oldItem: TimeEntryLogViewModel,
-                newItem: TimeEntryLogViewModel
+                oldItem: TimeEntryViewModel,
+                newItem: TimeEntryViewModel
             ): Boolean =
                 oldItem is FlatTimeEntryItem &&
                         newItem is FlatTimeEntryItem &&
                         oldItem.id  == newItem.id
 
             override fun areContentsTheSame(
-                oldItem: TimeEntryLogViewModel,
-                newItem: TimeEntryLogViewModel
+                oldItem: TimeEntryViewModel,
+                newItem: TimeEntryViewModel
             ): Boolean =
                 oldItem is FlatTimeEntryItem &&
                 newItem is FlatTimeEntryItem &&

@@ -1,4 +1,4 @@
-package com.toggl.timer.ui
+package com.toggl.timer.start.ui
 
 import android.content.Context
 import android.content.res.ColorStateList
@@ -14,7 +14,7 @@ import androidx.lifecycle.lifecycleScope
 import com.toggl.models.domain.TimeEntry
 import com.toggl.timer.R
 import com.toggl.timer.di.TimerComponentProvider
-import com.toggl.timer.domain.actions.StartTimeEntryAction
+import com.toggl.timer.start.domain.StartTimeEntryAction
 import kotlinx.android.synthetic.main.start_time_entry_fragment.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.*

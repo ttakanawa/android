@@ -1,4 +1,4 @@
-package com.toggl.timer.ui
+package com.toggl.timer.log.ui
 
 import android.content.Context
 import android.os.Bundle
@@ -9,7 +9,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.toggl.timer.R
 import com.toggl.timer.di.TimerComponentProvider
-import com.toggl.timer.domain.actions.TimeEntriesLogAction
+import com.toggl.timer.log.domain.TimeEntriesLogAction
 import kotlinx.android.synthetic.main.time_entries_log_fragment.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.launchIn

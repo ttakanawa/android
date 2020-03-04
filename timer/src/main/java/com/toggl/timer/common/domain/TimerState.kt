@@ -1,4 +1,4 @@
-package com.toggl.timer.domain.states
+package com.toggl.timer.common.domain
 
 import com.toggl.models.domain.TimeEntry
 

@@ -43,7 +43,7 @@
         tools:showIn="@layout/time_entries_log_fragment">
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/start_time_entry_container"
-            android:name="com.toggl.timer.ui.StartTimeEntryFragment"
+            android:name="com.toggl.timer.start.ui.StartTimeEntryFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
     </FrameLayout>

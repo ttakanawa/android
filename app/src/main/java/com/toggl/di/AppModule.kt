@@ -11,8 +11,8 @@ import com.toggl.onboarding.domain.actions.OnboardingAction
 import com.toggl.onboarding.domain.reducers.OnboardingReducer
 import com.toggl.onboarding.domain.states.OnboardingState
 import com.toggl.repository.Repository
-import com.toggl.timer.domain.actions.TimerAction
-import com.toggl.timer.domain.states.TimerState
+import com.toggl.timer.common.domain.TimerAction
+import com.toggl.timer.common.domain.TimerState
 import dagger.Module
 import dagger.Provides
 import kotlinx.coroutines.ExperimentalCoroutinesApi

@@ -1,6 +1,6 @@
 package com.toggl.di
 
-import com.toggl.MainActivity
+import com.toggl.ui.MainActivity
 import com.toggl.environment.di.EnvironmentModule
 import com.toggl.onboarding.di.OnboardingComponent
 import com.toggl.onboarding.di.OnboardingModule

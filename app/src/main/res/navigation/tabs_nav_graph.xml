@@ -5,7 +5,7 @@
     app:startDestination="@id/timeEntriesLog">
     <fragment
         android:id="@+id/timeEntriesLog"
-        android:name="com.toggl.timer.ui.TimeEntriesLogFragment"
+        android:name="com.toggl.timer.log.ui.TimeEntriesLogFragment"
         android:label="TimeEntriesLogFragment">
         <deepLink app:uri="toggl://timeentrieslog" />
     </fragment>

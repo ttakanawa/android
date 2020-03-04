@@ -1,4 +1,6 @@
-package com.toggl.timer.domain.actions
+package com.toggl.timer.log.domain
+
+import com.toggl.timer.common.domain.TimerAction
 
 sealed class TimeEntriesLogAction {
     data class ContinueButtonTapped(val id: Long) : TimeEntriesLogAction()
@@ -9,7 +11,9 @@ sealed class TimeEntriesLogAction {
             else timerAction.timeEntriesLogAction
 
         fun toTimerAction(timeEntriesLogAction: TimeEntriesLogAction): TimerAction =
-            TimerAction.TimeEntriesLog(timeEntriesLogAction)
+            TimerAction.TimeEntriesLog(
+                timeEntriesLogAction
+            )
     }
 }
 

@@ -1,8 +1,8 @@
-package com.toggl.timer.domain.effects
+package com.toggl.timer.common.domain
 
 import com.toggl.architecture.core.Effect
 import com.toggl.repository.Repository
-import com.toggl.timer.domain.actions.TimerAction
+import com.toggl.timer.common.domain.TimerAction
 import kotlinx.coroutines.flow.flow
 
 fun stopTimeEntryEffect(repository: Repository): Effect<TimerAction> = flow {

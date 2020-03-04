@@ -1,6 +1,10 @@
-package com.toggl.timer.domain.actions
+package com.toggl.timer.common.domain
 
 import com.toggl.models.domain.TimeEntry
+import com.toggl.timer.log.domain.TimeEntriesLogAction
+import com.toggl.timer.log.domain.formatForDebug
+import com.toggl.timer.start.domain.StartTimeEntryAction
+import com.toggl.timer.start.domain.formatForDebug
 
 sealed class TimerAction {
     class StartTimeEntry(val startTimeEntryAction: StartTimeEntryAction) : TimerAction()

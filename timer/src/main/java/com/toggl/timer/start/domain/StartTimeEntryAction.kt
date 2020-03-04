@@ -1,4 +1,6 @@
-package com.toggl.timer.domain.actions
+package com.toggl.timer.start.domain
+
+import com.toggl.timer.common.domain.TimerAction
 
 sealed class StartTimeEntryAction {
     object StartTimeEntryButtonTapped : StartTimeEntryAction()
@@ -11,7 +13,9 @@ sealed class StartTimeEntryAction {
                 else timerAction.startTimeEntryAction
 
         fun toTimerAction(startTimeEntryAction: StartTimeEntryAction): TimerAction =
-            TimerAction.StartTimeEntry(startTimeEntryAction)
+            TimerAction.StartTimeEntry(
+                startTimeEntryAction
+            )
     }
 }
 

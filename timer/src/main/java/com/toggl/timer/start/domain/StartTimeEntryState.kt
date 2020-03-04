@@ -1,6 +1,9 @@
-package com.toggl.timer.domain.states
+package com.toggl.timer.start.domain
 
 import com.toggl.models.domain.TimeEntry
+import com.toggl.timer.common.domain.TimerState
+import com.toggl.timer.common.domain.editedDescription
+import com.toggl.timer.common.domain.runningTimeEntryOrNull
 
 data class StartTimeEntryState(
     val runningTimeEntry: TimeEntry?,

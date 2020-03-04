@@ -1,4 +1,4 @@
-package com.toggl
+package com.toggl.di
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider

@@ -1,4 +1,6 @@
-package com.toggl.timer.domain.states
+package com.toggl.timer.log.domain
+
+import com.toggl.timer.common.domain.TimerState
 
 data class TimeEntriesLogState(
     val items: List<FlatTimeEntryItem>
