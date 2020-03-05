@@ -1,5 +1,7 @@
 package com.toggl.di
 
+import android.content.Context
+import com.toggl.TogglApplication
 import com.toggl.architecture.AppAction
 import com.toggl.architecture.AppState
 import com.toggl.architecture.core.*
@@ -9,6 +11,7 @@ import com.toggl.architecture.reducers.createAppReducer
 import com.toggl.onboarding.domain.actions.OnboardingAction
 import com.toggl.onboarding.domain.reducers.OnboardingReducer
 import com.toggl.onboarding.domain.states.OnboardingState
+import com.toggl.repository.timeentry.TimeEntryRepository
 import com.toggl.timer.common.domain.TimerAction
 import com.toggl.timer.common.domain.TimerReducer
 import com.toggl.timer.common.domain.TimerState
@@ -19,8 +22,11 @@ import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.InternalCoroutinesApi
 import javax.inject.Singleton
 
-@Module
+@Module(includes = [AppModuleBinds::class])
 class AppModule {
+
+    @Provides
+    fun provideContext(application: TogglApplication): Context = application.applicationContext
 
     @Provides
     @Singleton
