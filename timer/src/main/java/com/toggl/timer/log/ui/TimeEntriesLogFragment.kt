@@ -42,9 +42,9 @@ class TimeEntriesLogFragment : Fragment(R.layout.time_entries_log_fragment) {
 
         lifecycleScope.launch {
             store.state
-                .map { it.timeEntries }
+                .map { Pair(it.timeEntries, it.projects) }
                 .distinctUntilChanged()
-                .map { it.toTimeEntryViewModelList() }
+                .map { (timeEntries, projects) -> timeEntries.toTimeEntryViewModelList(projects) }
                 .onEach { adapter.submitList(it) }
                 .launchIn(this)
         }

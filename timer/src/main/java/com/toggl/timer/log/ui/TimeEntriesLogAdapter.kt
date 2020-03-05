@@ -1,9 +1,12 @@
 package com.toggl.timer.log.ui
 
+import android.content.res.ColorStateList
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.content.ContextCompat
+import androidx.core.graphics.toColorInt
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -26,6 +29,7 @@ class TimeEntryLogAdapter(val onContinueTappedListener: (Long) -> Unit = {})
 
     inner class TimeEntryLogViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val addDescriptionLabel = itemView.findViewById<View>(R.id.add_description_label)
+        private val project = itemView.findViewById<TextView>(R.id.project_label)
         private val description = itemView.findViewById<TextView>(R.id.description)
         private val duration = itemView.findViewById<TextView>(R.id.duration)
         private val continueButton = itemView.findViewById<View>(R.id.continue_button)
@@ -36,6 +40,14 @@ class TimeEntryLogAdapter(val onContinueTappedListener: (Long) -> Unit = {})
             addDescriptionLabel.isVisible = !hasDescription
             description.isVisible = hasDescription
             description.text = item.description
+
+            if (item.project == null) {
+                project.isVisible = false
+            } else {
+                project.isVisible = true
+                project.text = item.project.name
+                project.setTextColor(item.project.color.toColorInt())
+            }
 
             item.duration?.let { durationMillis ->
                 val hms = String.format(

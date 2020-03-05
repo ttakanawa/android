@@ -1,4 +1,4 @@
-package com.toggl.timer.common.domain
+package com.toggl.timer.start.domain
 
 import com.toggl.architecture.core.Effect
 import com.toggl.repository.Repository

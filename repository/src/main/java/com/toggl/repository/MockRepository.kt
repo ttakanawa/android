@@ -16,12 +16,16 @@ class MockRepository : Repository {
             newEntry
         }
 
-        val currentId = timeEntries.size;
+        val currentId = timeEntries.size
         timeEntries.add(TimeEntry(
             id = currentId.toLong(),
             description = description,
             startTime = now,
-            duration = null
+            duration = null,
+            billable = false,
+            projectId = null,
+            taskId = null,
+            tagIds = listOf()
         ))
 
         return StartTimeEntryResult(timeEntries[currentId], oldEntry)

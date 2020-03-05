@@ -9,6 +9,7 @@ import com.toggl.timer.common.domain.TimerState
 fun mapAppStateToTimerState(appState: AppState): TimerState =
     TimerState(
         appState.timeEntries,
+        appState.projects,
         appState.timerLocalState
     )
 
