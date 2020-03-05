@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="email">Email</string>
+    <string name="password">Senha</string>
+    <string name="description">Descrição</string>
+    <string name="timer">Registros de tempo</string>
+    <string name="reports">Relatórios</string>
+    <string name="calendar">Calendário</string>
+    <string name="add_description">Adicionar descrição</string>
+    <string name="login">Entrar</string>
+</resources>
