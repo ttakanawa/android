@@ -2,7 +2,6 @@ package com.toggl.architecture.mappings
 
 import com.toggl.architecture.AppAction
 import com.toggl.architecture.AppState
-import com.toggl.repository.Repository
 import com.toggl.timer.common.domain.TimerAction
 import com.toggl.timer.common.domain.TimerState
 
