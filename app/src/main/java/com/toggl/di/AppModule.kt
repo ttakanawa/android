@@ -6,11 +6,9 @@ import com.toggl.architecture.core.*
 import com.toggl.architecture.mappings.*
 import com.toggl.architecture.reducers.AppReducer
 import com.toggl.architecture.reducers.createAppReducer
-import com.toggl.environment.AppEnvironment
 import com.toggl.onboarding.domain.actions.OnboardingAction
 import com.toggl.onboarding.domain.reducers.OnboardingReducer
 import com.toggl.onboarding.domain.states.OnboardingState
-import com.toggl.repository.Repository
 import com.toggl.timer.common.domain.TimerAction
 import com.toggl.timer.common.domain.TimerReducer
 import com.toggl.timer.common.domain.TimerState
@@ -38,11 +36,10 @@ class AppModule {
     @InternalCoroutinesApi
     @Provides
     @Singleton
-    fun appStore(appReducer: AppReducer, environment: AppEnvironment): Store<AppState, AppAction> {
+    fun appStore(appReducer: AppReducer): Store<AppState, AppAction> {
         return FlowStore.create(
             initialState = AppState(),
-            reducer = appReducer,
-            environment = environment
+            reducer = appReducer
         )
     }
 

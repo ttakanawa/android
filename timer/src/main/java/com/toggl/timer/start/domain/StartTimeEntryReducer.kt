@@ -8,9 +8,9 @@ import com.toggl.timer.common.domain.startTimeEntryEffect
 import com.toggl.timer.common.domain.stopTimeEntryEffect
 import com.toggl.timer.extensions.replaceTimeEntryWithId
 
-typealias StartTimeEntryReducer = Reducer<StartTimeEntryState, StartTimeEntryAction, Repository>
+typealias StartTimeEntryReducer = Reducer<StartTimeEntryState, StartTimeEntryAction>
 
-internal fun createStartTimeEntryReducer() = StartTimeEntryReducer { state, action, repository ->
+internal fun createStartTimeEntryReducer(repository: Repository) = StartTimeEntryReducer { state, action ->
         when (action) {
             StartTimeEntryAction.StopTimeEntryButtonTapped -> stopTimeEntryEffect(repository)
             StartTimeEntryAction.StartTimeEntryButtonTapped -> {

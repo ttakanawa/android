@@ -17,8 +17,8 @@ import com.toggl.onboarding.domain.effects.logUserInEffect
 import com.toggl.onboarding.domain.states.email
 import com.toggl.onboarding.domain.states.password
 
-typealias OnboardingReducer = Reducer<OnboardingState, OnboardingAction, LoginApi>
-fun createOnboardingReducer() = OnboardingReducer { state, action, api ->
+typealias OnboardingReducer = Reducer<OnboardingState, OnboardingAction>
+fun createOnboardingReducer(api: LoginApi) = OnboardingReducer { state, action ->
 
     val currentState = state.value
 

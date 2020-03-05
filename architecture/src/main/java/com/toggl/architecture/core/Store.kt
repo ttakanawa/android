@@ -35,10 +35,9 @@ class FlowStore<State, Action> private constructor(
     companion object {
         @FlowPreview
         @ExperimentalCoroutinesApi
-        fun <State, Action, Environment> create(
+        fun <State, Action> create(
             initialState: State,
-            reducer: Reducer<State, Action, Environment>,
-            environment: Environment
+            reducer: Reducer<State, Action>
         ): Store<State, Action> {
 
             val stateChannel = ConflatedBroadcastChannel<State>()
@@ -56,7 +55,7 @@ class FlowStore<State, Action> private constructor(
             dispatch = { action ->
                 GlobalScope.launch {
                     reducer
-                        .reduce(settableValue, action, environment)
+                        .reduce(settableValue, action)
                         .onEach { dispatch(it) }
                         .launchIn(this)
                 }

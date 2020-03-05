@@ -2,9 +2,8 @@ package com.toggl.timer.common.domain
 
 import com.toggl.architecture.core.Reducer
 import com.toggl.models.domain.TimeEntry
-import com.toggl.repository.Repository
 
-typealias TimerReducer = Reducer<TimerState, TimerAction, Repository>
+typealias TimerReducer = Reducer<TimerState, TimerAction>
 
 fun handleTimeEntryCreationStateChanges(
     timeEntries: List<TimeEntry>,

@@ -3,6 +3,7 @@ package com.toggl.timer.di
 import com.toggl.architecture.core.Store
 import com.toggl.architecture.core.combine
 import com.toggl.architecture.core.pullback
+import com.toggl.repository.Repository
 import com.toggl.timer.start.domain.StartTimeEntryAction
 import com.toggl.timer.log.domain.TimeEntriesLogAction
 import com.toggl.timer.common.domain.TimerAction
@@ -40,16 +41,16 @@ class TimerModule {
     @ExperimentalCoroutinesApi
     @InternalCoroutinesApi
     @Singleton
-    internal fun timerReducer() : TimerReducer {
+    internal fun timerReducer(repository: Repository) : TimerReducer {
 
         return combine (
-            createTimeEntriesLogReducer().pullback(
+            createTimeEntriesLogReducer(repository).pullback(
                 mapToLocalState = TimeEntriesLogState.Companion::fromTimerState,
                 mapToLocalAction = TimeEntriesLogAction.Companion::fromTimerAction,
                 mapToGlobalState = TimeEntriesLogState.Companion::toTimerState,
                 mapToGlobalAction = TimeEntriesLogAction.Companion::toTimerAction
             ),
-            createStartTimeEntryReducer().pullback(
+            createStartTimeEntryReducer(repository).pullback(
                 mapToLocalState = StartTimeEntryState.Companion::fromTimerState,
                 mapToLocalAction = StartTimeEntryAction.Companion::fromTimerAction,
                 mapToGlobalState = StartTimeEntryState.Companion::toTimerState,

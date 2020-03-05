@@ -1,16 +1,14 @@
 package com.toggl.timer.log.domain
 
-import com.toggl.architecture.core.Effect
 import com.toggl.architecture.core.Reducer
 import com.toggl.architecture.core.noEffect
 import com.toggl.repository.Repository
-import com.toggl.timer.common.domain.TimerAction
 import com.toggl.timer.common.domain.handleTimeEntryCreationStateChanges
 import com.toggl.timer.common.domain.startTimeEntryEffect
 
-typealias TimeEntriesLogReducer = Reducer<TimeEntriesLogState, TimeEntriesLogAction, Repository>
+typealias TimeEntriesLogReducer = Reducer<TimeEntriesLogState, TimeEntriesLogAction>
 
-internal fun createTimeEntriesLogReducer() = TimeEntriesLogReducer { state, action, repository ->
+internal fun createTimeEntriesLogReducer(repository: Repository) = TimeEntriesLogReducer { state, action ->
     when (action) {
         is TimeEntriesLogAction.ContinueButtonTapped ->
             state.value.timeEntries.firstOrNull { it.id == action.id }?.run {

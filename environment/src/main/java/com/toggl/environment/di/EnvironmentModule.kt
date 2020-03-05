@@ -1,8 +1,9 @@
 package com.toggl.environment.di
 
+import com.toggl.api.login.LoginApi
 import com.toggl.api.login.MockLoginApi
 import com.toggl.repository.MockRepository
-import com.toggl.environment.AppEnvironment
+import com.toggl.repository.Repository
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -12,9 +13,11 @@ class EnvironmentModule {
 
     @Provides
     @Singleton
-    fun appEnvironment(): AppEnvironment =
-        AppEnvironment(
-            MockLoginApi(),
-            MockRepository()
-        )
+    fun loginApi() : LoginApi =
+        MockLoginApi()
+
+    @Provides
+    @Singleton
+    fun repository() : Repository =
+        MockRepository()
 }

@@ -6,13 +6,12 @@ import com.toggl.architecture.core.Reducer
 import com.toggl.architecture.core.combine
 import com.toggl.architecture.core.pullback
 import com.toggl.architecture.mappings.*
-import com.toggl.environment.AppEnvironment
 import com.toggl.onboarding.domain.reducers.OnboardingReducer
 import com.toggl.timer.common.domain.TimerReducer
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.InternalCoroutinesApi
 
-typealias AppReducer = Reducer<AppState, AppAction, AppEnvironment>
+typealias AppReducer = Reducer<AppState, AppAction>
 
 @InternalCoroutinesApi
 @ExperimentalCoroutinesApi
@@ -25,14 +24,12 @@ fun createAppReducer(
         timerReducer.pullback(
             mapToLocalState = ::mapAppStateToTimerState,
             mapToLocalAction = ::mapAppActionToTimerAction,
-            mapToLocalEnvironment = ::mapAppEnvironmentToTimerEnvironment,
             mapToGlobalState = ::mapTimerStateToAppState,
             mapToGlobalAction = ::mapTimerActionToAppAction
         ),
         onboardingReducer.pullback(
             mapToLocalState = ::mapAppStateToOnboardingState,
             mapToLocalAction = ::mapAppActionToOnboardingAction,
-            mapToLocalEnvironment = ::mapAppEnvironmentToOnboardingEnvironment,
             mapToGlobalState = ::mapOnboardingStateToAppState,
             mapToGlobalAction = ::mapOnboardingActionToAppAction
         )
