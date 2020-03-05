@@ -14,6 +14,7 @@ import androidx.lifecycle.lifecycleScope
 import com.toggl.models.domain.TimeEntry
 import com.toggl.timer.R
 import com.toggl.timer.di.TimerComponentProvider
+import com.toggl.timer.extensions.runningTimeEntryOrNull
 import com.toggl.timer.start.domain.StartTimeEntryAction
 import kotlinx.android.synthetic.main.start_time_entry_fragment.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -55,10 +56,10 @@ class StartTimeEntryFragment : Fragment(R.layout.start_time_entry_fragment) {
                 .launchIn(this)
 
             val runningTimeEntryFlow = store.state
-                .map { it.runningTimeEntry }
+                .map { it.timeEntries.runningTimeEntryOrNull() }
+                .distinctUntilChanged()
 
             runningTimeEntryFlow
-                .distinctUntilChanged()
                 .filterNotNull()
                 .onEach { updateRunningTimeEntryCard(it) }
                 .launchIn(this)

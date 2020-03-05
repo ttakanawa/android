@@ -9,7 +9,6 @@ import com.toggl.timer.common.domain.TimerAction
 import com.toggl.timer.common.domain.TimerReducer
 import com.toggl.timer.start.domain.createStartTimeEntryReducer
 import com.toggl.timer.log.domain.createTimeEntriesLogReducer
-import com.toggl.timer.common.domain.createTimerModuleReducer
 import com.toggl.timer.start.domain.StartTimeEntryState
 import com.toggl.timer.log.domain.TimeEntriesLogState
 import com.toggl.timer.common.domain.TimerState
@@ -44,18 +43,17 @@ class TimerModule {
     internal fun timerReducer() : TimerReducer {
 
         return combine (
-            createTimerModuleReducer(),
             createTimeEntriesLogReducer().pullback(
                 mapToLocalState = TimeEntriesLogState.Companion::fromTimerState,
                 mapToLocalAction = TimeEntriesLogAction.Companion::fromTimerAction,
-                mapToGlobalAction = TimeEntriesLogAction.Companion::toTimerAction,
-                mapToGlobalState = { global: TimerState, _ -> global }
+                mapToGlobalState = TimeEntriesLogState.Companion::toTimerState,
+                mapToGlobalAction = TimeEntriesLogAction.Companion::toTimerAction
             ),
             createStartTimeEntryReducer().pullback(
                 mapToLocalState = StartTimeEntryState.Companion::fromTimerState,
                 mapToLocalAction = StartTimeEntryAction.Companion::fromTimerAction,
-                mapToGlobalAction = StartTimeEntryAction.Companion::toTimerAction,
-                mapToGlobalState = StartTimeEntryState.Companion::toTimerState
+                mapToGlobalState = StartTimeEntryState.Companion::toTimerState,
+                mapToGlobalAction = StartTimeEntryAction.Companion::toTimerAction
             )
         )
     }

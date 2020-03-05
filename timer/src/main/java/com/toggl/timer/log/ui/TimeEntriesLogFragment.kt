@@ -9,9 +9,11 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.toggl.timer.R
 import com.toggl.timer.di.TimerComponentProvider
+import com.toggl.timer.extensions.toTimeEntryViewModelList
 import com.toggl.timer.log.domain.TimeEntriesLogAction
 import kotlinx.android.synthetic.main.time_entries_log_fragment.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
@@ -40,7 +42,9 @@ class TimeEntriesLogFragment : Fragment(R.layout.time_entries_log_fragment) {
 
         lifecycleScope.launch {
             store.state
-                .map { it.items }
+                .map { it.timeEntries }
+                .distinctUntilChanged()
+                .map { it.toTimeEntryViewModelList() }
                 .onEach { adapter.submitList(it) }
                 .launchIn(this)
         }

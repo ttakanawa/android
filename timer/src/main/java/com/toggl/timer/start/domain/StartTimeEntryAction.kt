@@ -1,11 +1,15 @@
 package com.toggl.timer.start.domain
 
+import com.toggl.models.domain.TimeEntry
 import com.toggl.timer.common.domain.TimerAction
+import com.toggl.timer.log.domain.TimeEntriesLogAction
 
 sealed class StartTimeEntryAction {
     object StartTimeEntryButtonTapped : StartTimeEntryAction()
     object StopTimeEntryButtonTapped : StartTimeEntryAction()
     data class TimeEntryDescriptionChanged(val description: String) : StartTimeEntryAction()
+    data class TimeEntryUpdated(val id: Long, val timeEntry: TimeEntry) : StartTimeEntryAction()
+    data class TimeEntryStarted(val startedTimeEntry: TimeEntry, val stoppedTimeEntry: TimeEntry?) : StartTimeEntryAction()
 
     companion object {
         fun fromTimerAction(timerAction: TimerAction) : StartTimeEntryAction? =
@@ -24,4 +28,6 @@ fun StartTimeEntryAction.formatForDebug() =
         StartTimeEntryAction.StartTimeEntryButtonTapped -> "Start time entry button tapped"
         StartTimeEntryAction.StopTimeEntryButtonTapped -> "Stop time entry button tapped"
         is StartTimeEntryAction.TimeEntryDescriptionChanged -> "Description changed to $description"
+        is StartTimeEntryAction.TimeEntryUpdated -> "Time entry with id $id updated"
+        is StartTimeEntryAction.TimeEntryStarted -> "Time entry started with id $startedTimeEntry.id"
     }

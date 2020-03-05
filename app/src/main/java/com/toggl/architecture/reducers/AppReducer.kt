@@ -26,14 +26,14 @@ fun createAppReducer(
             mapToLocalState = ::mapAppStateToTimerState,
             mapToLocalAction = ::mapAppActionToTimerAction,
             mapToLocalEnvironment = ::mapAppEnvironmentToTimerEnvironment,
-            mapToGlobalAction = ::mapTimerActionToAppAction,
-            mapToGlobalState = ::mapTimerStateToAppState
+            mapToGlobalState = ::mapTimerStateToAppState,
+            mapToGlobalAction = ::mapTimerActionToAppAction
         ),
         onboardingReducer.pullback(
             mapToLocalState = ::mapAppStateToOnboardingState,
             mapToLocalAction = ::mapAppActionToOnboardingAction,
             mapToLocalEnvironment = ::mapAppEnvironmentToOnboardingEnvironment,
-            mapToGlobalAction = ::mapOnboardingActionToAppAction,
-            mapToGlobalState = ::mapOnboardingStateToAppState
+            mapToGlobalState = ::mapOnboardingStateToAppState,
+            mapToGlobalAction = ::mapOnboardingActionToAppAction
         )
     )

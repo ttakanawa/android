@@ -12,6 +12,7 @@ import com.toggl.onboarding.domain.reducers.OnboardingReducer
 import com.toggl.onboarding.domain.states.OnboardingState
 import com.toggl.repository.Repository
 import com.toggl.timer.common.domain.TimerAction
+import com.toggl.timer.common.domain.TimerReducer
 import com.toggl.timer.common.domain.TimerState
 import dagger.Module
 import dagger.Provides
@@ -29,7 +30,7 @@ class AppModule {
     @InternalCoroutinesApi
     fun appReducer(
         onboardingReducer: OnboardingReducer,
-        timerReducer: Reducer<TimerState, TimerAction, Repository>) =
+        timerReducer: TimerReducer) =
         createAppReducer(onboardingReducer, timerReducer)
 
     @FlowPreview

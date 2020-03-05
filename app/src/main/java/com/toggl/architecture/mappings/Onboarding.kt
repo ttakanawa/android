@@ -3,8 +3,6 @@ package com.toggl.architecture.mappings
 import com.toggl.api.login.LoginApi
 import com.toggl.architecture.AppAction
 import com.toggl.architecture.AppState
-import com.toggl.architecture.core.Reducer
-import com.toggl.architecture.core.pullback
 import com.toggl.environment.AppEnvironment
 import com.toggl.onboarding.domain.actions.OnboardingAction
 import com.toggl.onboarding.domain.states.OnboardingState

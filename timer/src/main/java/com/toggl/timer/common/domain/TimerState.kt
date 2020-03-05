@@ -10,8 +10,5 @@ data class TimerState(val timeEntries: List<TimeEntry>, val localState: LocalSta
     }
 }
 
-fun TimerState.runningTimeEntryOrNull() =
-    timeEntries.firstOrNull { it.duration == null }
-
 val TimerState.editedDescription: String
     get() = localState.editedDescription

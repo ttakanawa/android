@@ -25,8 +25,8 @@ fun <LocalState, GlobalState, LocalAction, GlobalAction, Environment>
     Reducer<LocalState, LocalAction, Environment>.pullback(
     mapToLocalState: (GlobalState) -> LocalState,
     mapToLocalAction: (GlobalAction) -> LocalAction?,
-    mapToGlobalAction: (LocalAction) -> GlobalAction,
-    mapToGlobalState: (GlobalState, LocalState) -> GlobalState
+    mapToGlobalState: (GlobalState, LocalState) -> GlobalState,
+    mapToGlobalAction: (LocalAction) -> GlobalAction
 ) : Reducer<GlobalState, GlobalAction, Environment> =
     pullback(
         mapToLocalState = mapToLocalState,
