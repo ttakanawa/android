@@ -20,6 +20,7 @@ fun createAppReducer(
     timerReducer: TimerReducer
 ) : AppReducer =
     combine(
+        createTimeEntryListReducer(),
         createLoggingReducer(),
         timerReducer.pullback(
             mapToLocalState = ::mapAppStateToTimerState,
