@@ -16,10 +16,12 @@ typealias AppReducer = Reducer<AppState, AppAction>
 @InternalCoroutinesApi
 @ExperimentalCoroutinesApi
 fun createAppReducer(
+    timeEntryListReducer: TimeEntryListReducer,
     onboardingReducer: OnboardingReducer,
     timerReducer: TimerReducer
 ) : AppReducer =
     combine(
+        timeEntryListReducer,
         createLoggingReducer(),
         timerReducer.pullback(
             mapToLocalState = ::mapAppStateToTimerState,

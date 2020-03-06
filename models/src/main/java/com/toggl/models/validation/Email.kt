@@ -17,10 +17,4 @@ sealed class Email(val email: String) {
     }
 }
 
-fun Email.validEmailOrNull() : Email.Valid? =
-    when(this) {
-        is Email.Valid -> this
-        is Email.Invalid -> null
-    }
-
 fun String.toEmail() = Email.from(this)

@@ -2,15 +2,15 @@ package com.toggl.environment.di
 
 import com.toggl.api.login.LoginApi
 import com.toggl.api.login.MockLoginApi
-import com.toggl.repository.MockRepository
-import com.toggl.repository.Repository
+import com.toggl.database.dao.TimeEntryDao
+import com.toggl.repository.timeentry.TimeEntryRepository
+import com.toggl.repository.timeentry.TimeEntryRepositoryImpl
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
 
 @Module
 class EnvironmentModule {
-
     @Provides
     @Singleton
     fun loginApi() : LoginApi =
@@ -18,6 +18,6 @@ class EnvironmentModule {
 
     @Provides
     @Singleton
-    fun repository() : Repository =
-        MockRepository()
+    fun timeEntryRepository(timeEntryDao: TimeEntryDao) : TimeEntryRepository =
+        TimeEntryRepositoryImpl(timeEntryDao)
 }

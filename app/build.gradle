@@ -32,7 +32,8 @@ android {
 dependencies {
     implementation project(':api')
     implementation project(':architecture')
-    implementation project(':common')
+    implementation project(':common-android')
+    implementation project(':database-android')
     implementation project(':environment')
     implementation project(':models')
     implementation project(':onboarding')

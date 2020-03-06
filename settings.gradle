@@ -1,2 +1,2 @@
-include ':app', ':architecture', ':models', ':api', ':environment', ':onboarding', ':common', ':timer', ':repository', ':timer'
+include ':app', ':architecture', ':models', ':api', ':environment', ':onboarding', ':common', ':common-android', ':timer', ':repository', ':timer', ':database', ':database-android'
 rootProject.name='Toggl'

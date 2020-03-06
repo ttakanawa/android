@@ -13,6 +13,8 @@ fun createLoggingReducer() = Reducer <AppState, AppAction> { _, action ->
     Log.i("LoggingReducer", when (action) {
         is AppAction.Onboarding -> action.onboarding.formatForDebug()
         is AppAction.Timer -> action.timer.formatForDebug()
+        AppAction.Load -> "Initial load of entities"
+        is AppAction.EntitiesLoaded -> "Entities loaded"
     })
 
     noEffect()

@@ -1,4 +1,4 @@
-package com.toggl.repository
+package com.toggl.repository.timeentry
 
 import com.toggl.models.domain.TimeEntry
 
@@ -7,7 +7,8 @@ data class StartTimeEntryResult(
     val stoppedTimeEntry : TimeEntry?
 )
 
-interface Repository {
+interface TimeEntryRepository {
+    suspend fun loadTimeEntries(): List<TimeEntry>
     suspend fun startTimeEntry(description: String): StartTimeEntryResult
     suspend fun stopRunningTimeEntry() : TimeEntry?
     suspend fun editTimeEntry(timeEntry: TimeEntry): TimeEntry

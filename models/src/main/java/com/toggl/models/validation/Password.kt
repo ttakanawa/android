@@ -18,12 +18,5 @@ sealed class Password(val password: String) {
     }
 }
 
-fun Password.validPasswordOrNull() : Password.Valid? =
-    when(this) {
-        is Password.Valid -> this
-        is Password.Invalid -> null
-    }
-
-
 fun String.toPassword() =
     Password.from(this)

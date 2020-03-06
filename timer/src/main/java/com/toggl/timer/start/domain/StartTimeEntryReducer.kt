@@ -2,14 +2,14 @@ package com.toggl.timer.start.domain
 
 import com.toggl.architecture.core.Reducer
 import com.toggl.architecture.core.noEffect
-import com.toggl.repository.Repository
+import com.toggl.repository.timeentry.TimeEntryRepository
 import com.toggl.timer.common.domain.handleTimeEntryCreationStateChanges
 import com.toggl.timer.common.domain.startTimeEntryEffect
 import com.toggl.timer.extensions.replaceTimeEntryWithId
 
 typealias StartTimeEntryReducer = Reducer<StartTimeEntryState, StartTimeEntryAction>
 
-internal fun createStartTimeEntryReducer(repository: Repository) = StartTimeEntryReducer { state, action ->
+internal fun createStartTimeEntryReducer(repository: TimeEntryRepository) = StartTimeEntryReducer { state, action ->
         when (action) {
             StartTimeEntryAction.StopTimeEntryButtonTapped -> stopTimeEntryEffect(
                 repository
@@ -42,7 +42,7 @@ internal fun createStartTimeEntryReducer(repository: Repository) = StartTimeEntr
         }
     }
 
-private fun startTimeEntry(description: String, repository: Repository) =
+private fun startTimeEntry(description: String, repository: TimeEntryRepository) =
     startTimeEntryEffect(description, repository) {
         StartTimeEntryAction.TimeEntryStarted(it.startedTimeEntry, it.stoppedTimeEntry)
     }

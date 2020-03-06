@@ -19,5 +19,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.main_activity)
 
         (applicationContext as TogglApplication).appComponent.inject(this)
+
+        store.dispatch(AppAction.Load)
     }
 }
