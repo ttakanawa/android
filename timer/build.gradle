@@ -35,7 +35,7 @@ android {
 
 dependencies {
     implementation project(':architecture')
-    implementation project(':common')
+    implementation project(':common-android')
     implementation project(':repository')
     implementation project(':models')
 
