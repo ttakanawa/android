@@ -27,10 +27,11 @@ task clean(type: Delete) {
     delete rootProject.buildDir
 }
 
-// Define versions in a single place
 ext {
     // Sdk and tools
     compileSdkVersion = 29
     minSdkVersion = 21
     targetSdkVersion = 29
+    versionName = "1.0"
+    versionCode = 600000
 }
