@@ -1,5 +1,6 @@
-package com.toggl.architecture
+package com.toggl.domain
 
+import com.toggl.architecture.Loadable
 import com.toggl.models.domain.Project
 import com.toggl.models.domain.TimeEntry
 import com.toggl.models.domain.User

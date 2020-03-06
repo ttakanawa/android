@@ -1,11 +1,11 @@
-package com.toggl.architecture.reducers
+package com.toggl.domain.reducers
 
-import com.toggl.architecture.AppAction
-import com.toggl.architecture.AppState
+import com.toggl.domain.AppAction
+import com.toggl.domain.AppState
 import com.toggl.architecture.core.Reducer
 import com.toggl.architecture.core.combine
 import com.toggl.architecture.core.pullback
-import com.toggl.architecture.mappings.*
+import com.toggl.domain.mappings.*
 import com.toggl.onboarding.domain.reducers.OnboardingReducer
 import com.toggl.timer.common.domain.TimerReducer
 import kotlinx.coroutines.ExperimentalCoroutinesApi

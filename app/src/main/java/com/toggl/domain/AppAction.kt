@@ -1,4 +1,4 @@
-package com.toggl.architecture
+package com.toggl.domain
 
 import com.toggl.models.domain.TimeEntry
 import com.toggl.onboarding.domain.actions.OnboardingAction

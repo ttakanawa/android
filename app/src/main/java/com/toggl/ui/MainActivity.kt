@@ -4,8 +4,8 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.toggl.R
 import com.toggl.TogglApplication
-import com.toggl.architecture.AppAction
-import com.toggl.architecture.AppState
+import com.toggl.domain.AppAction
+import com.toggl.domain.AppState
 import com.toggl.architecture.core.Store
 import javax.inject.Inject
 

@@ -2,14 +2,18 @@ package com.toggl.di
 
 import android.content.Context
 import com.toggl.TogglApplication
-import com.toggl.architecture.AppAction
-import com.toggl.architecture.AppState
+import com.toggl.domain.AppAction
+import com.toggl.domain.AppState
 import com.toggl.architecture.core.*
 import com.toggl.architecture.mappings.*
-import com.toggl.architecture.reducers.AppReducer
-import com.toggl.architecture.reducers.TimeEntryListReducer
-import com.toggl.architecture.reducers.createAppReducer
-import com.toggl.architecture.reducers.createTimeEntryListReducer
+import com.toggl.domain.mappings.mapAppStateToOnboardingState
+import com.toggl.domain.mappings.mapAppStateToTimerState
+import com.toggl.domain.mappings.mapOnboardingActionToAppAction
+import com.toggl.domain.mappings.mapTimerActionToAppAction
+import com.toggl.domain.reducers.AppReducer
+import com.toggl.domain.reducers.TimeEntryListReducer
+import com.toggl.domain.reducers.createAppReducer
+import com.toggl.domain.reducers.createTimeEntryListReducer
 import com.toggl.onboarding.domain.actions.OnboardingAction
 import com.toggl.onboarding.domain.reducers.OnboardingReducer
 import com.toggl.onboarding.domain.states.OnboardingState
@@ -40,7 +44,11 @@ class AppModule {
         @Named("timeEntryListReducer") timeEntryListReducer: TimeEntryListReducer,
         onboardingReducer: OnboardingReducer,
         timerReducer: TimerReducer) =
-        createAppReducer(timeEntryListReducer, onboardingReducer, timerReducer)
+        createAppReducer(
+            timeEntryListReducer,
+            onboardingReducer,
+            timerReducer
+        )
 
     @Provides
     @Singleton

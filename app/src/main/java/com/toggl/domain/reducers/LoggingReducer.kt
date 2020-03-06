@@ -1,8 +1,8 @@
-package com.toggl.architecture.reducers
+package com.toggl.domain.reducers
 
 import android.util.Log
-import com.toggl.architecture.AppAction
-import com.toggl.architecture.AppState
+import com.toggl.domain.AppAction
+import com.toggl.domain.AppState
 import com.toggl.architecture.core.Reducer
 import com.toggl.architecture.core.noEffect
 import com.toggl.onboarding.domain.actions.formatForDebug

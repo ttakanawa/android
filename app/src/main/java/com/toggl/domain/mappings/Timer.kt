@@ -1,7 +1,7 @@
-package com.toggl.architecture.mappings
+package com.toggl.domain.mappings
 
-import com.toggl.architecture.AppAction
-import com.toggl.architecture.AppState
+import com.toggl.domain.AppAction
+import com.toggl.domain.AppState
 import com.toggl.timer.common.domain.TimerAction
 import com.toggl.timer.common.domain.TimerState
 
