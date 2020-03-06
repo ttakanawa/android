@@ -27,7 +27,7 @@ internal fun createTimeEntriesLogReducer(repository: TimeEntryRepository) = Time
     }
 }
 
-private fun startTimeEntry(description: String, repository: TimeEntryRepository) =
+internal fun startTimeEntry(description: String, repository: TimeEntryRepository) =
     startTimeEntryEffect(description, repository) {
         TimeEntriesLogAction.TimeEntryStarted(it.startedTimeEntry, it.stoppedTimeEntry)
     }

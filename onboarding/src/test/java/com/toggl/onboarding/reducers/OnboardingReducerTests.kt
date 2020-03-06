@@ -9,14 +9,15 @@ import com.toggl.models.validation.ApiToken
 import com.toggl.models.validation.Email
 import com.toggl.models.validation.Password
 import com.toggl.onboarding.domain.actions.OnboardingAction
+import com.toggl.onboarding.domain.reducers.createOnboardingReducer
 import com.toggl.onboarding.domain.states.OnboardingState
 import com.toggl.onboarding.domain.states.email
 import com.toggl.onboarding.domain.states.password
+import org.amshove.kluent.mock
 import org.amshove.kluent.shouldBe
 import org.amshove.kluent.shouldBeInstanceOf
 import org.amshove.kluent.shouldEqual
 import org.junit.Test
-
 
 abstract class BaseReducerTest<State, Action, Environment>(val reducer: Reducer<State, Action>) {
     abstract fun emptyState() : State
@@ -40,8 +41,10 @@ infix fun <T> Loadable<T>?.shouldBeLoadedWith(value: T) {
     loaded.value shouldBe value
 }
 
+val loginApi = mock(LoginApi::class)
+
 abstract class TheOnboardingReducer
-    : BaseReducerTest<OnboardingState, OnboardingAction, LoginApi>(onboardingReducer) {
+    : BaseReducerTest<OnboardingState, OnboardingAction, LoginApi>(createOnboardingReducer(loginApi)) {
 
     companion object {
         val validPassword = Password.from("avalidpassword")
