@@ -1,6 +1,5 @@
 package com.toggl.architecture
 
-import com.toggl.architecture.Loadable.Nothing
 import com.toggl.models.domain.Project
 import com.toggl.models.domain.TimeEntry
 import com.toggl.models.domain.User
@@ -16,7 +15,7 @@ data class AppState(
     val timerLocalState: TimerState.LocalState
 ) {
     constructor() : this(
-        user = Nothing(),
+        user = Loadable.Uninitialized,
         timeEntries = listOf(),
         projects = mapOf(),
         editedDescription = "",

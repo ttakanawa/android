@@ -9,18 +9,16 @@ import com.toggl.models.validation.ApiToken
 import com.toggl.models.validation.Email
 import com.toggl.models.validation.Password
 import com.toggl.onboarding.domain.actions.OnboardingAction
-import com.toggl.onboarding.domain.reducers.onboardingReducer
 import com.toggl.onboarding.domain.states.OnboardingState
 import com.toggl.onboarding.domain.states.email
 import com.toggl.onboarding.domain.states.password
-import org.amshove.kluent.mock
 import org.amshove.kluent.shouldBe
 import org.amshove.kluent.shouldBeInstanceOf
 import org.amshove.kluent.shouldEqual
 import org.junit.Test
 
 
-abstract class BaseReducerTest<State, Action, Environment>(val reducer: Reducer<State, Action, Environment>) {
+abstract class BaseReducerTest<State, Action, Environment>(val reducer: Reducer<State, Action>) {
     abstract fun emptyState() : State
 
     fun State.toSettableValue(setFunction: (State) -> Unit) =
@@ -45,8 +43,6 @@ infix fun <T> Loadable<T>?.shouldBeLoadedWith(value: T) {
 abstract class TheOnboardingReducer
     : BaseReducerTest<OnboardingState, OnboardingAction, LoginApi>(onboardingReducer) {
 
-    val environment = mock(LoginApi::class)
-
     companion object {
         val validPassword = Password.from("avalidpassword")
         val validEmail = Email.from("validemail@toggl.com")
@@ -56,7 +52,7 @@ abstract class TheOnboardingReducer
     }
 
     override fun emptyState(): OnboardingState =
-        OnboardingState(Loadable.Nothing(), OnboardingState.LocalState())
+        OnboardingState(Loadable.Uninitialized, OnboardingState.LocalState())
 }
 class WhenReceivingALoginTappedAction : TheOnboardingReducer() {
 
@@ -68,7 +64,7 @@ class WhenReceivingALoginTappedAction : TheOnboardingReducer() {
         val initialState = emptyState().withCredentials(password = validPassword)
         var state = initialState
         val settableValue = state.toSettableValue { state = it }
-        reducer.reduce(settableValue, OnboardingAction.LoginTapped, environment)
+        reducer.reduce(settableValue, OnboardingAction.LoginTapped)
         state shouldEqual initialState
     }
 
@@ -77,7 +73,7 @@ class WhenReceivingALoginTappedAction : TheOnboardingReducer() {
         val initialState = emptyState().withCredentials(email = validEmail)
         var state = initialState
         val settableValue = state.toSettableValue { state = it }
-        reducer.reduce(settableValue, OnboardingAction.LoginTapped, environment)
+        reducer.reduce(settableValue, OnboardingAction.LoginTapped)
         state shouldEqual initialState
     }
 
@@ -87,7 +83,7 @@ class WhenReceivingALoginTappedAction : TheOnboardingReducer() {
             emptyState().withCredentials(email = validEmail, password = validPassword)
         var state = initialState
         val settableValue = state.toSettableValue { state = it }
-        reducer.reduce(settableValue, OnboardingAction.LoginTapped, environment)
+        reducer.reduce(settableValue, OnboardingAction.LoginTapped)
         state.user.shouldBeLoading()
     }
 
@@ -98,7 +94,7 @@ class WhenReceivingALoginTappedAction : TheOnboardingReducer() {
             val initialState = emptyState()
             var state = initialState
             val settableValue = state.toSettableValue { state = it }
-            reducer.reduce(settableValue, OnboardingAction.SetUser(validUser), environment)
+            reducer.reduce(settableValue, OnboardingAction.SetUser(validUser))
             state.user shouldBeLoadedWith validUser
         }
     }
@@ -112,7 +108,7 @@ class WhenReceivingALoginTappedAction : TheOnboardingReducer() {
             val initialState = emptyState()
             var state = initialState
             val settableValue = state.toSettableValue { state = it }
-            reducer.reduce(settableValue, OnboardingAction.SetUserError(throwable), environment)
+            reducer.reduce(settableValue, OnboardingAction.SetUserError(throwable))
             state.user shouldBeErrorWithThrowable throwable
         }
     }
@@ -124,7 +120,7 @@ class WhenReceivingALoginTappedAction : TheOnboardingReducer() {
             val initialState = emptyState()
             var state = initialState
             val settableValue = state.toSettableValue { state = it }
-            reducer.reduce(settableValue, OnboardingAction.EmailEntered(validEmail.toString()), environment)
+            reducer.reduce(settableValue, OnboardingAction.EmailEntered(validEmail.toString()))
             state.email.email shouldEqual validEmail.email
         }
     }
@@ -136,7 +132,7 @@ class WhenReceivingALoginTappedAction : TheOnboardingReducer() {
             val initialState = emptyState()
             var state = initialState
             val settableValue = state.toSettableValue { state = it }
-            reducer.reduce(settableValue, OnboardingAction.PasswordEntered(validPassword.toString()), environment)
+            reducer.reduce(settableValue, OnboardingAction.PasswordEntered(validPassword.toString()))
             state.password.password shouldEqual validPassword.password
         }
     }
