@@ -6,5 +6,5 @@ import com.toggl.repository.timeentry.TimeEntryRepository
 import kotlinx.coroutines.flow.flow
 
 fun loadTimeEntriesEffect(repository: TimeEntryRepository): Effect<AppAction> = flow {
-    emit(AppAction.TimeEntriesLoaded(repository.loadTimeEntries()))
+    emit(AppAction.EntitiesLoaded(repository.loadTimeEntries()))
 }

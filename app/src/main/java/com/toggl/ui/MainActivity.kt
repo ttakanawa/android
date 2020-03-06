@@ -20,6 +20,6 @@ class MainActivity : AppCompatActivity() {
 
         (applicationContext as TogglApplication).appComponent.inject(this)
 
-        store.dispatch(AppAction.InitTimeEntries)
+        store.dispatch(AppAction.Load)
     }
 }

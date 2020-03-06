@@ -12,8 +12,8 @@ typealias TimeEntryListReducer = Reducer<AppState, AppAction>
 
 fun createTimeEntryListReducer(repository: TimeEntryRepository) = Reducer <AppState, AppAction> { state, action ->
     when (action) {
-        AppAction.InitTimeEntries -> loadTimeEntriesEffect(repository)
-        is AppAction.TimeEntriesLoaded -> {
+        AppAction.Load -> loadTimeEntriesEffect(repository)
+        is AppAction.EntitiesLoaded -> {
             state.value = state.value.copy(timeEntries = action.timeEntries)
             noEffect()
         }
