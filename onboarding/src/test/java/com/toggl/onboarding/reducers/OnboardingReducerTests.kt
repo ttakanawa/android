@@ -13,11 +13,11 @@ import com.toggl.onboarding.domain.reducers.createOnboardingReducer
 import com.toggl.onboarding.domain.states.OnboardingState
 import com.toggl.onboarding.domain.states.email
 import com.toggl.onboarding.domain.states.password
+import org.amshove.kluent.mock
 import org.amshove.kluent.shouldBe
 import org.amshove.kluent.shouldBeInstanceOf
 import org.amshove.kluent.shouldEqual
 import org.junit.Test
-
 
 abstract class BaseReducerTest<State, Action, Environment>(val reducer: Reducer<State, Action>) {
     abstract fun emptyState() : State

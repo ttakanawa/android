@@ -3,7 +3,7 @@ package com.toggl.timer.log.domain
 import com.toggl.architecture.core.SettableValue
 import com.toggl.architecture.core.noEffect
 import com.toggl.models.domain.TimeEntry
-import com.toggl.repository.Repository
+import com.toggl.repository.timeentry.TimeEntryRepository
 import io.kotlintest.properties.assertAll
 import io.kotlintest.shouldBe
 import io.kotlintest.specs.StringSpec
@@ -15,7 +15,7 @@ fun TimeEntriesLogState.toSettableValue(setFunction: (TimeEntriesLogState) -> Un
 
 class WhenReceivingContinueButtonTapped : StringSpec() {
     init {
-        val repository = mockk<Repository>()
+        val repository = mockk<TimeEntryRepository>()
         val reducer = createTimeEntriesLogReducer(repository)
         val testTe = TimeEntry(
             1,
@@ -24,8 +24,7 @@ class WhenReceivingContinueButtonTapped : StringSpec() {
             null,
             false,
             null,
-            null,
-            listOf()
+            null
         )
         "ContinueButtonTapped with no-existing te id shouldn't have any effect" {
             val initialState = TimeEntriesLogState(listOf(testTe), mapOf())
