@@ -12,6 +12,5 @@ data class TimeEntry(
     val duration: Long?,
     val billable: Boolean,
     val projectId: Long?,
-    val taskId: Long?,
-    val tagIds: List<Long>
+    val taskId: Long?
 )

@@ -15,7 +15,10 @@ class TimeEntryRepositoryImpl @Inject constructor(private val timeEntryDao: Time
             TimeEntry(
                 description = description,
                 startTime = Date(),
-                duration = null
+                duration = null,
+                billable = false,
+                projectId = null,
+                taskId = null
             )
         )
         return StartTimeEntryResult(
