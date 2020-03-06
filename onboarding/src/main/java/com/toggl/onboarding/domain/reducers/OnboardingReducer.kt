@@ -2,18 +2,16 @@ package com.toggl.onboarding.domain.reducers
 
 import com.toggl.api.login.LoginApi
 import com.toggl.architecture.Failure
-import com.toggl.architecture.Loadable.Loaded
-import com.toggl.architecture.Loadable.Error
-import com.toggl.architecture.Loadable.Loading
+import com.toggl.architecture.Loadable.*
 import com.toggl.architecture.core.Reducer
 import com.toggl.architecture.core.noEffect
+import com.toggl.models.validation.Email
+import com.toggl.models.validation.Password
 import com.toggl.models.validation.toEmail
 import com.toggl.models.validation.toPassword
-import com.toggl.models.validation.validEmailOrNull
-import com.toggl.models.validation.validPasswordOrNull
-import com.toggl.onboarding.domain.states.OnboardingState
 import com.toggl.onboarding.domain.actions.OnboardingAction
 import com.toggl.onboarding.domain.effects.logUserInEffect
+import com.toggl.onboarding.domain.states.OnboardingState
 import com.toggl.onboarding.domain.states.email
 import com.toggl.onboarding.domain.states.password
 
@@ -24,12 +22,16 @@ fun createOnboardingReducer(api: LoginApi) = OnboardingReducer { state, action -
 
     when (action) {
         OnboardingAction.LoginTapped -> {
-            val validEmail = currentState.email.validEmailOrNull() ?: return@OnboardingReducer noEffect()
-            val validPassword = currentState.password.validPasswordOrNull() ?: return@OnboardingReducer noEffect()
-
-            state.value = currentState.copy(user = Loading())
-
-            logUserInEffect(validEmail, validPassword, api)
+            when (val email = currentState.email) {
+                is Email.Invalid -> noEffect()
+                is Email.Valid -> when (val password = currentState.password) {
+                    is Password.Invalid -> noEffect()
+                    is Password.Valid -> {
+                        state.value = currentState.copy(user = Loading())
+                        logUserInEffect(email, password, api)
+                    }
+                }
+            }
         }
         is OnboardingAction.SetUser -> {
             state.value = currentState.copy(user = Loaded(action.user))
