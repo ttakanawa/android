@@ -5,7 +5,6 @@ import com.toggl.TogglApplication
 import com.toggl.domain.AppAction
 import com.toggl.domain.AppState
 import com.toggl.architecture.core.*
-import com.toggl.architecture.mappings.*
 import com.toggl.domain.mappings.mapAppStateToOnboardingState
 import com.toggl.domain.mappings.mapAppStateToTimerState
 import com.toggl.domain.mappings.mapOnboardingActionToAppAction
@@ -43,12 +42,12 @@ class AppModule {
     fun appReducer(
         @Named("timeEntryListReducer") timeEntryListReducer: TimeEntryListReducer,
         onboardingReducer: OnboardingReducer,
-        timerReducer: TimerReducer) =
-        createAppReducer(
-            timeEntryListReducer,
-            onboardingReducer,
-            timerReducer
-        )
+        timerReducer: TimerReducer
+    ) = createAppReducer(
+        timeEntryListReducer,
+        onboardingReducer,
+        timerReducer
+    )
 
     @Provides
     @Singleton

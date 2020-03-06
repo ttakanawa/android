@@ -11,7 +11,6 @@ data class AppState(
     val user: Loadable<User>,
     val timeEntries: List<TimeEntry>,
     val projects: Map<Long, Project>,
-    val editedDescription: String,
     val onboardingLocalState: OnboardingState.LocalState,
     val timerLocalState: TimerState.LocalState
 ) {
@@ -19,7 +18,6 @@ data class AppState(
         user = Loadable.Uninitialized,
         timeEntries = listOf(),
         projects = mapOf(),
-        editedDescription = "",
         onboardingLocalState = OnboardingState.LocalState(),
         timerLocalState = TimerState.LocalState()
     )
