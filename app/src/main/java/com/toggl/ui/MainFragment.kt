@@ -1,12 +1,8 @@
 package com.toggl.ui
 
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.toggl.R
@@ -37,26 +33,4 @@ class MainFragment : Fragment(R.layout.main_fragment) {
 
     private fun scrollUpOnTab(menuItem: MenuItem) {
     }
-}
-
-class ReportsFragment : Fragment() {
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? =
-        View(context).apply {
-            background = ColorDrawable(Color.parseColor("#FF00FF"))
-        }
-}
-
-class CalendarFragment : Fragment() {
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? =
-        View(context).apply {
-            background = ColorDrawable(Color.parseColor("#FFFF00"))
-        }
 }

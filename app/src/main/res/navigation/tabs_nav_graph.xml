@@ -12,14 +12,14 @@
 
     <fragment
         android:id="@+id/reports"
-        android:name="com.toggl.ui.ReportsFragment"
+        android:name="com.toggl.reports.ui.ReportsFragment"
         android:label="ReportsFragment">
         <deepLink app:uri="toggl://reports" />
     </fragment>
 
     <fragment
         android:id="@+id/calendar"
-        android:name="com.toggl.ui.CalendarFragment"
+        android:name="com.toggl.calendar.ui.CalendarFragment"
         android:label="CalendarFragment">
         <deepLink app:uri="toggl://calendar" />
     </fragment>
