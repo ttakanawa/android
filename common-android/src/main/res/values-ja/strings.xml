@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="login">ログイン</string>
+    <string name="add_description">説明を追加</string>
+    <string name="calendar">カレンダー</string>
+    <string name="reports">レポート</string>
+    <string name="timer">タイマー</string>
+    <string name="description">説明</string>
+    <string name="password">パスワード</string>
+    <string name="email">メールアドレス</string>
+</resources>

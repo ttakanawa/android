@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/start_time_entry_card"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/time_entry_description_input_layout"
+        android:hint="@string/description"
+        android:layout_gravity="start"
+        tools:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/time_entry_edit_peek_size">
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/time_entry_description"
+            android:background="@android:color/transparent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:inputType="text"
+            tools:ignore="Autofill" />
+    </com.google.android.material.textfield.TextInputLayout>
+    <FrameLayout
+        android:id="@+id/running_time_entry_layout"
+        android:layout_gravity="start"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/time_entry_edit_peek_size"
+        android:padding="@dimen/grid_2">
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/runningTimeEntryDescription"
+            android:textAppearance="?attr/textAppearanceHeadline6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            tools:text="Running time entry"/>
+    </FrameLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/start_time_entry_button"
+        style="@style/Widget.MaterialComponents.FloatingActionButton"
+        app:elevation="@dimen/plane_01"
+        app:backgroundTint="@color/start_time_entry_button_background"
+        app:srcCompat="@drawable/ic_play_big"
+        android:tint="@android:color/white"
+        android:layout_marginEnd="@dimen/fab_margin"
+        android:layout_marginBottom="@dimen/fab_margin"
+        android:layout_gravity="center_vertical|end"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+</FrameLayout>

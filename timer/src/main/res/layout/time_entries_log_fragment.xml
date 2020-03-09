@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/coordinator_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view"
+        tools:listitem="@layout/time_entries_log_item"
+        android:clipToPadding="false"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/app_bar_layout"
+        app:liftOnScroll="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            android:background="@color/surface"
+            android:layout_width="match_parent"
+            android:layout_height="?android:actionBarSize"
+            app:layout_scrollFlags="scroll|enterAlways">
+            <ImageView
+                android:src="@drawable/ic_toggl_logo"
+                android:layout_gravity="start"
+                android:layout_height="40dp"
+                android:layout_width="100dp" />
+        </com.google.android.material.appbar.MaterialToolbar>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/start_time_entry_bottom_sheet"
+        app:elevation="@dimen/plane_02"
+        android:background="@color/surface"
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
+        app:behavior_hideable="false"
+        app:behavior_peekHeight="@dimen/time_entry_edit_peek_size">
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/start_time_entry_container"
+            android:name="com.toggl.timer.start.ui.StartTimeEntryFragment"
+            tools:layout="@layout/start_time_entry_fragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </com.google.android.material.card.MaterialCardView>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
