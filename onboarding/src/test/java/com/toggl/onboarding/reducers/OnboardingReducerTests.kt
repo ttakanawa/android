@@ -20,7 +20,7 @@ import org.amshove.kluent.shouldEqual
 import org.junit.Test
 
 abstract class BaseReducerTest<State, Action, Environment>(val reducer: Reducer<State, Action>) {
-    abstract fun emptyState() : State
+    abstract fun emptyState(): State
 
     fun State.toSettableValue(setFunction: (State) -> Unit) =
         SettableValue({ this }, setFunction)
@@ -43,8 +43,8 @@ infix fun <T> Loadable<T>?.shouldBeLoadedWith(value: T) {
 
 val loginApi = mock(LoginApi::class)
 
-abstract class TheOnboardingReducer
-    : BaseReducerTest<OnboardingState, OnboardingAction, LoginApi>(createOnboardingReducer(loginApi)) {
+abstract class TheOnboardingReducer :
+    BaseReducerTest<OnboardingState, OnboardingAction, LoginApi>(createOnboardingReducer(loginApi)) {
 
     companion object {
         val validPassword = Password.from("avalidpassword")
@@ -57,9 +57,13 @@ abstract class TheOnboardingReducer
     override fun emptyState(): OnboardingState =
         OnboardingState(Loadable.Uninitialized, OnboardingState.LocalState())
 }
+
 class WhenReceivingALoginTappedAction : TheOnboardingReducer() {
 
-    private fun OnboardingState.withCredentials(email: Email = Email.from(""), password: Password = Password.from("")) : OnboardingState =
+    private fun OnboardingState.withCredentials(
+        email: Email = Email.from(""),
+        password: Password = Password.from("")
+    ): OnboardingState =
         copy(localState = OnboardingState.LocalState(email = email, password = password))
 
     @Test
@@ -135,7 +139,10 @@ class WhenReceivingALoginTappedAction : TheOnboardingReducer() {
             val initialState = emptyState()
             var state = initialState
             val settableValue = state.toSettableValue { state = it }
-            reducer.reduce(settableValue, OnboardingAction.PasswordEntered(validPassword.toString()))
+            reducer.reduce(
+                settableValue,
+                OnboardingAction.PasswordEntered(validPassword.toString())
+            )
             state.password.password shouldEqual validPassword.password
         }
     }

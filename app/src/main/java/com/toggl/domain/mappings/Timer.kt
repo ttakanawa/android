@@ -14,6 +14,7 @@ fun mapAppStateToTimerState(appState: AppState): TimerState =
 
 fun mapAppActionToTimerAction(appAction: AppAction): TimerAction? =
     if (appAction is AppAction.Timer) appAction.timer else null
+
 fun mapTimerStateToAppState(appState: AppState, timerState: TimerState): AppState =
     appState.copy(timeEntries = timerState.timeEntries, timerLocalState = timerState.localState)
 

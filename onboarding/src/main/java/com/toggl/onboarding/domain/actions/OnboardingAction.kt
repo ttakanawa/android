@@ -11,7 +11,7 @@ sealed class OnboardingAction {
 }
 
 fun OnboardingAction.formatForDebug(): String =
-    when(this) {
+    when (this) {
         OnboardingAction.LoginTapped -> "Login button tapped"
         is OnboardingAction.SetUser -> "Setting user $user"
         is OnboardingAction.SetUserError -> "Setting user error $throwable"

@@ -1,6 +1,5 @@
 package com.toggl.timer.common.domain
 
-import com.toggl.models.domain.TimeEntry
 import com.toggl.timer.log.domain.TimeEntriesLogAction
 import com.toggl.timer.log.domain.formatForDebug
 import com.toggl.timer.start.domain.StartTimeEntryAction
@@ -11,8 +10,8 @@ sealed class TimerAction {
     class TimeEntriesLog(val timeEntriesLogAction: TimeEntriesLogAction) : TimerAction()
 }
 
-fun TimerAction.formatForDebug() : String =
-    when(this) {
+fun TimerAction.formatForDebug(): String =
+    when (this) {
         is TimerAction.StartTimeEntry -> startTimeEntryAction.formatForDebug()
         is TimerAction.TimeEntriesLog -> timeEntriesLogAction.formatForDebug()
     }

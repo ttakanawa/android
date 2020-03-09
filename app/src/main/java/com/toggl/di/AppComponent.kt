@@ -37,5 +37,4 @@ interface AppComponent {
 
     @Singleton
     fun timerComponent(): TimerComponent.Factory
-
 }

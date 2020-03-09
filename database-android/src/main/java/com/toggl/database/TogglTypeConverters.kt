@@ -1,7 +1,7 @@
 package com.toggl.database
 
 import androidx.room.TypeConverter
-import java.util.*
+import java.util.Date
 
 class TogglTypeConverters {
     @TypeConverter

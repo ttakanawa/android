@@ -5,7 +5,6 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.toggl.models.domain.TimeEntry
 
-
 @Database(
     entities = [
         TimeEntry::class

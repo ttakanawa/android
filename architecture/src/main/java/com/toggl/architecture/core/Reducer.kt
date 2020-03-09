@@ -6,7 +6,7 @@ import kotlinx.coroutines.InternalCoroutinesApi
 import kotlinx.coroutines.flow.map
 
 typealias ReduceFunction<State, Action> =
-            (SettableValue<State>, Action) -> Effect<Action>
+        (SettableValue<State>, Action) -> Effect<Action>
 
 class Reducer<State, Action>(
     val reduce: ReduceFunction<State, Action>
@@ -14,8 +14,8 @@ class Reducer<State, Action>(
 
 @InternalCoroutinesApi
 @ExperimentalCoroutinesApi
-fun <State, Action> combine(vararg reducers: Reducer<State, Action>)
-        : Reducer<State, Action> =
+fun <State, Action> combine(vararg reducers: Reducer<State, Action>):
+    Reducer<State, Action> =
     Reducer { state, action ->
         val effects = reducers.map { it.reduce(state, action) }
         effects.mergeAll()
@@ -23,11 +23,11 @@ fun <State, Action> combine(vararg reducers: Reducer<State, Action>)
 
 fun <LocalState, GlobalState, LocalAction, GlobalAction>
     Reducer<LocalState, LocalAction>.pullback(
-    mapToLocalState: (GlobalState) -> LocalState,
-    mapToLocalAction: (GlobalAction) -> LocalAction?,
-    mapToGlobalAction: (LocalAction) -> GlobalAction,
-    mapToGlobalState: (GlobalState, LocalState) -> GlobalState
-) : Reducer<GlobalState, GlobalAction> =
+        mapToLocalState: (GlobalState) -> LocalState,
+        mapToLocalAction: (GlobalAction) -> LocalAction?,
+        mapToGlobalAction: (LocalAction) -> GlobalAction,
+        mapToGlobalState: (GlobalState, LocalState) -> GlobalState
+    ): Reducer<GlobalState, GlobalAction> =
     Reducer { globalState, globalAction ->
         val localAction = mapToLocalAction(globalAction)
             ?: return@Reducer noEffect()

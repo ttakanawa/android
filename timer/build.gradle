@@ -1,8 +1,13 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
+apply plugin: 'de.mannodermaus.android-junit5'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
-apply plugin: 'de.mannodermaus.android-junit5'
+
+kapt {
+    correctErrorTypes = true
+    useBuildCache = true
+}
 
 android {
     compileSdkVersion rootProject.compileSdkVersion

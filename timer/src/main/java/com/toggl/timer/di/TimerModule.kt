@@ -4,20 +4,21 @@ import com.toggl.architecture.core.Store
 import com.toggl.architecture.core.combine
 import com.toggl.architecture.core.pullback
 import com.toggl.repository.timeentry.TimeEntryRepository
-import com.toggl.timer.start.domain.StartTimeEntryAction
-import com.toggl.timer.log.domain.TimeEntriesLogAction
 import com.toggl.timer.common.domain.TimerAction
 import com.toggl.timer.common.domain.TimerReducer
-import com.toggl.timer.start.domain.createStartTimeEntryReducer
-import com.toggl.timer.log.domain.createTimeEntriesLogReducer
-import com.toggl.timer.start.domain.StartTimeEntryState
-import com.toggl.timer.log.domain.TimeEntriesLogState
 import com.toggl.timer.common.domain.TimerState
+import com.toggl.timer.log.domain.TimeEntriesLogAction
+import com.toggl.timer.log.domain.TimeEntriesLogState
+import com.toggl.timer.log.domain.createTimeEntriesLogReducer
+import com.toggl.timer.start.domain.StartTimeEntryAction
+import com.toggl.timer.start.domain.StartTimeEntryState
+import com.toggl.timer.start.domain.createStartTimeEntryReducer
 import dagger.Module
 import dagger.Provides
+import javax.inject.Singleton
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.InternalCoroutinesApi
-import javax.inject.Singleton
+
 @Module(subcomponents = [TimerComponent::class])
 class TimerModule {
 
@@ -37,13 +38,13 @@ class TimerModule {
             mapToGlobalAction = StartTimeEntryAction.Companion::toTimerAction
         )
 
-    @Provides
     @ExperimentalCoroutinesApi
     @InternalCoroutinesApi
+    @Provides
     @Singleton
-    internal fun timerReducer(repository: TimeEntryRepository) : TimerReducer {
+    internal fun timerReducer(repository: TimeEntryRepository): TimerReducer {
 
-        return combine (
+        return combine(
             createTimeEntriesLogReducer(repository).pullback(
                 mapToLocalState = TimeEntriesLogState.Companion::fromTimerState,
                 mapToLocalAction = TimeEntriesLogAction.Companion::fromTimerAction,
@@ -59,4 +60,3 @@ class TimerModule {
         )
     }
 }
-

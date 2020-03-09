@@ -7,13 +7,17 @@ import com.toggl.models.validation.Password
 import com.toggl.onboarding.domain.actions.OnboardingAction
 import kotlinx.coroutines.flow.flow
 
-fun logUserInEffect(email: Email.Valid, password: Password.Valid, api: LoginApi) : Effect<OnboardingAction> =
+fun logUserInEffect(
+    email: Email.Valid,
+    password: Password.Valid,
+    api: LoginApi
+): Effect<OnboardingAction> =
     flow {
         try {
             val user = api.login(email, password)
             val userAction = OnboardingAction.SetUser(user)
             emit(userAction)
-        } catch(throwable: Throwable) {
+        } catch (throwable: Throwable) {
             val errorAction = OnboardingAction.SetUserError(throwable)
             emit(errorAction)
         }

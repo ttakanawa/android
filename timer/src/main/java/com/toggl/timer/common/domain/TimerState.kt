@@ -6,7 +6,8 @@ import com.toggl.models.domain.TimeEntry
 data class TimerState(
     val timeEntries: List<TimeEntry>,
     val projects: Map<Long, Project>,
-    val localState: LocalState) {
+    val localState: LocalState
+) {
     data class LocalState internal constructor(
         internal val editedDescription: String
     ) {

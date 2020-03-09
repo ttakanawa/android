@@ -22,6 +22,7 @@ import com.toggl.onboarding.di.OnboardingComponentProvider
 import com.toggl.onboarding.domain.actions.OnboardingAction
 import com.toggl.onboarding.domain.states.email
 import com.toggl.onboarding.domain.states.password
+import javax.inject.Inject
 import kotlinx.android.synthetic.main.login_fragment.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
@@ -30,14 +31,13 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 class LoginFragment : Fragment(R.layout.login_fragment) {
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
-    private val store : LoginViewModel by viewModels { viewModelFactory }
+    private val store: LoginViewModel by viewModels { viewModelFactory }
 
     override fun onAttach(context: Context) {
         (requireActivity().applicationContext as OnboardingComponentProvider)

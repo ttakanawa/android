@@ -1,17 +1,28 @@
 package com.toggl.architecture.core
 
-import kotlinx.coroutines.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.FlowPreview
+import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.channels.ConflatedBroadcastChannel
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.asFlow
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.launch
 
 interface Store<State, Action> {
     val state: Flow<State>
     val dispatch: (Action) -> Unit
+
     @ExperimentalCoroutinesApi
     fun <ViewState, ViewAction> view(
         mapToLocalState: (State) -> ViewState,
         mapToGlobalAction: (ViewAction) -> Action?
-    ) : Store<ViewState, ViewAction>
+    ): Store<ViewState, ViewAction>
 }
 
 class FlowStore<State, Action> private constructor(
@@ -22,7 +33,7 @@ class FlowStore<State, Action> private constructor(
     override fun <ViewState, ViewAction> view(
         mapToLocalState: (State) -> ViewState,
         mapToGlobalAction: (ViewAction) -> Action?
-    ) : Store<ViewState, ViewAction> {
+    ): Store<ViewState, ViewAction> {
         return FlowStore(
             state = state.map { mapToLocalState(it) }.distinctUntilChanged(),
             dispatch = { action ->
@@ -51,7 +62,7 @@ class FlowStore<State, Action> private constructor(
 
             val settableValue = SettableValue(stateChannel::value) { stateChannel.offer(it) }
 
-            lateinit var dispatch : (Action) -> Unit
+            lateinit var dispatch: (Action) -> Unit
             dispatch = { action ->
                 GlobalScope.launch {
                     reducer
@@ -61,7 +72,7 @@ class FlowStore<State, Action> private constructor(
                 }
             }
 
-             return FlowStore(state, dispatch)
+            return FlowStore(state, dispatch)
         }
     }
 }

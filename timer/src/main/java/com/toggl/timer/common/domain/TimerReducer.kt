@@ -9,7 +9,7 @@ fun handleTimeEntryCreationStateChanges(
     timeEntries: List<TimeEntry>,
     startedTimeEntry: TimeEntry,
     stoppedTimeEntry: TimeEntry?
-) : List<TimeEntry> {
+): List<TimeEntry> {
 
     val newEntries =
         if (stoppedTimeEntry == null) timeEntries

@@ -7,5 +7,5 @@ import com.toggl.timer.log.domain.TimeEntriesLogState
 import javax.inject.Inject
 
 class TimeEntriesLogStoreViewModel @Inject constructor(
-    store : Store<TimeEntriesLogState, TimeEntriesLogAction>
+    store: Store<TimeEntriesLogState, TimeEntriesLogAction>
 ) : ViewModel(), Store<TimeEntriesLogState, TimeEntriesLogAction> by store

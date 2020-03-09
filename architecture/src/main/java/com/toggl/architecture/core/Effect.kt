@@ -5,4 +5,4 @@ import kotlinx.coroutines.flow.emptyFlow
 
 typealias Effect<Action> = Flow<Action>
 
-fun <T> noEffect() : Effect<T> = emptyFlow()
+fun <T> noEffect(): Effect<T> = emptyFlow()

@@ -11,6 +11,7 @@ import com.toggl.timer.R
 import com.toggl.timer.di.TimerComponentProvider
 import com.toggl.timer.extensions.toTimeEntryViewModelList
 import com.toggl.timer.log.domain.TimeEntriesLogAction
+import javax.inject.Inject
 import kotlinx.android.synthetic.main.time_entries_log_fragment.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.distinctUntilChanged
@@ -18,15 +19,15 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 class TimeEntriesLogFragment : Fragment(R.layout.time_entries_log_fragment) {
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
-    private val store : TimeEntriesLogStoreViewModel by viewModels { viewModelFactory }
-    private val adapter = TimeEntryLogAdapter { store.dispatch(TimeEntriesLogAction.ContinueButtonTapped(it)) }
+    private val store: TimeEntriesLogStoreViewModel by viewModels { viewModelFactory }
+    private val adapter =
+        TimeEntryLogAdapter { store.dispatch(TimeEntriesLogAction.ContinueButtonTapped(it)) }
 
     override fun onAttach(context: Context) {
         (requireActivity().applicationContext as TimerComponentProvider)

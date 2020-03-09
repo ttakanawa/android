@@ -8,8 +8,8 @@ import com.toggl.timer.R
 import com.toggl.timer.log.domain.FlatTimeEntryItem
 import com.toggl.timer.log.domain.TimeEntryViewModel
 
-class TimeEntryLogAdapter(private val onContinueTappedListener: (Long) -> Unit = {})
-    : ListAdapter<TimeEntryViewModel, TimeEntryLogViewHolder>(diffCallback) {
+class TimeEntryLogAdapter(private val onContinueTappedListener: (Long) -> Unit = {}) :
+    ListAdapter<TimeEntryViewModel, TimeEntryLogViewHolder>(diffCallback) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TimeEntryLogViewHolder =
         LayoutInflater.from(parent.context)
             .inflate(R.layout.time_entries_log_item, parent, false)
@@ -20,22 +20,22 @@ class TimeEntryLogAdapter(private val onContinueTappedListener: (Long) -> Unit =
     }
 
     companion object {
-        val diffCallback =  object : DiffUtil.ItemCallback<TimeEntryViewModel>() {
+        val diffCallback = object : DiffUtil.ItemCallback<TimeEntryViewModel>() {
             override fun areItemsTheSame(
                 oldItem: TimeEntryViewModel,
                 newItem: TimeEntryViewModel
             ): Boolean =
                 oldItem is FlatTimeEntryItem &&
-                        newItem is FlatTimeEntryItem &&
-                        oldItem.id  == newItem.id
+                    newItem is FlatTimeEntryItem &&
+                    oldItem.id == newItem.id
 
             override fun areContentsTheSame(
                 oldItem: TimeEntryViewModel,
                 newItem: TimeEntryViewModel
             ): Boolean =
                 oldItem is FlatTimeEntryItem &&
-                newItem is FlatTimeEntryItem &&
-                oldItem.description == newItem.description
+                    newItem is FlatTimeEntryItem &&
+                    oldItem.description == newItem.description
         }
     }
 }

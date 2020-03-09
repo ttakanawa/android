@@ -1,6 +1,6 @@
 package com.toggl.timer.log.domain
 
-import java.util.*
+import java.util.Date
 
 sealed class TimeEntryViewModel
 
@@ -12,7 +12,6 @@ data class FlatTimeEntryItem(
     val project: ProjectViewModel?,
     val billable: Boolean
 ) : TimeEntryViewModel()
-
 
 data class ProjectViewModel(
     val id: Long,

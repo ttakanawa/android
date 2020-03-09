@@ -2,7 +2,9 @@ package com.toggl.onboarding.domain.reducers
 
 import com.toggl.api.login.LoginApi
 import com.toggl.architecture.Failure
-import com.toggl.architecture.Loadable.*
+import com.toggl.architecture.Loadable.Error
+import com.toggl.architecture.Loadable.Loaded
+import com.toggl.architecture.Loadable.Loading
 import com.toggl.architecture.core.Reducer
 import com.toggl.architecture.core.noEffect
 import com.toggl.models.validation.Email
@@ -16,6 +18,7 @@ import com.toggl.onboarding.domain.states.email
 import com.toggl.onboarding.domain.states.password
 
 typealias OnboardingReducer = Reducer<OnboardingState, OnboardingAction>
+
 fun createOnboardingReducer(api: LoginApi) = OnboardingReducer { state, action ->
 
     val currentState = state.value
@@ -47,7 +50,8 @@ fun createOnboardingReducer(api: LoginApi) = OnboardingReducer { state, action -
             noEffect()
         }
         is OnboardingAction.PasswordEntered -> {
-            val newLocalState = currentState.localState.copy(password = action.password.toPassword())
+            val newLocalState =
+                currentState.localState.copy(password = action.password.toPassword())
             state.value = currentState.copy(localState = newLocalState)
             noEffect()
         }

@@ -7,8 +7,8 @@ import com.toggl.repository.timeentry.TimeEntryRepository
 import io.kotlintest.properties.assertAll
 import io.kotlintest.shouldBe
 import io.kotlintest.specs.StringSpec
-import java.util.*
 import io.mockk.mockk
+import java.util.Date
 
 fun TimeEntriesLogState.toSettableValue(setFunction: (TimeEntriesLogState) -> Unit) =
     SettableValue({ this }, setFunction)
@@ -41,7 +41,8 @@ class WhenReceivingContinueButtonTapped : StringSpec() {
             assertAll(fn = { id: Long ->
                 var state = initialState
                 val settableValue = state.toSettableValue { state = it }
-                val effect = reducer.reduce(settableValue, TimeEntriesLogAction.ContinueButtonTapped(id))
+                val effect =
+                    reducer.reduce(settableValue, TimeEntriesLogAction.ContinueButtonTapped(id))
                 effect shouldBe noEffect()
                 state shouldBe initialState
             })

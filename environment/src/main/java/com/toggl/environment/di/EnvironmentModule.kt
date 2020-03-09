@@ -13,11 +13,11 @@ import javax.inject.Singleton
 class EnvironmentModule {
     @Provides
     @Singleton
-    fun loginApi() : LoginApi =
+    fun loginApi(): LoginApi =
         MockLoginApi()
 
     @Provides
     @Singleton
-    fun timeEntryRepository(timeEntryDao: TimeEntryDao) : TimeEntryRepository =
+    fun timeEntryRepository(timeEntryDao: TimeEntryDao): TimeEntryRepository =
         TimeEntryRepositoryImpl(timeEntryDao)
 }

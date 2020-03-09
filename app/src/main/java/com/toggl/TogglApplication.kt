@@ -7,7 +7,7 @@ import com.toggl.onboarding.di.OnboardingComponentProvider
 import com.toggl.timer.di.TimerComponent
 import com.toggl.timer.di.TimerComponentProvider
 
-class TogglApplication: Application(), OnboardingComponentProvider, TimerComponentProvider {
+class TogglApplication : Application(), OnboardingComponentProvider, TimerComponentProvider {
 
     // Reference to the application graph that is used across the whole app
     val appComponent = DaggerAppComponent.factory().create(this)

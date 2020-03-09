@@ -1,7 +1,7 @@
 package com.toggl.domain.effect
 
-import com.toggl.domain.AppAction
 import com.toggl.architecture.core.Effect
+import com.toggl.domain.AppAction
 import com.toggl.repository.timeentry.TimeEntryRepository
 import kotlinx.coroutines.flow.flow
 

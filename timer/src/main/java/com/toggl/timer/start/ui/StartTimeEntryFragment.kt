@@ -16,18 +16,22 @@ import com.toggl.timer.R
 import com.toggl.timer.di.TimerComponentProvider
 import com.toggl.timer.extensions.runningTimeEntryOrNull
 import com.toggl.timer.start.domain.StartTimeEntryAction
+import javax.inject.Inject
 import kotlinx.android.synthetic.main.start_time_entry_fragment.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.filterNotNull
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 class StartTimeEntryFragment : Fragment(R.layout.start_time_entry_fragment) {
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
-    private val store : StartTimeEntryStoreViewModel by viewModels { viewModelFactory }
+    private val store: StartTimeEntryStoreViewModel by viewModels { viewModelFactory }
 
     override fun onAttach(context: Context) {
         (requireActivity().applicationContext as TimerComponentProvider)
@@ -50,8 +54,9 @@ class StartTimeEntryFragment : Fragment(R.layout.start_time_entry_fragment) {
                 .map { it.editedDescription }
                 .distinctUntilChanged()
                 .onEach {
-                    if (time_entry_description?.text.toString() != it ) {
-                        time_entry_description.setText(it) }
+                    if (time_entry_description?.text.toString() != it) {
+                        time_entry_description.setText(it)
+                    }
                 }
                 .launchIn(this)
 

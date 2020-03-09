@@ -13,18 +13,18 @@ fun List<TimeEntry>.runningTimeEntryOrNull() =
 
 fun List<TimeEntry>.toTimeEntryViewModelList(projects: Map<Long, Project>) =
     filter { it.duration != null }
-    .map { timeEntry ->
-        val projectId = timeEntry.projectId
-        val project =
-            if (projectId == null) null
-            else projects[projectId]?.run { ProjectViewModel(id, name, color) }
+        .map { timeEntry ->
+            val projectId = timeEntry.projectId
+            val project =
+                if (projectId == null) null
+                else projects[projectId]?.run { ProjectViewModel(id, name, color) }
 
-        FlatTimeEntryItem(
-            id = timeEntry.id,
-            description = timeEntry.description,
-            startTime = timeEntry.startTime,
-            duration = timeEntry.duration,
-            project = project,
-            billable = timeEntry.billable
-        )
-    }
+            FlatTimeEntryItem(
+                id = timeEntry.id,
+                description = timeEntry.description,
+                startTime = timeEntry.startTime,
+                duration = timeEntry.duration,
+                project = project,
+                billable = timeEntry.billable
+            )
+        }

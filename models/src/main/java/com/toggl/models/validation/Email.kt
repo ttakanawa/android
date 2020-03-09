@@ -4,10 +4,11 @@ sealed class Email(val email: String) {
     class Valid private constructor(email: String) : Email(email) {
         companion object {
             fun from(email: String) =
-                if (email.isBlank() ) Invalid(email)
+                if (email.isBlank()) Invalid(email)
                 else Valid(email)
         }
     }
+
     class Invalid(email: String) : Email(email)
 
     override fun toString(): String = email

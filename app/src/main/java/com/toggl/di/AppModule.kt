@@ -2,9 +2,10 @@ package com.toggl.di
 
 import android.content.Context
 import com.toggl.TogglApplication
+import com.toggl.architecture.core.FlowStore
+import com.toggl.architecture.core.Store
 import com.toggl.domain.AppAction
 import com.toggl.domain.AppState
-import com.toggl.architecture.core.*
 import com.toggl.domain.mappings.mapAppStateToOnboardingState
 import com.toggl.domain.mappings.mapAppStateToTimerState
 import com.toggl.domain.mappings.mapOnboardingActionToAppAction
@@ -22,11 +23,11 @@ import com.toggl.timer.common.domain.TimerReducer
 import com.toggl.timer.common.domain.TimerState
 import dagger.Module
 import dagger.Provides
+import javax.inject.Named
+import javax.inject.Singleton
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.InternalCoroutinesApi
-import javax.inject.Named
-import javax.inject.Singleton
 
 @Module(includes = [AppModuleBinds::class])
 class AppModule {

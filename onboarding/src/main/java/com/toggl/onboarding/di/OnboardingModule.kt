@@ -9,6 +9,6 @@ import dagger.Provides
 @Module(subcomponents = [OnboardingComponent::class])
 class OnboardingModule {
     @Provides
-    fun onboardingReducer(loginApi: LoginApi) : OnboardingReducer =
+    fun onboardingReducer(loginApi: LoginApi): OnboardingReducer =
         createOnboardingReducer(loginApi)
 }
