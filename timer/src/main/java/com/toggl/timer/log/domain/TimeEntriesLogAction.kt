@@ -1,4 +1,3 @@
-
 package com.toggl.timer.log.domain
 
 import com.toggl.models.domain.TimeEntry
@@ -6,7 +5,8 @@ import com.toggl.timer.common.domain.TimerAction
 
 sealed class TimeEntriesLogAction {
     data class ContinueButtonTapped(val id: Long) : TimeEntriesLogAction()
-    data class TimeEntryStarted(val startedTimeEntry: TimeEntry, val stoppedTimeEntry: TimeEntry?) : TimeEntriesLogAction()
+    data class TimeEntryStarted(val startedTimeEntry: TimeEntry, val stoppedTimeEntry: TimeEntry?) :
+        TimeEntriesLogAction()
 
     companion object {
         fun fromTimerAction(timerAction: TimerAction): TimeEntriesLogAction? =

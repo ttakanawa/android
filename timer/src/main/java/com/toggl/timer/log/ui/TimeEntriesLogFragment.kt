@@ -1,4 +1,3 @@
-
 package com.toggl.timer.log.ui
 
 import android.content.Context
@@ -27,7 +26,8 @@ class TimeEntriesLogFragment : Fragment(R.layout.time_entries_log_fragment) {
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
     private val store: TimeEntriesLogStoreViewModel by viewModels { viewModelFactory }
-    private val adapter = TimeEntryLogAdapter { store.dispatch(TimeEntriesLogAction.ContinueButtonTapped(it)) }
+    private val adapter =
+        TimeEntryLogAdapter { store.dispatch(TimeEntriesLogAction.ContinueButtonTapped(it)) }
 
     override fun onAttach(context: Context) {
         (requireActivity().applicationContext as TimerComponentProvider)

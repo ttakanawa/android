@@ -1,4 +1,3 @@
-
 package com.toggl.models.validation
 
 sealed class Password(val password: String) {

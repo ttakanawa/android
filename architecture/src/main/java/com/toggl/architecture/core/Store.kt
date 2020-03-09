@@ -1,4 +1,3 @@
-
 package com.toggl.architecture.core
 
 import kotlinx.coroutines.Dispatchers
@@ -18,6 +17,7 @@ import kotlinx.coroutines.launch
 interface Store<State, Action> {
     val state: Flow<State>
     val dispatch: (Action) -> Unit
+
     @ExperimentalCoroutinesApi
     fun <ViewState, ViewAction> view(
         mapToLocalState: (State) -> ViewState,

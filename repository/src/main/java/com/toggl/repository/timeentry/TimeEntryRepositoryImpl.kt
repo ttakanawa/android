@@ -1,4 +1,3 @@
-
 package com.toggl.repository.timeentry
 
 import com.toggl.database.dao.TimeEntryDao
@@ -6,7 +5,8 @@ import com.toggl.models.domain.TimeEntry
 import java.util.Date
 import javax.inject.Inject
 
-class TimeEntryRepositoryImpl @Inject constructor(private val timeEntryDao: TimeEntryDao) : TimeEntryRepository {
+class TimeEntryRepositoryImpl @Inject constructor(private val timeEntryDao: TimeEntryDao) :
+    TimeEntryRepository {
 
     override suspend fun loadTimeEntries() = timeEntryDao.getAll()
 

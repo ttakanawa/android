@@ -1,4 +1,3 @@
-
 package com.toggl.timer.common.domain
 
 import com.toggl.timer.log.domain.TimeEntriesLogAction

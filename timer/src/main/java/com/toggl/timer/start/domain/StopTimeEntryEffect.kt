@@ -1,4 +1,3 @@
-
 package com.toggl.timer.start.domain
 
 import com.toggl.architecture.core.Effect

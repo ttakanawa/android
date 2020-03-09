@@ -1,4 +1,3 @@
-
 package com.toggl.repository.timeentry
 
 import com.toggl.models.domain.TimeEntry

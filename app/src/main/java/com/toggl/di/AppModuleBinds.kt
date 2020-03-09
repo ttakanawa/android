@@ -1,4 +1,3 @@
-
 package com.toggl.di
 
 import android.app.Application

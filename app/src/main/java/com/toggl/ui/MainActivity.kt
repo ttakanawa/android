@@ -1,4 +1,3 @@
-
 package com.toggl.ui
 
 import android.os.Bundle

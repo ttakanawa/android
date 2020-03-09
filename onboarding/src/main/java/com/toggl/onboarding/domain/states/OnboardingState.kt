@@ -1,4 +1,3 @@
-
 package com.toggl.onboarding.domain.states
 
 import com.toggl.architecture.Loadable

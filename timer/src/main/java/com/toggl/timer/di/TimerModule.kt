@@ -1,4 +1,3 @@
-
 package com.toggl.timer.di
 
 import com.toggl.architecture.core.Store

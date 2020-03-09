@@ -1,4 +1,3 @@
-
 package com.toggl.database
 
 import androidx.room.TypeConverter

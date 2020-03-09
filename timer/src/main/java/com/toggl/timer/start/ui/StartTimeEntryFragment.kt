@@ -1,4 +1,3 @@
-
 package com.toggl.timer.start.ui
 
 import android.content.Context
@@ -56,7 +55,8 @@ class StartTimeEntryFragment : Fragment(R.layout.start_time_entry_fragment) {
                 .distinctUntilChanged()
                 .onEach {
                     if (time_entry_description?.text.toString() != it) {
-                        time_entry_description.setText(it) }
+                        time_entry_description.setText(it)
+                    }
                 }
                 .launchIn(this)
 

@@ -1,4 +1,3 @@
-
 package com.toggl.domain.effect
 
 import com.toggl.architecture.core.Effect

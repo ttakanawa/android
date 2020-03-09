@@ -1,4 +1,3 @@
-
 package com.toggl.onboarding.reducers
 
 import com.toggl.api.login.LoginApi
@@ -58,9 +57,13 @@ abstract class TheOnboardingReducer :
     override fun emptyState(): OnboardingState =
         OnboardingState(Loadable.Uninitialized, OnboardingState.LocalState())
 }
+
 class WhenReceivingALoginTappedAction : TheOnboardingReducer() {
 
-    private fun OnboardingState.withCredentials(email: Email = Email.from(""), password: Password = Password.from("")): OnboardingState =
+    private fun OnboardingState.withCredentials(
+        email: Email = Email.from(""),
+        password: Password = Password.from("")
+    ): OnboardingState =
         copy(localState = OnboardingState.LocalState(email = email, password = password))
 
     @Test
@@ -136,7 +139,10 @@ class WhenReceivingALoginTappedAction : TheOnboardingReducer() {
             val initialState = emptyState()
             var state = initialState
             val settableValue = state.toSettableValue { state = it }
-            reducer.reduce(settableValue, OnboardingAction.PasswordEntered(validPassword.toString()))
+            reducer.reduce(
+                settableValue,
+                OnboardingAction.PasswordEntered(validPassword.toString())
+            )
             state.password.password shouldEqual validPassword.password
         }
     }

@@ -1,8 +1,8 @@
-
 package com.toggl.architecture
 
 sealed class Loadable<out Value> {
     open operator fun invoke(): Value? = null
+
     object Uninitialized : Loadable<Nothing>()
     class Loading<out Value> : Loadable<Value>()
     class Error<out Value>(val failure: Failure) : Loadable<Value>()

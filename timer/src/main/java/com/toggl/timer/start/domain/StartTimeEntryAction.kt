@@ -1,4 +1,3 @@
-
 package com.toggl.timer.start.domain
 
 import com.toggl.models.domain.TimeEntry
@@ -9,12 +8,13 @@ sealed class StartTimeEntryAction {
     object StopTimeEntryButtonTapped : StartTimeEntryAction()
     data class TimeEntryDescriptionChanged(val description: String) : StartTimeEntryAction()
     data class TimeEntryUpdated(val id: Long, val timeEntry: TimeEntry) : StartTimeEntryAction()
-    data class TimeEntryStarted(val startedTimeEntry: TimeEntry, val stoppedTimeEntry: TimeEntry?) : StartTimeEntryAction()
+    data class TimeEntryStarted(val startedTimeEntry: TimeEntry, val stoppedTimeEntry: TimeEntry?) :
+        StartTimeEntryAction()
 
     companion object {
         fun fromTimerAction(timerAction: TimerAction): StartTimeEntryAction? =
-                if (timerAction !is TimerAction.StartTimeEntry) null
-                else timerAction.startTimeEntryAction
+            if (timerAction !is TimerAction.StartTimeEntry) null
+            else timerAction.startTimeEntryAction
 
         fun toTimerAction(startTimeEntryAction: StartTimeEntryAction): TimerAction =
             TimerAction.StartTimeEntry(

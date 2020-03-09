@@ -1,4 +1,3 @@
-
 package com.toggl.architecture.extensions
 
 import kotlinx.coroutines.ExperimentalCoroutinesApi

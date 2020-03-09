@@ -1,4 +1,3 @@
-
 package com.toggl.onboarding.di
 
 import com.toggl.onboarding.ui.LoginFragment

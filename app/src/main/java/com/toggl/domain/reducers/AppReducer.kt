@@ -1,4 +1,3 @@
-
 package com.toggl.domain.reducers
 
 import com.toggl.architecture.core.Reducer

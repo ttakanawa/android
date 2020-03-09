@@ -1,4 +1,3 @@
-
 package com.toggl.timer.log.ui
 
 import android.view.LayoutInflater
@@ -27,16 +26,16 @@ class TimeEntryLogAdapter(private val onContinueTappedListener: (Long) -> Unit =
                 newItem: TimeEntryViewModel
             ): Boolean =
                 oldItem is FlatTimeEntryItem &&
-                        newItem is FlatTimeEntryItem &&
-                        oldItem.id == newItem.id
+                    newItem is FlatTimeEntryItem &&
+                    oldItem.id == newItem.id
 
             override fun areContentsTheSame(
                 oldItem: TimeEntryViewModel,
                 newItem: TimeEntryViewModel
             ): Boolean =
                 oldItem is FlatTimeEntryItem &&
-                newItem is FlatTimeEntryItem &&
-                oldItem.description == newItem.description
+                    newItem is FlatTimeEntryItem &&
+                    oldItem.description == newItem.description
         }
     }
 }

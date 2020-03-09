@@ -1,4 +1,3 @@
-
 package com.toggl.reports.ui
 
 import android.graphics.Color

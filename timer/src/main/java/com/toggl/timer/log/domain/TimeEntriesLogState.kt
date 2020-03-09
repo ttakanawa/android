@@ -1,4 +1,3 @@
-
 package com.toggl.timer.log.domain
 
 import com.toggl.models.domain.Project

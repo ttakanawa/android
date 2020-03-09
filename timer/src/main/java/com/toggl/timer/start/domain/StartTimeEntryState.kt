@@ -1,4 +1,3 @@
-
 package com.toggl.timer.start.domain
 
 import com.toggl.models.domain.TimeEntry

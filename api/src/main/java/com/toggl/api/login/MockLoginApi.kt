@@ -1,4 +1,3 @@
-
 package com.toggl.api.login
 
 import com.toggl.models.domain.User

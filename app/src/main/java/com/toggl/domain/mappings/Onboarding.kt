@@ -1,4 +1,3 @@
-
 package com.toggl.domain.mappings
 
 import com.toggl.domain.AppAction

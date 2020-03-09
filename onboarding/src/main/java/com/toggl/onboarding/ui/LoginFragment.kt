@@ -1,4 +1,3 @@
-
 package com.toggl.onboarding.ui
 
 import android.content.Context

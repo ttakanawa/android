@@ -1,4 +1,3 @@
-
 package com.toggl.onboarding.ui
 
 import androidx.lifecycle.ViewModel

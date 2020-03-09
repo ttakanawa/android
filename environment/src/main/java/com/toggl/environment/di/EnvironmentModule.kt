@@ -1,4 +1,3 @@
-
 package com.toggl.environment.di
 
 import com.toggl.api.login.LoginApi

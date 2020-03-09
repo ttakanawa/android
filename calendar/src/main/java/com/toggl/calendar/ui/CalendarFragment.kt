@@ -1,4 +1,3 @@
-
 package com.toggl.calendar.ui
 
 import android.graphics.Color

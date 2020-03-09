@@ -1,4 +1,3 @@
-
 package com.toggl.database
 
 import android.content.Context
@@ -8,10 +7,12 @@ import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
 
-@Module(includes = [
-    RoomDatabaseModule::class,
-    DatabaseDaoModule::class
-])
+@Module(
+    includes = [
+        RoomDatabaseModule::class,
+        DatabaseDaoModule::class
+    ]
+)
 class DatabaseModule
 
 @Module

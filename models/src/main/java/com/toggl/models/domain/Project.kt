@@ -1,4 +1,3 @@
-
 package com.toggl.models.domain
 
 data class Project(

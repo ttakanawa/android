@@ -1,4 +1,3 @@
-
 package com.toggl.timer.log.domain
 
 import com.toggl.architecture.core.SettableValue
@@ -42,7 +41,8 @@ class WhenReceivingContinueButtonTapped : StringSpec() {
             assertAll(fn = { id: Long ->
                 var state = initialState
                 val settableValue = state.toSettableValue { state = it }
-                val effect = reducer.reduce(settableValue, TimeEntriesLogAction.ContinueButtonTapped(id))
+                val effect =
+                    reducer.reduce(settableValue, TimeEntriesLogAction.ContinueButtonTapped(id))
                 effect shouldBe noEffect()
                 state shouldBe initialState
             })

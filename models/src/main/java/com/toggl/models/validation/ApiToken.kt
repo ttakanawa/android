@@ -1,4 +1,3 @@
-
 package com.toggl.models.validation
 
 sealed class ApiToken {
@@ -9,6 +8,7 @@ sealed class ApiToken {
                 else Valid(apiToken)
         }
     }
+
     object Invalid : ApiToken()
 
     companion object {

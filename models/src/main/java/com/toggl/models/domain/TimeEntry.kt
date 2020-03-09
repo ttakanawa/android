@@ -1,4 +1,3 @@
-
 package com.toggl.models.domain
 
 import androidx.room.Entity

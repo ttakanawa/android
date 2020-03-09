@@ -1,4 +1,3 @@
-
 package com.toggl.models.validation
 
 sealed class Email(val email: String) {
@@ -9,6 +8,7 @@ sealed class Email(val email: String) {
                 else Valid(email)
         }
     }
+
     class Invalid(email: String) : Email(email)
 
     override fun toString(): String = email

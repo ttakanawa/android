@@ -1,4 +1,3 @@
-
 package com.toggl.database.dao
 
 import androidx.room.Dao

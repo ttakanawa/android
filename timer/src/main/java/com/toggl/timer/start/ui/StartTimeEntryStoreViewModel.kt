@@ -1,4 +1,3 @@
-
 package com.toggl.timer.start.ui
 
 import androidx.lifecycle.ViewModel

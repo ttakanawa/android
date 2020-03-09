@@ -1,4 +1,3 @@
-
 package com.toggl.timer.di
 
 import com.toggl.timer.log.ui.TimeEntriesLogFragment

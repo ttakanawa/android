@@ -1,4 +1,3 @@
-
 package com.toggl.architecture.core
 
 class SettableValue<T>(private val getValue: () -> T, private val setValue: (T) -> Unit) {

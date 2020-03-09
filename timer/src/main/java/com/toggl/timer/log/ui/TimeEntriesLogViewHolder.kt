@@ -1,4 +1,3 @@
-
 package com.toggl.timer.log.ui
 
 import android.view.View

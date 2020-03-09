@@ -1,4 +1,3 @@
-
 package com.toggl.onboarding.domain.actions
 
 import com.toggl.models.domain.User
