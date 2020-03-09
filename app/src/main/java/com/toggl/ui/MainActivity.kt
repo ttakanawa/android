@@ -1,17 +1,18 @@
 package com.toggl.ui
 
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import com.toggl.R
 import com.toggl.TogglApplication
 import com.toggl.architecture.core.Store
+import com.toggl.common.DeepLinkUrls
 import com.toggl.domain.AppAction
 import com.toggl.domain.AppState
-import com.toggl.common.DeepLinkUrls
-import kotlinx.android.synthetic.main.main_activity.*
 import javax.inject.Inject
+import kotlinx.android.synthetic.main.main_activity.*
 
 class MainActivity : AppCompatActivity(R.layout.main_activity) {
 
@@ -42,5 +43,6 @@ class MainActivity : AppCompatActivity(R.layout.main_activity) {
     }
 
     private fun scrollUpOnTab(menuItem: MenuItem) {
+        Log.i("MainActivity", menuItem.title.toString())
     }
 }
