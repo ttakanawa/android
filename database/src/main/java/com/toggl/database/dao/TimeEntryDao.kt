@@ -9,13 +9,13 @@ import com.toggl.models.domain.TimeEntry
 
 @Dao
 interface TimeEntryDao {
-    @Query("SELECT * FROM TimeEntry")
+    @Query("SELECT * FROM TimeEntry WHERE NOT isDeleted")
     fun getAll(): List<TimeEntry>
 
-    @Query("SELECT * FROM TimeEntry WHERE duration is null")
+    @Query("SELECT * FROM TimeEntry WHERE NOT isDeleted AND duration is null")
     fun getAllRunning(): List<TimeEntry>
 
-    @Query("SELECT * FROM TimeEntry WHERE id = :id")
+    @Query("SELECT * FROM TimeEntry WHERE NOT isDeleted AND id = :id")
     fun getOne(id: Long): TimeEntry
 
     @Insert
@@ -23,6 +23,9 @@ interface TimeEntryDao {
 
     @Insert
     fun insert(timeEntries: TimeEntry): Long
+
+    @Update
+    fun update(timeEntry: TimeEntry)
 
     @Update
     fun updateAll(timeEntries: List<TimeEntry>)

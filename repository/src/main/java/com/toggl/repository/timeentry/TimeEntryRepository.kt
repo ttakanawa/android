@@ -12,4 +12,5 @@ interface TimeEntryRepository {
     suspend fun startTimeEntry(description: String): StartTimeEntryResult
     suspend fun stopRunningTimeEntry(): TimeEntry?
     suspend fun editTimeEntry(timeEntry: TimeEntry): TimeEntry
+    suspend fun deleteTimeEntry(timeEntry: TimeEntry): TimeEntry
 }
