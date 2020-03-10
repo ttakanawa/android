@@ -18,3 +18,8 @@ data class ProjectViewModel(
     val name: String,
     val color: String
 )
+
+data class DayHeaderViewModel(
+    val dayTitle: String,
+    val totalDuration: Long
+) : TimeEntryViewModel()
