@@ -1,0 +1,72 @@
+---
+format_version: '8'
+default_step_lib_source: https://github.com/bitrise-io/bitrise-steplib.git
+project_type: android
+trigger_map:
+- push_branch: "*"
+  workflow: health
+workflows:
+  base:
+    steps:
+    - activate-ssh-key@4.0.5:
+        run_if: '{{getenv "SSH_RSA_PRIVATE_KEY" | ne ""}}'
+    - git-clone@4.0.18: {}
+    - install-missing-android-tools@2.3.8:
+        inputs:
+        - gradlew_path: "$PROJECT_LOCATION/gradlew"
+  health:
+    steps:
+    - build-router-start@0.11.3:
+        inputs:
+        - access_token: "$HEALTH_CHECKS_ACCESS_TOKEN"
+        - workflows: |-
+            health-tests
+            health-compile
+            health-linter
+    - github-status@2.2.2:
+        inputs:
+        - status_identifier: Bitrise Health Checks
+        - auth_token: "$GITHUB_STATUS_KEY"
+    before_run: []
+  health-tests:
+    steps:
+    - android-unit-test@1.0.0: {}
+    - github-status@2.2.2:
+        inputs:
+        - status_identifier: Unit Tests
+        - auth_token: "$GITHUB_STATUS_KEY"
+    - deploy-to-bitrise-io@1.9.6: {}
+    before_run:
+    - base
+  health-compile:
+    steps:
+    - android-build@0.10.0: {}
+    - github-status@2.2.2:
+        inputs:
+        - status_identifier: Compiler Check
+        - auth_token: "$GITHUB_STATUS_KEY"
+    before_run:
+    - base
+  health-linter:
+    steps:
+    - gradle-runner@1.9.3:
+        inputs:
+        - gradlew_path: "$PROJECT_LOCATION/gradlew"
+        - gradle_task: spotlessKotlinCheck
+    - github-status@2.2.2:
+        inputs:
+        - status_identifier: Linter Check
+        - auth_token: "$GITHUB_STATUS_KEY"
+    before_run:
+    - base
+app:
+  envs:
+  - opts:
+      is_expand: false
+    PROJECT_LOCATION: "."
+  - opts:
+      is_expand: false
+    MODULE: app
+  - opts:
+      is_expand: false
+    VARIANT: ''
