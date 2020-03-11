@@ -46,7 +46,7 @@ class TimeEntrySwipedActionTests : FreeSpec({
         }
 
         "when swiping right" - {
-            "continue the swiped time entry" {
+            "should continue the swiped time entry" {
                 val initialState = createEmptyState().copy(timeEntries = listOf(entryInDatabase))
                 var state = initialState
                 val settableValue = state.toSettableValue { state = it }
@@ -57,7 +57,7 @@ class TimeEntrySwipedActionTests : FreeSpec({
         }
 
         "when swiping left" - {
-            "delete the swiped time entry" {
+            "should delete the swiped time entry" {
                 val initialState = createEmptyState().copy(timeEntries = listOf(entryInDatabase))
                 var state = initialState
                 val settableValue = state.toSettableValue { state = it }
