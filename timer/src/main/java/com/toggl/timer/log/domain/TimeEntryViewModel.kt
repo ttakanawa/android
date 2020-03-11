@@ -24,3 +24,12 @@ data class DayHeaderViewModel(
     val dayTitle: String,
     val totalDuration: Duration
 ) : TimeEntryViewModel()
+
+data class TimeEntryGroupViewModel(
+    val timeEntryIds: List<Long>,
+    val isExpanded: Boolean,
+    val description: String,
+    val duration: Duration,
+    val project: ProjectViewModel?,
+    val billable: Boolean
+) : TimeEntryViewModel()
