@@ -1,0 +1,97 @@
+{
+  "project_info": {
+    "project_number": "$TOGGL_GCM_SENDER_ID",
+    "firebase_url": "$TOGGL_DATABASE_URL",
+    "project_id": "$TOGGL_PROJECT_ID",
+    "storage_bucket": "$TOGGL_STORAGE_BUCKET"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "$TOGGL_DROID_GOOGLE_SERVICES_MOBILE_SDK_APP_ID",
+        "android_client_info": {
+          // the package_name should be updated to com.toggl.giskard.toggl to match the current production app
+          "package_name": "com.toggl"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "$TOGGL_DROID_GOOGLE_SERVICES_CLIENT_ID",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "$TOGGL_DROID_GOOGLE_SERVICES_API_KEY"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "$TOGGL_DROID_DEBUG_GOOGLE_SERVICES_MOBILE_SDK_APP_ID_STAGING",
+        "android_client_info": {
+          // the package_name should be updated to com.toggl.giskard.debug to match the current production app
+          "package_name": "com.toggl.debug"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "$TOGGL_DROID_GOOGLE_SERVICES_API_KEY"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "$TOGGL_DROID_ADHOC_GOOGLE_SERVICES_MOBILE_SDK_APP_ID_STAGING",
+        "android_client_info": {
+          // the package_name should be updated to com.toggl.giskard.adhoc to match the current production app
+          "package_name": "com.toggl.adhoc"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "$TOGGL_DROID_GOOGLE_SERVICES_API_KEY"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

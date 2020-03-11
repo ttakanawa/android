@@ -32,6 +32,10 @@ object Libs {
 
     object Google {
         const val material = "com.google.android.material:material:1.1.0"
+        const val googleServicesPluginClassPath = "com.google.gms:google-services:4.3.3"
+        const val firebaseCrashlyticsPluginClassPath = "com.google.firebase:firebase-crashlytics-gradle:2.0.0-beta02"
+        const val firebaseCore = "com.google.firebase:firebase-core:17.2.3"
+        const val firebaseCrashlytics = "com.google.firebase:firebase-crashlytics:17.0.0-beta01"
     }
 
     object Kotlin {

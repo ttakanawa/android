@@ -1,9 +1,13 @@
+import org.apache.tools.ant.filters.FixCrLfFilter
+import org.apache.tools.ant.filters.ReplaceTokens
 import com.toggl.buildsrc.Libs
 
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
+apply plugin: 'com.google.gms.google-services'
+apply plugin: 'com.google.firebase.crashlytics'
 
 kapt {
     correctErrorTypes = true
@@ -13,6 +17,8 @@ kapt {
 android {
     compileSdkVersion buildConfig.compileSdk
     defaultConfig {
+        // the applicationId needs to be replaced with "com.toggl.giskard" so that we can replace the current production app
+        // also, when testing analytics/crashlytics/firebase, the actual package should be used (or a placeholder firebase project)
         applicationId "com.toggl"
         minSdkVersion buildConfig.minSdk
         targetSdkVersion buildConfig.targetSdk
@@ -60,9 +66,40 @@ dependencies {
     implementation Libs.Kotlin.stdlib
     implementation Libs.Dagger.dagger
     kapt Libs.Dagger.compiler
+    implementation Libs.Google.firebaseCore
+    implementation Libs.Google.firebaseCrashlytics
 
     debugImplementation Libs.leakCanary
 
     androidTestImplementation Libs.AndroidX.Test.runner
     androidTestImplementation Libs.AndroidX.Test.espressoCore
+}
+
+task prepareGooglePlayServices(type: Copy) {
+    from './google-services.json.template'
+    into "$buildDir/tmp-google-services"
+
+    def googleProps = new Hashtable()
+    googleProps.put('TOGGL_GCM_SENDER_ID', System.getenv('TOGGL_GCM_SENDER_ID') ?: 'TOGGL_GCM_SENDER_ID')
+    googleProps.put('TOGGL_DATABASE_URL', System.getenv('TOGGL_DATABASE_URL') ?: 'TOGGL_DATABASE_URL')
+    googleProps.put('TOGGL_PROJECT_ID', System.getenv('TOGGL_PROJECT_ID') ?: 'TOGGL_PROJECT_ID')
+    googleProps.put('TOGGL_STORAGE_BUCKET', System.getenv('TOGGL_STORAGE_BUCKET') ?: 'TOGGL_STORAGE_BUCKET')
+    googleProps.put('TOGGL_DROID_GOOGLE_SERVICES_MOBILE_SDK_APP_ID', System.getenv('TOGGL_DROID_GOOGLE_SERVICES_MOBILE_SDK_APP_ID') ?: 'TOGGL_DROID_GOOGLE_SERVICES_MOBILE_SDK_APP_ID')
+    googleProps.put('TOGGL_DROID_GOOGLE_SERVICES_CLIENT_ID', System.getenv('TOGGL_DROID_GOOGLE_SERVICES_CLIENT_ID') ?: 'TOGGL_DROID_GOOGLE_SERVICES_CLIENT_ID')
+    googleProps.put('TOGGL_DROID_GOOGLE_SERVICES_API_KEY', System.getenv('TOGGL_DROID_GOOGLE_SERVICES_API_KEY') ?: 'TOGGL_DROID_GOOGLE_SERVICES_API_KEY')
+    googleProps.put('TOGGL_DROID_DEBUG_GOOGLE_SERVICES_MOBILE_SDK_APP_ID_STAGING', System.getenv('TOGGL_DROID_DEBUG_GOOGLE_SERVICES_MOBILE_SDK_APP_ID_STAGING') ?: 'TOGGL_DROID_DEBUG_GOOGLE_SERVICES_MOBILE_SDK_APP_ID_STAGING')
+    googleProps.put('TOGGL_DROID_ADHOC_GOOGLE_SERVICES_MOBILE_SDK_APP_ID_STAGING', System.getenv('TOGGL_DROID_ADHOC_GOOGLE_SERVICES_MOBILE_SDK_APP_ID_STAGING') ?: 'TOGGL_DROID_ADHOC_GOOGLE_SERVICES_MOBILE_SDK_APP_ID_STAGING')
+
+    expand(googleProps)
+    filter(FixCrLfFilter)
+    filter(ReplaceTokens, tokens: googleProps)
+    filteringCharset = 'UTF-8'
+
+    doLast {
+        copy {
+            from "$buildDir/tmp-google-services/google-services.json.template"
+            into '.'
+            rename { 'google-services.json' }
+        }
+    }
 }
