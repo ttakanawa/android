@@ -1,8 +1,7 @@
 package com.toggl.models.common
 
-sealed class SwipeDirection {
-    object Left : SwipeDirection()
-    object Right : SwipeDirection()
+enum class SwipeDirection {
+    Left,  Right;
 
     override fun toString(): String =
         when (this) {
