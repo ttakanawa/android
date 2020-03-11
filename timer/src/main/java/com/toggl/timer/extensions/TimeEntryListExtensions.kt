@@ -5,6 +5,9 @@ import com.toggl.models.domain.TimeEntry
 import com.toggl.timer.log.domain.FlatTimeEntryItem
 import com.toggl.timer.log.domain.ProjectViewModel
 
+fun List<TimeEntry>.findEntryWithId(id: Long): TimeEntry? =
+    firstOrNull { it.id == id }
+
 fun List<TimeEntry>.replaceTimeEntryWithId(id: Long, timeEntryToReplace: TimeEntry) =
     map { if (it.id == id) timeEntryToReplace else it }
 

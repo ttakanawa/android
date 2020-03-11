@@ -3,6 +3,8 @@ package com.toggl.repository.timeentry
 import com.toggl.database.dao.TimeEntryDao
 import com.toggl.environment.services.TimeService
 import com.toggl.models.domain.TimeEntry
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 import org.threeten.bp.Duration
 
@@ -11,7 +13,8 @@ class TimeEntryRepositoryImpl @Inject constructor(
     private val timeService: TimeService
 ) : TimeEntryRepository {
 
-    override suspend fun loadTimeEntries() = timeEntryDao.getAll()
+    override suspend fun loadTimeEntries() =
+        withContext(Dispatchers.IO) { timeEntryDao.getAll() }
 
     override suspend fun startTimeEntry(description: String): StartTimeEntryResult {
         val oldStoppedTimeEntries = stopAllRunningTimeEntries()
@@ -22,7 +25,8 @@ class TimeEntryRepositoryImpl @Inject constructor(
                 duration = null,
                 billable = false,
                 projectId = null,
-                taskId = null
+                taskId = null,
+                isDeleted = false
             )
         )
         return StartTimeEntryResult(
@@ -37,13 +41,14 @@ class TimeEntryRepositoryImpl @Inject constructor(
         return oldStoppedTimeEntries.firstOrNull()
     }
 
-    override suspend fun editTimeEntry(timeEntry: TimeEntry): TimeEntry {
-        TODO("not implemented")
-    }
+    override suspend fun editTimeEntry(timeEntry: TimeEntry): TimeEntry =
+        timeEntryDao.update(timeEntry).run { timeEntry }
 
-    private suspend fun stopAllRunningTimeEntries(): List<TimeEntry> {
+    override suspend fun deleteTimeEntry(timeEntry: TimeEntry): TimeEntry =
+        editTimeEntry(timeEntry.copy(isDeleted = true))
+
+    private fun stopAllRunningTimeEntries(): List<TimeEntry> {
         val now = timeService.now()
-
         val oldRunningTimeEntries = timeEntryDao.getAllRunning()
         return oldRunningTimeEntries.map { it.copy(duration = Duration.between(it.startTime, now)) }
     }

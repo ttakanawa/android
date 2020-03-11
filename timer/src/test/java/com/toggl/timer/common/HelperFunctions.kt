@@ -11,5 +11,6 @@ fun createTimeEntry(id: Long, description: String) =
         null,
         false,
         null,
-        null
+        null,
+        false
     )
