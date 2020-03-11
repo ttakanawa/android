@@ -1,7 +1,7 @@
 package com.toggl.models.common
 
 enum class SwipeDirection {
-    Left,  Right;
+    Left, Right;
 
     override fun toString(): String =
         when (this) {
