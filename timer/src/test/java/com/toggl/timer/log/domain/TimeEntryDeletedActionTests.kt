@@ -8,7 +8,7 @@ import io.kotlintest.shouldBe
 import io.kotlintest.specs.FreeSpec
 import io.mockk.mockk
 
-class TimeEntryDeletedActionTests: FreeSpec({
+class TimeEntryDeletedActionTests : FreeSpec({
 
     val repository = mockk<TimeEntryRepository>()
     val entriesInDatabase = (1L..3L).map { createTimeEntry(it, "test") }
