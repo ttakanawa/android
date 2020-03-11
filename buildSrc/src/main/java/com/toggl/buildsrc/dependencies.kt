@@ -36,6 +36,8 @@ object Libs {
         const val firebaseCrashlyticsPluginClassPath = "com.google.firebase:firebase-crashlytics-gradle:2.0.0-beta02"
         const val firebaseCore = "com.google.firebase:firebase-core:17.2.3"
         const val firebaseCrashlytics = "com.google.firebase:firebase-crashlytics:17.0.0-beta01"
+        const val firebasePerformance = "com.google.firebase:firebase-perf:19.0.5"
+        const val firebasePerformancePluginClassPath = "com.google.firebase:perf-plugin:1.3.1"
     }
 
     object Kotlin {

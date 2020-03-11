@@ -8,6 +8,7 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'com.google.gms.google-services'
 apply plugin: 'com.google.firebase.crashlytics'
+apply plugin: 'com.google.firebase.firebase-perf'
 
 kapt {
     correctErrorTypes = true
@@ -68,6 +69,7 @@ dependencies {
     kapt Libs.Dagger.compiler
     implementation Libs.Google.firebaseCore
     implementation Libs.Google.firebaseCrashlytics
+    implementation Libs.Google.firebasePerformance
 
     debugImplementation Libs.leakCanary
 
