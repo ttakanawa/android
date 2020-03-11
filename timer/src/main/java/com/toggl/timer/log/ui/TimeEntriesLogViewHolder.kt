@@ -34,7 +34,8 @@ class TimeEntryLogViewHolder(
             project.setTextColor(item.project.color.toColorInt())
         }
 
-        item.duration?.let { durationMillis ->
+        item.duration?.let { timeEntryDuration ->
+            val durationMillis = timeEntryDuration.toMillis()
             val hms = String.format(
                 "%02d:%02d:%02d", TimeUnit.MILLISECONDS.toHours(durationMillis),
                 TimeUnit.MILLISECONDS.toMinutes(durationMillis) % TimeUnit.HOURS.toMinutes(1),

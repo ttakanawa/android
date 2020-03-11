@@ -30,12 +30,10 @@ android {
 }
 
 dependencies {
-    api project(':api')
-    api project(':repository')
-
     implementation Libs.Kotlin.stdlib
     implementation Libs.Dagger.dagger
     kapt Libs.Dagger.compiler
+    api Libs.threeTenAndroid
 
     androidTestImplementation Libs.AndroidX.Test.runner
     androidTestImplementation Libs.AndroidX.Test.espressoCore

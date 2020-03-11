@@ -8,7 +8,7 @@ import io.kotlintest.properties.assertAll
 import io.kotlintest.shouldBe
 import io.kotlintest.specs.StringSpec
 import io.mockk.mockk
-import java.util.Date
+import org.threeten.bp.OffsetDateTime
 
 fun TimeEntriesLogState.toSettableValue(setFunction: (TimeEntriesLogState) -> Unit) =
     SettableValue({ this }, setFunction)
@@ -20,7 +20,7 @@ class WhenReceivingContinueButtonTapped : StringSpec() {
         val testTe = TimeEntry(
             1,
             "test",
-            Date(),
+            OffsetDateTime.now(),
             null,
             false,
             null,

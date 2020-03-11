@@ -5,6 +5,7 @@ import com.toggl.database.DatabaseModule
 import com.toggl.environment.di.EnvironmentModule
 import com.toggl.onboarding.di.OnboardingComponent
 import com.toggl.onboarding.di.OnboardingModule
+import com.toggl.repository.di.RepositoryModule
 import com.toggl.timer.di.TimerComponent
 import com.toggl.timer.di.TimerModule
 import com.toggl.ui.MainActivity
@@ -20,7 +21,8 @@ import javax.inject.Singleton
         OnboardingModule::class,
         TimerModule::class,
         EnvironmentModule::class,
-        DatabaseModule::class
+        DatabaseModule::class,
+        RepositoryModule::class
     ]
 )
 interface AppComponent {

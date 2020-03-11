@@ -1,14 +1,15 @@
 package com.toggl.timer.log.domain
 
-import java.util.Date
+import org.threeten.bp.Duration
+import org.threeten.bp.OffsetDateTime
 
 sealed class TimeEntryViewModel
 
 data class FlatTimeEntryItem(
     val id: Long,
     val description: String,
-    val startTime: Date,
-    val duration: Long?,
+    val startTime: OffsetDateTime,
+    val duration: Duration?,
     val project: ProjectViewModel?,
     val billable: Boolean
 ) : TimeEntryViewModel()
@@ -21,5 +22,5 @@ data class ProjectViewModel(
 
 data class DayHeaderViewModel(
     val dayTitle: String,
-    val totalDuration: Long
+    val totalDuration: Duration
 ) : TimeEntryViewModel()

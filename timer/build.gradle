@@ -57,6 +57,9 @@ dependencies {
     implementation Libs.Dagger.dagger
     kapt Libs.Dagger.compiler
 
+    testImplementation (Libs.threeTen) {
+        exclude group:'com.jakewharton.threetenabp', module:'threetenabp'
+    }
     testImplementation Libs.Test.Jupiter.api
     testRuntimeOnly Libs.Test.Jupiter.engine
     testRuntimeOnly Libs.Test.Jupiter.params

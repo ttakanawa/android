@@ -31,6 +31,7 @@ android {
 dependencies {
     api project(":models")
     api project(":database")
+    api project(':environment')
 
     implementation Libs.Kotlin.stdlib
     api Libs.Coroutines.core

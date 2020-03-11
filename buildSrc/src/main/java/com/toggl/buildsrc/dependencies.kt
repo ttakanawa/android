@@ -10,6 +10,8 @@ object Libs {
     const val leakCanary = "com.squareup.leakcanary:leakcanary-android:2.2"
     // fixes warning thrown by SLF4J
     const val slf4j = "org.slf4j:slf4j-simple:1.7.26"
+    const val threeTen = "org.threeten:threetenbp:1.4.1"
+    const val threeTenAndroid = "com.jakewharton.threetenabp:threetenabp:1.2.2"
 
     object Test {
         const val junit5Plugin = "de.mannodermaus.gradle.plugins:android-junit5:1.5.0.0"

@@ -54,6 +54,7 @@ dependencies {
     implementation project(':models')
     implementation project(':onboarding')
     implementation project(':reports')
+    implementation project(':repository')
     implementation project(':timer')
 
     implementation Libs.Kotlin.stdlib

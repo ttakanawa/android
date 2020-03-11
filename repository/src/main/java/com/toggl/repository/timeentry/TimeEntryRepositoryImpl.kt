@@ -1,12 +1,15 @@
 package com.toggl.repository.timeentry
 
 import com.toggl.database.dao.TimeEntryDao
+import com.toggl.environment.services.TimeService
 import com.toggl.models.domain.TimeEntry
-import java.util.Date
 import javax.inject.Inject
+import org.threeten.bp.Duration
 
-class TimeEntryRepositoryImpl @Inject constructor(private val timeEntryDao: TimeEntryDao) :
-    TimeEntryRepository {
+class TimeEntryRepositoryImpl @Inject constructor(
+    private val timeEntryDao: TimeEntryDao,
+    private val timeService: TimeService
+) : TimeEntryRepository {
 
     override suspend fun loadTimeEntries() = timeEntryDao.getAll()
 
@@ -15,7 +18,7 @@ class TimeEntryRepositoryImpl @Inject constructor(private val timeEntryDao: Time
         val id = timeEntryDao.insert(
             TimeEntry(
                 description = description,
-                startTime = Date(),
+                startTime = timeService.now(),
                 duration = null,
                 billable = false,
                 projectId = null,
@@ -39,8 +42,9 @@ class TimeEntryRepositoryImpl @Inject constructor(private val timeEntryDao: Time
     }
 
     private suspend fun stopAllRunningTimeEntries(): List<TimeEntry> {
-        val now = Date()
+        val now = timeService.now()
+
         val oldRunningTimeEntries = timeEntryDao.getAllRunning()
-        return oldRunningTimeEntries.map { it.copy(duration = now.time - it.startTime.time) }
+        return oldRunningTimeEntries.map { it.copy(duration = Duration.between(it.startTime, now)) }
     }
 }
