@@ -30,7 +30,6 @@ internal fun createTimeEntriesLogReducer(repository: TimeEntryRepository) =
                     SwipeDirection.Left -> deleteTimeEntry(swipedEntry, repository)
                     SwipeDirection.Right -> startTimeEntry(swipedEntry, repository)
                 }
-
             }
             is TimeEntriesLogAction.TimeEntryStarted -> {
                 state.value = state.value.copy(
@@ -58,7 +57,6 @@ private fun startTimeEntry(timeEntry: TimeEntry, repository: TimeEntryRepository
     startTimeEntryEffect(timeEntry.description, repository) {
         TimeEntriesLogAction.TimeEntryStarted(it.startedTimeEntry, it.stoppedTimeEntry)
     }
-
 
 private fun deleteTimeEntry(timeEntry: TimeEntry, repository: TimeEntryRepository) =
     deleteTimeEntryEffect(timeEntry, repository) {

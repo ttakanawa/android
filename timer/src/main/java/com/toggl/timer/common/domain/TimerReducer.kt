@@ -21,5 +21,5 @@ fun handleTimeEntryCreationStateChanges(
 fun handleTimeEntryDeletionStateChanges(
     timeEntries: List<TimeEntry>,
     deletedTimeEntry: TimeEntry
-) : List<TimeEntry> =
+): List<TimeEntry> =
     timeEntries.filter { it.id != deletedTimeEntry.id }
