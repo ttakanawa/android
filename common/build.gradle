@@ -1,8 +1,10 @@
+import com.toggl.buildsrc.Libs
+
 apply plugin: 'java-library'
 apply plugin: 'kotlin'
 
 dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation Libs.Kotlin.stdlib
 }
 
 sourceCompatibility = "7"

@@ -1,3 +1,5 @@
+import com.toggl.buildsrc.Libs
+
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
@@ -9,13 +11,13 @@ kapt {
 }
 
 android {
-    compileSdkVersion rootProject.compileSdkVersion
+    compileSdkVersion buildConfig.compileSdk
 
     defaultConfig {
-        minSdkVersion rootProject.minSdkVersion
-        targetSdkVersion rootProject.targetSdkVersion
-        versionCode rootProject.versionCode
-        versionName rootProject.versionName
+        minSdkVersion buildConfig.minSdk
+        targetSdkVersion buildConfig.targetSdk
+        versionCode buildConfig.versionCode
+        versionName buildConfig.versionName
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles 'consumer-rules.pro'
@@ -38,11 +40,10 @@ android {
 dependencies {
     api project(':database')
 
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-
-    api "androidx.room:room-runtime:2.2.4"
-    implementation "androidx.room:room-ktx:2.2.4"
-    kapt "androidx.room:room-compiler:2.2.4"
-    implementation 'com.google.dagger:dagger:2.26'
-    kapt 'com.google.dagger:dagger-compiler:2.26'
+    implementation Libs.Kotlin.stdlib
+    api Libs.AndroidX.Room.runtime
+    implementation Libs.AndroidX.Room.ktx
+    kapt Libs.AndroidX.Room.compiler
+    implementation Libs.Dagger.dagger
+    kapt Libs.Dagger.compiler
 }
