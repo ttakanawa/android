@@ -18,6 +18,8 @@ buildscript {
         classpath Libs.Kotlin.gradlePlugin
         classpath Libs.Test.junit5Plugin
         classpath Libs.gradleVersionsPlugin
+        classpath Libs.Google.googleServicesPluginClassPath
+        classpath Libs.Google.firebaseCrashlyticsPluginClassPath
     }
 }
 
