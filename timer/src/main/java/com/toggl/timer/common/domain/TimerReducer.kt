@@ -22,4 +22,4 @@ fun handleTimeEntryDeletionStateChanges(
     timeEntries: List<TimeEntry>,
     deletedTimeEntry: TimeEntry
 ) : List<TimeEntry> =
-    timeEntries.filter { it.id == deletedTimeEntry.id }
+    timeEntries.filter { it.id != deletedTimeEntry.id }
