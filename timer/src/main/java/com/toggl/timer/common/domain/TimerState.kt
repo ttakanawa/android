@@ -9,9 +9,10 @@ data class TimerState(
     val localState: LocalState
 ) {
     data class LocalState internal constructor(
-        internal val editedDescription: String
+        internal val editedDescription: String,
+        internal val editedTimeEntry: TimeEntry?
     ) {
-        constructor() : this("")
+        constructor() : this("", null)
     }
 }
 

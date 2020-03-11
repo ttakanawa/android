@@ -10,6 +10,7 @@ import com.toggl.timer.common.domain.handleTimeEntryCreationStateChanges
 import com.toggl.timer.common.domain.handleTimeEntryDeletionStateChanges
 import com.toggl.timer.common.domain.startTimeEntryEffect
 import com.toggl.timer.extensions.findEntryWithId
+import java.lang.IllegalStateException
 
 typealias TimeEntriesLogReducer = Reducer<TimeEntriesLogState, TimeEntriesLogAction>
 
@@ -18,13 +19,20 @@ internal fun createTimeEntriesLogReducer(repository: TimeEntryRepository) =
         when (action) {
             is TimeEntriesLogAction.ContinueButtonTapped -> {
                 val timeEntryToContinue = state.value.timeEntries
-                    .findEntryWithId(action.id) ?: return@TimeEntriesLogReducer noEffect()
+                    .findEntryWithId(action.id) ?: throw IllegalStateException()
 
                 startTimeEntry(timeEntryToContinue, repository)
             }
+            is TimeEntriesLogAction.TimeEntryTapped -> {
+                val tappedTimeEntry = state.value.timeEntries
+                    .findEntryWithId(action.id) ?: throw IllegalStateException()
+
+                state.value = state.value.copy(editedTimeEntry = tappedTimeEntry)
+                noEffect()
+            }
             is TimeEntriesLogAction.TimeEntrySwiped -> {
                 val swipedEntry = state.value.timeEntries
-                    .findEntryWithId(action.id) ?: return@TimeEntriesLogReducer noEffect()
+                    .findEntryWithId(action.id) ?: throw IllegalStateException()
 
                 when (action.direction) {
                     SwipeDirection.Left -> deleteTimeEntry(swipedEntry, repository)
