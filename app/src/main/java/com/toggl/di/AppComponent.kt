@@ -34,6 +34,8 @@ interface AppComponent {
 
     fun inject(activity: MainActivity)
 
+    fun inject(togglApplication: TogglApplication)
+
     @Singleton
     fun onboardingComponent(): OnboardingComponent.Factory
 
