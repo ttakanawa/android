@@ -20,5 +20,5 @@ abstract class AppModuleBinds {
 
     @Binds
     @IntoSet
-    abstract fun provide310Initializer(bind: ThreeTenInitializer): AppInitializer
+    abstract fun provideThreeTenInitializer(bind: ThreeTenInitializer): AppInitializer
 }
