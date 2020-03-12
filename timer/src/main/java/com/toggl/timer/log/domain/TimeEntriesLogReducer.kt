@@ -48,7 +48,7 @@ internal fun createTimeEntriesLogReducer(repository: TimeEntryRepository) =
 
             is TimeEntriesLogAction.TimeEntryGroupSwiped -> {
 
-                when(action.direction) {
+                when (action.direction) {
                     SwipeDirection.Left -> {
                         val timeEntriesToDelete = action.ids
                             .map { state.value.timeEntries[it] ?: throw IllegalStateException() }
@@ -89,7 +89,6 @@ private fun startTimeEntry(timeEntry: TimeEntry, repository: TimeEntryRepository
     startTimeEntryEffect(timeEntry.description, repository) {
         TimeEntriesLogAction.TimeEntryStarted(it.startedTimeEntry, it.stoppedTimeEntry)
     }
-
 
 private fun delete(timeEntry: List<TimeEntry>, repository: TimeEntryRepository) =
     deleteTimeEntriesEffect(timeEntry, repository) {
