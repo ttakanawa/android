@@ -5,11 +5,10 @@ import com.toggl.architecture.core.noEffect
 import com.toggl.models.common.SwipeDirection
 import com.toggl.models.domain.TimeEntry
 import com.toggl.repository.timeentry.TimeEntryRepository
-import com.toggl.timer.common.domain.deleteTimeEntryEffect
+import com.toggl.timer.common.domain.deleteTimeEntriesEffect
 import com.toggl.timer.common.domain.handleTimeEntryCreationStateChanges
 import com.toggl.timer.common.domain.handleTimeEntryDeletionStateChanges
 import com.toggl.timer.common.domain.startTimeEntryEffect
-import com.toggl.timer.extensions.findEntryWithId
 import java.lang.IllegalStateException
 
 typealias TimeEntriesLogReducer = Reducer<TimeEntriesLogState, TimeEntriesLogAction>
@@ -30,6 +29,13 @@ internal fun createTimeEntriesLogReducer(repository: TimeEntryRepository) =
                 state.value = state.value.copy(editedTimeEntry = tappedTimeEntry)
                 noEffect()
             }
+
+            is TimeEntriesLogAction.TimeEntryGroupTapped -> {
+                val entryToEdit = state.value.timeEntries[action.ids.first()]
+                state.value = state.value.copy(editedTimeEntry = entryToEdit)
+                noEffect()
+            }
+
             is TimeEntriesLogAction.TimeEntrySwiped -> {
                 val swipedEntry = state.value.timeEntries[action.id]
                     ?: throw IllegalStateException()
@@ -39,6 +45,23 @@ internal fun createTimeEntriesLogReducer(repository: TimeEntryRepository) =
                     SwipeDirection.Right -> startTimeEntry(swipedEntry, repository)
                 }
             }
+
+            is TimeEntriesLogAction.TimeEntryGroupSwiped -> {
+
+                when(action.direction) {
+                    SwipeDirection.Left -> {
+                        val timeEntriesToDelete = action.ids
+                            .map { state.value.timeEntries[it] ?: throw IllegalStateException() }
+                        delete(timeEntriesToDelete, repository)
+                    }
+                    SwipeDirection.Right -> {
+                        val timeEntryToStart = state.value.timeEntries[action.ids.first()]
+                            ?: throw IllegalStateException()
+                        startTimeEntry(timeEntryToStart, repository)
+                    }
+                }
+            }
+
             is TimeEntriesLogAction.TimeEntryStarted -> {
                 state.value = state.value.copy(
                     timeEntries = handleTimeEntryCreationStateChanges(
