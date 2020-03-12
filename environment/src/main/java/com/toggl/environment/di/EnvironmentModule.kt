@@ -1,7 +1,6 @@
 package com.toggl.environment.di
 
 import android.content.Context
-import com.google.firebase.analytics.FirebaseAnalytics
 import com.toggl.environment.services.analytics.AnalyticsService
 import com.toggl.environment.services.analytics.AnalyticsServiceImpl
 import com.toggl.environment.services.time.ThreeTenTimeService
