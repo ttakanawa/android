@@ -14,6 +14,7 @@ import com.toggl.domain.reducers.AppReducer
 import com.toggl.domain.reducers.TimeEntryListReducer
 import com.toggl.domain.reducers.createAppReducer
 import com.toggl.domain.reducers.createTimeEntryListReducer
+import com.toggl.environment.services.analytics.AnalyticsService
 import com.toggl.onboarding.domain.actions.OnboardingAction
 import com.toggl.onboarding.domain.reducers.OnboardingReducer
 import com.toggl.onboarding.domain.states.OnboardingState
@@ -43,11 +44,13 @@ class AppModule {
     fun appReducer(
         @Named("timeEntryListReducer") timeEntryListReducer: TimeEntryListReducer,
         onboardingReducer: OnboardingReducer,
-        timerReducer: TimerReducer
+        timerReducer: TimerReducer,
+        analyticsService: AnalyticsService
     ) = createAppReducer(
         timeEntryListReducer,
         onboardingReducer,
-        timerReducer
+        timerReducer,
+        analyticsService
     )
 
     @Provides

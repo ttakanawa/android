@@ -13,6 +13,7 @@ import com.toggl.domain.mappings.mapOnboardingActionToAppAction
 import com.toggl.domain.mappings.mapOnboardingStateToAppState
 import com.toggl.domain.mappings.mapTimerActionToAppAction
 import com.toggl.domain.mappings.mapTimerStateToAppState
+import com.toggl.environment.services.analytics.AnalyticsService
 import com.toggl.onboarding.domain.reducers.OnboardingReducer
 import com.toggl.timer.common.domain.TimerReducer
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -25,11 +26,13 @@ typealias AppReducer = Reducer<AppState, AppAction>
 fun createAppReducer(
     timeEntryListReducer: TimeEntryListReducer,
     onboardingReducer: OnboardingReducer,
-    timerReducer: TimerReducer
+    timerReducer: TimerReducer,
+    analyticsService: AnalyticsService
 ): AppReducer =
     combine(
         timeEntryListReducer,
         createLoggingReducer(),
+        createAnalyticsReducer(analyticsService),
         timerReducer.pullback(
             mapToLocalState = ::mapAppStateToTimerState,
             mapToLocalAction = ::mapAppActionToTimerAction,
