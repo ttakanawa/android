@@ -1,7 +1,7 @@
 package com.toggl.repository.timeentry
 
 import com.toggl.database.dao.TimeEntryDao
-import com.toggl.environment.services.TimeService
+import com.toggl.environment.services.time.TimeService
 import com.toggl.models.domain.TimeEntry
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext

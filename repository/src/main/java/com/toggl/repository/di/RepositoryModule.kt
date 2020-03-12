@@ -1,7 +1,7 @@
 package com.toggl.repository.di
 
 import com.toggl.database.dao.TimeEntryDao
-import com.toggl.environment.services.TimeService
+import com.toggl.environment.services.time.TimeService
 import com.toggl.repository.timeentry.TimeEntryRepository
 import com.toggl.repository.timeentry.TimeEntryRepositoryImpl
 import dagger.Module
