@@ -35,7 +35,7 @@ internal fun createTimeEntriesLogReducer(repository: TimeEntryRepository) =
                     ?: throw IllegalStateException()
 
                 when (action.direction) {
-                    SwipeDirection.Left -> deleteTimeEntry(swipedEntry, repository)
+                    SwipeDirection.Left -> delete(listOf(swipedEntry), repository)
                     SwipeDirection.Right -> startTimeEntry(swipedEntry, repository)
                 }
             }
@@ -49,11 +49,12 @@ internal fun createTimeEntriesLogReducer(repository: TimeEntryRepository) =
                 )
                 noEffect()
             }
-            is TimeEntriesLogAction.TimeEntryDeleted -> {
+
+            is TimeEntriesLogAction.TimeEntriesDeleted -> {
                     state.value = state.value.copy(
                         timeEntries = handleTimeEntryDeletionStateChanges(
                             state.value.timeEntries,
-                            action.deletedTimeEntry
+                            action.deletedTimeEntries
                         )
                     )
                 noEffect()
@@ -66,7 +67,8 @@ private fun startTimeEntry(timeEntry: TimeEntry, repository: TimeEntryRepository
         TimeEntriesLogAction.TimeEntryStarted(it.startedTimeEntry, it.stoppedTimeEntry)
     }
 
-private fun deleteTimeEntry(timeEntry: TimeEntry, repository: TimeEntryRepository) =
-    deleteTimeEntryEffect(timeEntry, repository) {
-        TimeEntriesLogAction.TimeEntryDeleted(it)
+
+private fun delete(timeEntry: List<TimeEntry>, repository: TimeEntryRepository) =
+    deleteTimeEntriesEffect(timeEntry, repository) {
+        TimeEntriesLogAction.TimeEntriesDeleted(it)
     }

@@ -22,7 +22,12 @@ fun handleTimeEntryCreationStateChanges(
 }
 
 fun handleTimeEntryDeletionStateChanges(
-    timeEntries: List<TimeEntry>,
-    deletedTimeEntry: TimeEntry
-): List<TimeEntry> =
-    timeEntries.filter { it.id != deletedTimeEntry.id }
+    timeEntries: Map<Long, TimeEntry>,
+    deletedTimeEntries: HashSet<TimeEntry>
+): Map<Long,TimeEntry> {
+
+    val newEntries = timeEntries.toMutableMap()
+    deletedTimeEntries.forEach { newEntries.remove(it.id) }
+
+    return newEntries.toMap()
+}

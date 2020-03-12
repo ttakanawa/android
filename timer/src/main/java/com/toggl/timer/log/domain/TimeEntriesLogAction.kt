@@ -8,7 +8,7 @@ sealed class TimeEntriesLogAction {
     data class TimeEntryTapped(val id: Long) : TimeEntriesLogAction()
     data class ContinueButtonTapped(val id: Long) : TimeEntriesLogAction()
     data class TimeEntrySwiped(val id: Long, val direction: SwipeDirection) : TimeEntriesLogAction()
-    data class TimeEntryDeleted(val deletedTimeEntry: TimeEntry) : TimeEntriesLogAction()
+    data class TimeEntriesDeleted(val deletedTimeEntries: HashSet<TimeEntry>) : TimeEntriesLogAction()
     data class TimeEntryStarted(val startedTimeEntry: TimeEntry, val stoppedTimeEntry: TimeEntry?) :
         TimeEntriesLogAction()
 

@@ -44,8 +44,11 @@ class TimeEntryRepositoryImpl @Inject constructor(
     override suspend fun editTimeEntry(timeEntry: TimeEntry): TimeEntry =
         timeEntryDao.update(timeEntry).run { timeEntry }
 
-    override suspend fun deleteTimeEntry(timeEntry: TimeEntry): TimeEntry =
-        editTimeEntry(timeEntry.copy(isDeleted = true))
+    override suspend fun deleteTimeEntries(timeEntries: List<TimeEntry>): HashSet<TimeEntry> =
+        timeEntries
+            .map { it.copy(isDeleted = true) }
+            .apply { forEach(timeEntryDao::update) }
+            .toHashSet()
 
     private fun stopAllRunningTimeEntries(): List<TimeEntry> {
         val now = timeService.now()

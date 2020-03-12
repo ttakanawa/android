@@ -5,12 +5,12 @@ import com.toggl.models.domain.TimeEntry
 import com.toggl.repository.timeentry.TimeEntryRepository
 import kotlinx.coroutines.flow.flow
 
-fun <Action> deleteTimeEntryEffect(
-    timeEntryToDelete: TimeEntry,
+fun <Action> deleteTimeEntriesEffect(
+    timeEntriesToDelete: List<TimeEntry>,
     repository: TimeEntryRepository,
-    mapFn: (TimeEntry) -> Action
+    mapFn: (HashSet<TimeEntry>) -> Action
 ): Effect<Action> = flow {
-    val deletedTimeEntry = repository.deleteTimeEntry(timeEntryToDelete)
-    val action = mapFn(deletedTimeEntry)
+    val deletedTimeEntries = repository.deleteTimeEntries(timeEntriesToDelete)
+    val action = mapFn(deletedTimeEntries)
     emit(action)
 }
