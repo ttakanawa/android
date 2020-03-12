@@ -34,8 +34,8 @@ dependencies {
     implementation Libs.Dagger.dagger
     kapt Libs.Dagger.compiler
     api Libs.threeTenAndroid
-    implementation Libs.Google.firebaseAnalytics
-    implementation Libs.Microsoft.appCenterAnalytics
+    api Libs.Google.firebaseAnalytics
+    api Libs.Microsoft.appCenterAnalytics
 
     androidTestImplementation Libs.AndroidX.Test.runner
     androidTestImplementation Libs.AndroidX.Test.espressoCore
