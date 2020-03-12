@@ -38,6 +38,7 @@ object Libs {
         const val firebaseCrashlytics = "com.google.firebase:firebase-crashlytics:17.0.0-beta01"
         const val firebasePerformance = "com.google.firebase:firebase-perf:19.0.5"
         const val firebasePerformancePluginClassPath = "com.google.firebase:perf-plugin:1.3.1"
+        const val firebaseAnalytics = "com.google.firebase:firebase-analytics:17.2.3"
     }
 
     object Kotlin {
@@ -96,5 +97,9 @@ object Libs {
         private const val version = "2.26"
         const val dagger = "com.google.dagger:dagger:$version"
         const val compiler = "com.google.dagger:dagger-compiler:$version"
+    }
+
+    object Microsoft {
+        const val appCenterAnalytics = "com.microsoft.appcenter:appcenter-analytics:3.0.0"
     }
 }
