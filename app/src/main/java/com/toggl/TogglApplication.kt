@@ -2,6 +2,8 @@ package com.toggl
 
 import android.app.Application
 import com.jakewharton.threetenabp.AndroidThreeTen
+import com.microsoft.appcenter.AppCenter
+import com.microsoft.appcenter.analytics.Analytics
 import com.toggl.di.DaggerAppComponent
 import com.toggl.onboarding.di.OnboardingComponent
 import com.toggl.onboarding.di.OnboardingComponentProvider
@@ -16,6 +18,10 @@ class TogglApplication : Application(), OnboardingComponentProvider, TimerCompon
     override fun onCreate() {
         super.onCreate()
         AndroidThreeTen.init(this)
+
+        if (!BuildConfig.DEBUG) {
+            AppCenter.start(this, "TheAppSecret", Analytics::class.java)
+        }
     }
 
     override fun provideLoginComponent(): OnboardingComponent =
