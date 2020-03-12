@@ -4,7 +4,7 @@ import com.toggl.models.domain.Project
 import com.toggl.models.domain.TimeEntry
 
 data class TimerState(
-    val timeEntries: List<TimeEntry>,
+    val timeEntries: Map<Long, TimeEntry>,
     val projects: Map<Long, Project>,
     val localState: LocalState
 ) {

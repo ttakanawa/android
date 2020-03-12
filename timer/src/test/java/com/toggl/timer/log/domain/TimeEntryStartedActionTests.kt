@@ -24,7 +24,7 @@ class TimeEntryStartedActionTests : FreeSpec({
                 val action = TimeEntriesLogAction.TimeEntryStarted(timeEntry, null)
                 val effect = reducer.reduce(settableValue, action)
                 effect shouldBe noEffect()
-                state.timeEntries shouldContain timeEntry
+                state.timeEntries[timeEntry.id] shouldBe null
             })
         }
     }

@@ -14,7 +14,9 @@ fun createTimeEntryListReducer(repository: TimeEntryRepository) =
         when (action) {
             AppAction.Load -> loadTimeEntriesEffect(repository)
             is AppAction.EntitiesLoaded -> {
-                state.value = state.value.copy(timeEntries = action.timeEntries)
+                state.value = state.value.copy(
+                    timeEntries = action.timeEntries.associateBy { it.id }
+                )
                 noEffect()
             }
             is AppAction.Onboarding,

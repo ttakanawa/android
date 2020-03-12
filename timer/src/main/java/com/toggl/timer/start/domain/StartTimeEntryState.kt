@@ -5,7 +5,7 @@ import com.toggl.timer.common.domain.TimerState
 import com.toggl.timer.common.domain.editedDescription
 
 data class StartTimeEntryState(
-    val timeEntries: List<TimeEntry>,
+    val timeEntries: Map<Long, TimeEntry>,
     val editedDescription: String
 ) {
     companion object {

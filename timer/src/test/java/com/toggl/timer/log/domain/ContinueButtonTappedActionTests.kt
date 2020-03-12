@@ -16,7 +16,7 @@ class ContinueButtonTappedActionTests : FreeSpec({
     "The ContinueButtonTapped action" - {
         "should throw when there are no time entries" - {
             "with the matching id" {
-                val initialState = createEmptyState().copy(timeEntries = listOf(testTe))
+                val initialState = createEmptyState(listOf(testTe))
                 var state = initialState
                 val settableValue = state.toSettableValue { state = it }
 

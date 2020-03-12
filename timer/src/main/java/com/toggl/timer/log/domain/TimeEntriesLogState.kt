@@ -5,7 +5,7 @@ import com.toggl.models.domain.TimeEntry
 import com.toggl.timer.common.domain.TimerState
 
 data class TimeEntriesLogState(
-    val timeEntries: List<TimeEntry>,
+    val timeEntries: Map<Long, TimeEntry>,
     val projects: Map<Long, Project>,
     val editedTimeEntry: TimeEntry?
 ) {

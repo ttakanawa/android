@@ -18,21 +18,21 @@ internal fun createTimeEntriesLogReducer(repository: TimeEntryRepository) =
     TimeEntriesLogReducer { state, action ->
         when (action) {
             is TimeEntriesLogAction.ContinueButtonTapped -> {
-                val timeEntryToContinue = state.value.timeEntries
-                    .findEntryWithId(action.id) ?: throw IllegalStateException()
+                val timeEntryToContinue = state.value.timeEntries[action.id]
+                    ?: throw IllegalStateException()
 
                 startTimeEntry(timeEntryToContinue, repository)
             }
             is TimeEntriesLogAction.TimeEntryTapped -> {
-                val tappedTimeEntry = state.value.timeEntries
-                    .findEntryWithId(action.id) ?: throw IllegalStateException()
+                val tappedTimeEntry = state.value.timeEntries[action.id]
+                    ?: throw IllegalStateException()
 
                 state.value = state.value.copy(editedTimeEntry = tappedTimeEntry)
                 noEffect()
             }
             is TimeEntriesLogAction.TimeEntrySwiped -> {
-                val swipedEntry = state.value.timeEntries
-                    .findEntryWithId(action.id) ?: throw IllegalStateException()
+                val swipedEntry = state.value.timeEntries[action.id]
+                    ?: throw IllegalStateException()
 
                 when (action.direction) {
                     SwipeDirection.Left -> deleteTimeEntry(swipedEntry, repository)

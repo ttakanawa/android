@@ -5,17 +5,16 @@ import com.toggl.models.domain.TimeEntry
 import com.toggl.timer.log.domain.FlatTimeEntryItem
 import com.toggl.timer.log.domain.ProjectViewModel
 
-fun List<TimeEntry>.findEntryWithId(id: Long): TimeEntry? =
-    firstOrNull { it.id == id }
+fun Map<Long, TimeEntry>.replaceTimeEntryWithId(id: Long, timeEntryToReplace: TimeEntry): Map<Long, TimeEntry> =
+    toMutableMap()
+        .also { it[id] = timeEntryToReplace }
+        .toMap()
 
-fun List<TimeEntry>.replaceTimeEntryWithId(id: Long, timeEntryToReplace: TimeEntry) =
-    map { if (it.id == id) timeEntryToReplace else it }
+fun Map<Long, TimeEntry>.runningTimeEntryOrNull() =
+    this.values.firstOrNull { it.duration == null }
 
-fun List<TimeEntry>.runningTimeEntryOrNull() =
-    firstOrNull { it.duration == null }
-
-fun List<TimeEntry>.toTimeEntryViewModelList(projects: Map<Long, Project>) =
-    filter { it.duration != null }
+fun Map<Long, TimeEntry>.toTimeEntryViewModelList(projects: Map<Long, Project>) =
+    values.filter { it.duration != null }
         .map { timeEntry ->
             val projectId = timeEntry.projectId
             val project =

@@ -18,13 +18,13 @@ class TimeEntrySwipedActionTests : FreeSpec({
     val entryInDatabase = createTimeEntry(1, "test")
     val entryToBeStarted = createTimeEntry(2, "test")
     coEvery { repository.startTimeEntry("test") } returns StartTimeEntryResult(entryToBeStarted, null)
-    coEvery { repository.deleteTimeEntry(entryInDatabase) } returns entryInDatabase.copy(isDeleted = true)
+    coEvery { repository.deleteTimeEntries(listOf(entryInDatabase)) } returns hashSetOf(entryInDatabase.copy(isDeleted = true))
     val reducer = createTimeEntriesLogReducer(repository)
 
     "The TimeEntrySwiped action" - {
         "should throw when there are no time entries" - {
             "with the matching id" {
-                val initialState = createEmptyState().copy(timeEntries = listOf(entryInDatabase))
+                val initialState = createEmptyState(listOf(entryInDatabase))
                 var state = initialState
                 val settableValue = state.toSettableValue { state = it }
 
@@ -48,7 +48,7 @@ class TimeEntrySwipedActionTests : FreeSpec({
 
         "when swiping right" - {
             "should continue the swiped time entry" {
-                val initialState = createEmptyState().copy(timeEntries = listOf(entryInDatabase))
+                val initialState = createEmptyState(listOf(entryInDatabase))
                 var state = initialState
                 val settableValue = state.toSettableValue { state = it }
                 val effect = reducer.reduce(settableValue, TimeEntriesLogAction.TimeEntrySwiped(1, SwipeDirection.Right))
@@ -59,12 +59,12 @@ class TimeEntrySwipedActionTests : FreeSpec({
 
         "when swiping left" - {
             "should delete the swiped time entry" {
-                val initialState = createEmptyState().copy(timeEntries = listOf(entryInDatabase))
+                val initialState = createEmptyState(listOf(entryInDatabase))
                 var state = initialState
                 val settableValue = state.toSettableValue { state = it }
                 val effect = reducer.reduce(settableValue, TimeEntriesLogAction.TimeEntrySwiped(1, SwipeDirection.Left))
-                val deletedTimeEntry = (effect.single() as TimeEntriesLogAction.TimeEntryDeleted).deletedTimeEntry
-                deletedTimeEntry shouldBe entryInDatabase.copy(isDeleted = true)
+                val deletedTimeEntries = (effect.single() as TimeEntriesLogAction.TimeEntriesDeleted).deletedTimeEntries
+                deletedTimeEntries.single() shouldBe entryInDatabase.copy(isDeleted = true)
             }
         }
     }

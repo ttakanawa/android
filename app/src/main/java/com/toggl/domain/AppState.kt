@@ -9,7 +9,7 @@ import com.toggl.timer.common.domain.TimerState
 
 data class AppState(
     val user: Loadable<User> = Loadable.Uninitialized,
-    val timeEntries: List<TimeEntry> = listOf(),
+    val timeEntries: Map<Long, TimeEntry> = mapOf(),
     val projects: Map<Long, Project> = mapOf(),
     val onboardingLocalState: OnboardingState.LocalState = OnboardingState.LocalState(),
     val timerLocalState: TimerState.LocalState = TimerState.LocalState()
